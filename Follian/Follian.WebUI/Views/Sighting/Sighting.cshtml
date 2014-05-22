@@ -1,0 +1,12 @@
+﻿
+@{
+    ViewBag.Title = "Sighting";
+}
+
+<h2>Submit a Sighting</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.EditorForModel()
+    <input type="submit" value="Submit your sighting" />
+}
