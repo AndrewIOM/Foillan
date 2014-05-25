@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Follian.Models.DataAccessLayer.Concrete;
+using Foillan.Models.DataAccessLayer.Concrete;
 
-namespace Follian.Models
+namespace Foillan.Models
 {
     public class Spotter : Entity<int>
     {

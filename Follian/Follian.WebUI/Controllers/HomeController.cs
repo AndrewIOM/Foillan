@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 
-namespace Follian.WebUI.Controllers
+namespace Foillan.WebUI.Controllers
 {
     public class HomeController : Controller
     {

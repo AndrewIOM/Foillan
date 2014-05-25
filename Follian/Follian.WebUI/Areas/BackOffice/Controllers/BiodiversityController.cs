@@ -1,9 +1,9 @@
 ﻿using System.Web.Mvc;
-using Follian.Models.Biodiversity;
-using Follian.Models.DataAccessLayer.Abstract;
-using Follian.WebUI.Models;
+using Foillan.Models.Biodiversity;
+using Foillan.Models.DataAccessLayer.Abstract;
+using Foillan.WebUI.Models;
 
-namespace Follian.WebUI.Areas.BackOffice.Controllers
+namespace Foillan.WebUI.Areas.BackOffice.Controllers
 {
     public class BiodiversityController : Controller
     {

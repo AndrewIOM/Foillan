@@ -1,14 +1,10 @@
-﻿using Follian.Models;
-using Follian.WebUI.Controllers;
-using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
 using System.Web.Mvc;
+using Foillan.Models;
+using Foillan.WebUI.Controllers;
+using NUnit.Framework;
 
-namespace Follian.WebUI.Tests.Controllers
+namespace Foillan.WebUI.Tests.Controllers
 {
     [TestFixture]
     public class SightingControllerTests

@@ -1,8 +1,9 @@
-﻿using Microsoft.Owin;
+﻿using Foillan.WebUI;
+using Microsoft.Owin;
 using Owin;
 
-[assembly: OwinStartupAttribute(typeof(Follian.WebUI.Startup))]
-namespace Follian.WebUI
+[assembly: OwinStartup(typeof(Startup))]
+namespace Foillan.WebUI
 {
     public partial class Startup
     {

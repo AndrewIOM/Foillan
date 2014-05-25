@@ -1,6 +1,6 @@
-﻿using Follian.Models.DataAccessLayer.Abstract;
+﻿using Foillan.Models.DataAccessLayer.Abstract;
 
-namespace Follian.Models.DataAccessLayer.Concrete
+namespace Foillan.Models.DataAccessLayer.Concrete
 {
     public class Entity<TPrimaryKey> : IEntity<TPrimaryKey>
     {

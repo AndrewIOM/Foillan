@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using Follian.Models.Biodiversity;
+using Foillan.Models.Biodiversity;
 
-namespace Follian.Models.DataAccessLayer.Abstract
+namespace Foillan.Models.DataAccessLayer.Abstract
 {
     public interface ITaxonService
     {

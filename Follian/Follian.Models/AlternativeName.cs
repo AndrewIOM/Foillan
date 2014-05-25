@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Follian.Models
+namespace Foillan.Models
 {
     public enum Language
     {

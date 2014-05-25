@@ -9,8 +9,8 @@
     <ProjectGuid>{8D234CA7-FF1C-4A66-8323-28B2BD99A402}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Follian.WebUI.Tests</RootNamespace>
-    <AssemblyName>Follian.WebUI.Tests</AssemblyName>
+    <RootNamespace>Foillan.WebUI.Tests</RootNamespace>
+    <AssemblyName>Foillan.WebUI.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -100,17 +100,17 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Follian.Models.Tests\Follian.Models.Tests.csproj">
+    <ProjectReference Include="..\Follian.Models.Tests\Foillan.Models.Tests.csproj">
       <Project>{57B70219-4857-44AC-BC1A-B1014F8D868E}</Project>
-      <Name>Follian.Models.Tests</Name>
+      <Name>Foillan.Models.Tests</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Follian.Models\Follian.Models.csproj">
+    <ProjectReference Include="..\Follian.Models\Foillan.Models.csproj">
       <Project>{9f016b42-845b-41e9-8941-73c0285915a0}</Project>
-      <Name>Follian.Models</Name>
+      <Name>Foillan.Models</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Follian.WebUI\Follian.WebUI.csproj">
+    <ProjectReference Include="..\Follian.WebUI\Foillan.WebUI.csproj">
       <Project>{438D10F3-A37E-4956-94B2-E8BD2DCA5AD4}</Project>
-      <Name>Follian.WebUI</Name>
+      <Name>Foillan.WebUI</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

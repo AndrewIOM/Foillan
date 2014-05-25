@@ -3,7 +3,7 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 
-namespace Follian.WebUI
+namespace Foillan.WebUI
 {
     public class MvcApplication : HttpApplication
     {

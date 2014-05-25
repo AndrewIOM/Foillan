@@ -1,12 +1,12 @@
 ﻿using System.Data.Entity;
-using Follian.Models.Biodiversity;
+using Foillan.Models.Biodiversity;
 
-namespace Follian.Models
+namespace Foillan.Models
 {
     public class BiodiversityDbContext : DbContext
     {
         public BiodiversityDbContext()
-            : base("FollianContext")
+            : base("FoillanContext")
         {
             Database.SetInitializer(new BiodiversityDataInitialiser());
         }

@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
-using Follian.Models.Biodiversity;
-using Follian.Models.DataAccessLayer.Concrete;
+using Foillan.Models.Biodiversity;
+using Foillan.Models.DataAccessLayer.Concrete;
 using Moq;
-using NUnit.Framework;
 
-namespace Follian.Models.Tests.TestBuilders
+namespace Foillan.Models.Tests.TestBuilders
 {
     public class TaxonServiceTestBuilder
     {

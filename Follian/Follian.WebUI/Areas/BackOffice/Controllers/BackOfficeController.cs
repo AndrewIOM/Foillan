@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 
-namespace Follian.WebUI.Areas.BackOffice.Controllers
+namespace Foillan.WebUI.Areas.BackOffice.Controllers
 {
     public class BackOfficeController : Controller
     {

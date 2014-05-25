@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using Follian.Models.DataAccessLayer.Concrete;
+using Foillan.Models.DataAccessLayer.Concrete;
 
-namespace Follian.Models.Biodiversity
+namespace Foillan.Models.Biodiversity
 {
     public enum TaxonRank
     {
@@ -25,9 +25,6 @@ namespace Follian.Models.Biodiversity
         public TaxonRank Rank { get; set; }
         public String LatinName { get; set; }
         public String Description { get; set; }
-        public byte[] Image { get; set; }
 
-        public virtual IEnumerable<AlternativeName> AlternativeNames { get; set; }
-        public virtual IEnumerable<Sighting> Sightings { get; set; }
     }
 }

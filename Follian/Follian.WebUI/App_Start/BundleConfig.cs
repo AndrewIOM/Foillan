@@ -1,7 +1,6 @@
-﻿using System.Web;
-using System.Web.Optimization;
+﻿using System.Web.Optimization;
 
-namespace Follian.WebUI
+namespace Foillan.WebUI
 {
     public class BundleConfig
     {
@@ -26,6 +25,9 @@ namespace Follian.WebUI
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
+
+            bundles.Add(new StyleBundle("~/bundles/foillanbackoffice").Include(
+                "~/Areas/BackOffice/Content/Stylesheets/follian-backoffice.css"));
         }
     }
 }

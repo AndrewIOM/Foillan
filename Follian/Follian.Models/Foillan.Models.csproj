@@ -7,8 +7,8 @@
     <ProjectGuid>{9F016B42-845B-41E9-8941-73C0285915A0}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Follian.Models</RootNamespace>
-    <AssemblyName>Follian.Models</AssemblyName>
+    <RootNamespace>Foillan.Models</RootNamespace>
+    <AssemblyName>Foillan.Models</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
@@ -55,6 +55,8 @@
     <Compile Include="AlternativeName.cs" />
     <Compile Include="BiodiversityDataInitialiser.cs" />
     <Compile Include="BiodiversityDbContext.cs" />
+    <Compile Include="Biodiversity\SpeciesDetails.cs" />
+    <Compile Include="Biodiversity\SubSpeciesDetails.cs" />
     <Compile Include="DataAccessLayer\Abstract\IEntity.cs" />
     <Compile Include="DataAccessLayer\Abstract\IRepository.cs" />
     <Compile Include="DataAccessLayer\Abstract\ITaxonService.cs" />

@@ -11,8 +11,8 @@
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Follian.WebUI</RootNamespace>
-    <AssemblyName>Follian.WebUI</AssemblyName>
+    <RootNamespace>Foillan.WebUI</RootNamespace>
+    <AssemblyName>Foillan.WebUI</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
@@ -211,6 +211,8 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Areas\BackOffice\Content\Images\FoillanLogo.png" />
+    <Content Include="Areas\BackOffice\Content\Stylesheets\follian-backoffice.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -284,9 +286,9 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Follian.Models\Follian.Models.csproj">
+    <ProjectReference Include="..\Follian.Models\Foillan.Models.csproj">
       <Project>{9f016b42-845b-41e9-8941-73c0285915a0}</Project>
-      <Name>Follian.Models</Name>
+      <Name>Foillan.Models</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

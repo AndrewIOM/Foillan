@@ -1,4 +1,4 @@
-﻿namespace Follian.Models.DataAccessLayer.Abstract
+﻿namespace Foillan.Models.DataAccessLayer.Abstract
 {
     public interface IUnitOfWork
     {

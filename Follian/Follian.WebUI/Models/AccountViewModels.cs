@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Follian.WebUI.Models
+namespace Foillan.WebUI.Models
 {
     public class ExternalLoginConfirmationViewModel
     {

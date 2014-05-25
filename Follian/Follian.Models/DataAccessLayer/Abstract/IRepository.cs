@@ -1,8 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace Follian.Models.DataAccessLayer.Abstract
+namespace Foillan.Models.DataAccessLayer.Abstract
 {
     public interface IRepository<TEntity> where TEntity : class
     {
@@ -11,6 +12,7 @@ namespace Follian.Models.DataAccessLayer.Abstract
         void Delete(TEntity entity);
 
         TEntity GetById(object id);
+        IEnumerable<TEntity> GetAll();
         IQueryable<TEntity> FindBy(Expression<Func<TEntity, bool>> predicate);
     }
 }

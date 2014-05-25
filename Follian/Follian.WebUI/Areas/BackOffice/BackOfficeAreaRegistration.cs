@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 
-namespace Follian.WebUI.Areas.BackOffice
+namespace Foillan.WebUI.Areas.BackOffice
 {
     public class BackOfficeAreaRegistration : AreaRegistration 
     {

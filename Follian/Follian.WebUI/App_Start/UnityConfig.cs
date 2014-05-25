@@ -1,10 +1,9 @@
 using System;
-using Follian.Models.DataAccessLayer.Abstract;
-using Follian.Models.DataAccessLayer.Concrete;
+using Foillan.Models.DataAccessLayer.Abstract;
+using Foillan.Models.DataAccessLayer.Concrete;
 using Microsoft.Practices.Unity;
-using Microsoft.Practices.Unity.Configuration;
 
-namespace Follian.WebUI.App_Start
+namespace Foillan.WebUI
 {
     /// <summary>
     /// Specifies the Unity configuration for the main container.

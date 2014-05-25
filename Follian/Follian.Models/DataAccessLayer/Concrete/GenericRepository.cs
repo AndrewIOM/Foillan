@@ -1,10 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
-using Follian.Models.DataAccessLayer.Abstract;
+using Foillan.Models.DataAccessLayer.Abstract;
 
-namespace Follian.Models.DataAccessLayer.Concrete
+namespace Foillan.Models.DataAccessLayer.Concrete
 {
     public class GenericRepository<TEntity> : IRepository<TEntity> where TEntity : class
     {
@@ -32,6 +33,11 @@ namespace Follian.Models.DataAccessLayer.Concrete
         }
 
         public TEntity GetById(object id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public virtual IEnumerable<TEntity> GetAll()
         {
             throw new NotImplementedException();
         }

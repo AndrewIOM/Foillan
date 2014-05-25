@@ -1,11 +1,11 @@
 ﻿using System.Linq;
 using System.Web.Mvc;
-using Follian.Models.Tests.TestBuilders;
-using Follian.WebUI.Areas.BackOffice.Controllers;
-using Follian.WebUI.Models;
+using Foillan.Models.Tests.TestBuilders;
+using Foillan.WebUI.Areas.BackOffice.Controllers;
+using Foillan.WebUI.Models;
 using NUnit.Framework;
 
-namespace Follian.WebUI.Tests.Backoffice.Biodiversity
+namespace Foillan.WebUI.Tests.Backoffice.Biodiversity
 {
     [TestFixture]
     public class BiodiversityControllerTests

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using Follian.Models.Biodiversity;
+using Foillan.Models.Biodiversity;
 
-namespace Follian.WebUI.Models
+namespace Foillan.WebUI.Models
 {
     public class SpeciesExplorerViewModel
     {

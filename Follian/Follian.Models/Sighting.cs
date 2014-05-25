@@ -1,7 +1,7 @@
-﻿using Follian.Models.Biodiversity;
-using Follian.Models.DataAccessLayer.Concrete;
+﻿using Foillan.Models.Biodiversity;
+using Foillan.Models.DataAccessLayer.Concrete;
 
-namespace Follian.Models
+namespace Foillan.Models
 {
     public class Sighting : Entity<int>
     {

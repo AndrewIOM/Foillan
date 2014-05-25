@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
+using Foillan.WebUI.Controllers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Follian.WebUI;
-using Follian.WebUI.Controllers;
 
-namespace Follian.WebUI.Tests.Controllers
+namespace Foillan.WebUI.Tests.Controllers
 {
     [TestClass]
     public class HomeControllerTest
