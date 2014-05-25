@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Follian.Models.DataAccessLayer.Concrete;
 
-namespace Follian.Models
+namespace Follian.Models.Biodiversity
 {
     public enum TaxonRank
     {
@@ -20,7 +18,7 @@ namespace Follian.Models
         Life = 10
     }
 
-    public class Taxon
+    public class Taxon : Entity<int>
     {
         public int ID { get; set; }
 

@@ -9,11 +9,11 @@ namespace Follian.WebUI.Controllers
 {
 	public class SightingController : Controller
 	{
-		private FollianContext _Context;
+		private BiodiversityDbContext _Context;
 
 		public SightingController()
 		{
-			_Context = new FollianContext();
+			_Context = new BiodiversityDbContext();
 		}
 
 		[HttpGet]

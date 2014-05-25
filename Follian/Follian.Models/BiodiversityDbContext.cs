@@ -1,18 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Data.Entity;
+using Follian.Models.Biodiversity;
 
 namespace Follian.Models
 {
-    public class FollianContext : DbContext
+    public class BiodiversityDbContext : DbContext
     {
-        public FollianContext()
+        public BiodiversityDbContext()
             : base("FollianContext")
         {
-
+            Database.SetInitializer(new BiodiversityDataInitialiser());
         }
 
         public DbSet<Taxon> Taxa { get; set; }

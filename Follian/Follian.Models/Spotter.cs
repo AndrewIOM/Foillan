@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Follian.Models.DataAccessLayer.Concrete;
 
 namespace Follian.Models
 {
-    public class Spotter
+    public class Spotter : Entity<int>
     {
         public int ID { get; set; }
         public String FirstName { get; set; }

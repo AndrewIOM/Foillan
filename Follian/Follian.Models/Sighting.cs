@@ -1,13 +1,9 @@
-﻿using Follian.Models.Geography;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Follian.Models.Biodiversity;
+using Follian.Models.DataAccessLayer.Concrete;
 
 namespace Follian.Models
 {
-    public class Sighting
+    public class Sighting : Entity<int>
     {
         public int ID { get; set; }
         public int TaxonID { get; set; }
