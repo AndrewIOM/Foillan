@@ -2,7 +2,7 @@
 {
     public interface IUnitOfWork
     {
-        BiodiversityDbContext DbContext { get; }
+        IFoillanContext DbContext { get; }
         int Save();
     }
 }

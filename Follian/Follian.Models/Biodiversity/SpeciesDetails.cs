@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
+using Foillan.Models.DataAccessLayer.Abstract;
 
 namespace Foillan.Models.Biodiversity
 {
-    public class SpeciesDetails
+    public class SpeciesDetails : IEntity<int>
     {
         public int Id { get; set; }
         public byte[] Image { get; set; }

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Foillan.Models.DataAccessLayer.Concrete;
+using Foillan.Models.DataAccessLayer.Abstract;
 
 namespace Foillan.Models.Biodiversity
 {
@@ -18,13 +18,15 @@ namespace Foillan.Models.Biodiversity
         Life = 10
     }
 
-    public class Taxon : Entity<int>
+    public class Taxon : IEntity<int>
     {
-        public int ID { get; set; }
+        public int Id { get; set; }
 
         public TaxonRank Rank { get; set; }
         public String LatinName { get; set; }
         public String Description { get; set; }
 
+        public virtual Taxon ParentTaxon { get; set; }
+        public virtual IEnumerable<Taxon> ChildTaxa { get; set; }
     }
 }

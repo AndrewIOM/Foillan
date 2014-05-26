@@ -7,13 +7,13 @@ namespace Foillan.Models.Tests.TestBuilders
 {
     public class TaxonRepositoryTestBuilder
     {
-        private readonly Mock<GenericRepository<Taxon>> _repository;
+        private readonly Mock<TaxonRepository> _repository;
         private readonly List<Taxon> _taxaToReturn;
 
         public TaxonRepositoryTestBuilder()
         {
             var unitOfWork = new UnitOfWorkTestBuilder().Build();
-            _repository = new Mock<GenericRepository<Taxon>>(unitOfWork);
+            _repository = new Mock<TaxonRepository>(unitOfWork);
             _taxaToReturn = new List<Taxon>();
         }
 
@@ -22,7 +22,7 @@ namespace Foillan.Models.Tests.TestBuilders
             var species = new Taxon()
             {
                 Rank = TaxonRank.Species,
-                ID = 1,
+                Id = 1,
                 LatinName = "puffinus"
             };
 
@@ -31,10 +31,16 @@ namespace Foillan.Models.Tests.TestBuilders
             return this;
         }
 
-        public GenericRepository<Taxon> Build()
+        public TaxonRepository Build()
         {
             _repository.Setup(m => m.GetAll()).Returns(_taxaToReturn);
             return _repository.Object;
-        } 
+        }
+
+        public Mock<TaxonRepository> BuildMock()
+        {
+            _repository.Setup(m => m.GetAll()).Returns(_taxaToReturn);
+            return _repository;
+        }
     }
 }

@@ -38,6 +38,10 @@
     <Reference Include="EntityFramework.SqlServer">
       <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Foillan.Models, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Follian.WebUI\Bin\Foillan.Models.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Newtonsoft.Json.6.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -53,16 +57,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AlternativeName.cs" />
-    <Compile Include="BiodiversityDataInitialiser.cs" />
-    <Compile Include="BiodiversityDbContext.cs" />
     <Compile Include="Biodiversity\SpeciesDetails.cs" />
     <Compile Include="Biodiversity\SubSpeciesDetails.cs" />
     <Compile Include="DataAccessLayer\Abstract\IEntity.cs" />
+    <Compile Include="DataAccessLayer\Abstract\IFoillanContext.cs" />
     <Compile Include="DataAccessLayer\Abstract\IRepository.cs" />
     <Compile Include="DataAccessLayer\Abstract\ITaxonService.cs" />
     <Compile Include="DataAccessLayer\Abstract\IUnitOfWork.cs" />
     <Compile Include="DataAccessLayer\Concrete\Entity.cs" />
-    <Compile Include="DataAccessLayer\Concrete\GenericRepository.cs" />
+    <Compile Include="DataAccessLayer\Concrete\FoillanContext.cs" />
+    <Compile Include="DataAccessLayer\Concrete\TaxonRepository.cs" />
     <Compile Include="DataAccessLayer\Concrete\TaxonService.cs" />
     <Compile Include="DataAccessLayer\Concrete\UnitOfWork.cs" />
     <Compile Include="Geography\Coordinate.cs" />

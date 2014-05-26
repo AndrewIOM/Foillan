@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using Foillan.Models.DataAccessLayer.Concrete;
+using Foillan.Models.DataAccessLayer.Abstract;
 
 namespace Foillan.Models
 {
-    public class Spotter : Entity<int>
+    public class Spotter : IEntity<int>
     {
-        public int ID { get; set; }
+        public int Id { get; set; }
         public String FirstName { get; set; }
         public String LastName { get; set; }
 

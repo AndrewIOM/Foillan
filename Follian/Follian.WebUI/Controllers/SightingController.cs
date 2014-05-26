@@ -1,15 +1,17 @@
 ﻿using System.Web.Mvc;
 using Foillan.Models;
+using Foillan.Models.DataAccessLayer;
+using Foillan.Models.DataAccessLayer.Concrete;
 
 namespace Foillan.WebUI.Controllers
 {
 	public class SightingController : Controller
 	{
-		private BiodiversityDbContext _Context;
+		private FoillanContext _Context;
 
 		public SightingController()
 		{
-			_Context = new BiodiversityDbContext();
+			_Context = new FoillanContext();
 		}
 
 		[HttpGet]

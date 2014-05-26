@@ -5,11 +5,16 @@ namespace Foillan.Models.DataAccessLayer.Concrete
 {
     public class UnitOfWork : IUnitOfWork, IDisposable
     {
-        private BiodiversityDbContext _context;
+        private FoillanContext _context;
 
-        public BiodiversityDbContext DbContext
+        public UnitOfWork(FoillanContext context)
         {
-            get { return _context ?? (_context = new BiodiversityDbContext()); }
+            _context = context;
+        }
+
+        public IFoillanContext DbContext
+        {
+            get { return _context ?? (_context = new FoillanContext()); }
         }
 
         public virtual int Save()
@@ -17,14 +22,14 @@ namespace Foillan.Models.DataAccessLayer.Concrete
             return _context.SaveChanges();
         }
 
-        public void Dispose(bool disposing)
+        public virtual void Dispose(bool disposing)
         {
             if (!disposing || _context == null) return;
             _context.Dispose();
             _context = null;
         }
 
-        public void Dispose()
+        public virtual void Dispose()
         {
             Dispose(true);
             GC.SuppressFinalize(this);

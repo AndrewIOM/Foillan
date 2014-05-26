@@ -1,13 +1,13 @@
 ﻿using Foillan.Models.Biodiversity;
-using Foillan.Models.DataAccessLayer.Concrete;
+using Foillan.Models.DataAccessLayer.Abstract;
 
 namespace Foillan.Models
 {
-    public class Sighting : Entity<int>
+    public class Sighting : IEntity<int>
     {
-        public int ID { get; set; }
-        public int TaxonID { get; set; }
-        public int SpotterID { get; set; }
+        public int Id { get; set; }
+        public int TaxonId { get; set; }
+        public int SpotterId { get; set; }
 
         public float Latitude { get; set; }
         public float Longitude { get; set; }

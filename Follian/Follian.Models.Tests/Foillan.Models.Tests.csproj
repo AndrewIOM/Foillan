@@ -69,9 +69,11 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="DataAccessLayer\GenericRepositoryTests.cs" />
+    <Compile Include="DataAccessLayer\TaxonRepositoryTests.cs" />
     <Compile Include="DataAccessLayer\TaxonServiceTests.cs" />
     <Compile Include="DataAccessLayer\UnitOfWorkTests.cs" />
+    <Compile Include="DummyClasses\DummyUnitOfWork.cs" />
+    <Compile Include="DummyClasses\InMemoryTaxonRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestBuilders\TaxonRepositoryTestBuilder.cs" />
     <Compile Include="TestBuilders\TaxonServiceTestBuilder.cs" />

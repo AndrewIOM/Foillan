@@ -1,4 +1,5 @@
 using System;
+using Foillan.Models.Biodiversity;
 using Foillan.Models.DataAccessLayer.Abstract;
 using Foillan.Models.DataAccessLayer.Concrete;
 using Microsoft.Practices.Unity;
@@ -37,7 +38,7 @@ namespace Foillan.WebUI
             // container.LoadConfiguration();
 
             container.RegisterType<IUnitOfWork, UnitOfWork>();
-            container.RegisterType(typeof (IRepository<>), typeof (GenericRepository<>));
+            container.RegisterType(typeof (IRepository<Taxon>), typeof (TaxonRepository));
             container.RegisterType(typeof (IEntity<>), typeof (Entity<>));
             container.RegisterType<ITaxonService, TaxonService>();
         }

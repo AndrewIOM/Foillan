@@ -1,4 +1,5 @@
 ﻿using System;
+using Foillan.Models.DataAccessLayer.Abstract;
 
 namespace Foillan.Models
 {
@@ -8,9 +9,9 @@ namespace Foillan.Models
         Manx = 2
     }
 
-    public class AlternativeName
+    public class AlternativeName : IEntity<int>
     {
-        public int ID { get; set; }
+        public int Id { get; set; }
         public Language Language { get; set; }
         public String Name { get; set; }
     }

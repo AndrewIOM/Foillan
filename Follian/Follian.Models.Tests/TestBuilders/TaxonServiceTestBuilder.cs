@@ -11,8 +11,8 @@ namespace Foillan.Models.Tests.TestBuilders
 
         public TaxonServiceTestBuilder()
         {
-            var unitOfWork = new UnitOfWork();
-            var taxonRepository = new GenericRepository<Taxon>(unitOfWork);
+            var unitOfWork = new UnitOfWork(new Mock<FoillanContext>().Object);
+            var taxonRepository = new TaxonRepository(unitOfWork);
             _service = new Mock<TaxonService>(unitOfWork, taxonRepository);
         }
 
@@ -21,7 +21,7 @@ namespace Foillan.Models.Tests.TestBuilders
             var species = new Taxon()
             {
                 Rank = TaxonRank.Species,
-                ID = 1,
+                Id = 1,
                 LatinName = "puffinus"
             };
 

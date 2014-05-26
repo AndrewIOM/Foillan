@@ -2,6 +2,7 @@
 using System.Linq;
 using Foillan.Models.Biodiversity;
 using Foillan.Models.DataAccessLayer.Concrete;
+using Foillan.Models.Tests.DummyClasses;
 using Foillan.Models.Tests.TestBuilders;
 using Moq;
 using NUnit.Framework;
@@ -13,11 +14,13 @@ namespace Foillan.Models.Tests.DataAccessLayer
     {
         [Test]
         [TestCase(TaxonRank.Species)]
+        [TestCase(TaxonRank.Genus)]
+        [TestCase(TaxonRank.Subspecies)]
         public void TaxonService_GetTaxonOfRank_ReturnsTaxonOfRankFromRepository(TaxonRank rank)
         {
-            var unitOfWork = new Mock<UnitOfWork>();
-            var repository = new TaxonRepositoryTestBuilder().ReturnSpecies().Build();
-            var sut = new TaxonService(unitOfWork.Object, repository);
+            var repository = new InMemoryTaxonRepository();
+            var unitOfWork = new UnitOfWorkTestBuilder().Build();
+            var sut = new TaxonService(unitOfWork, repository);
 
             var result = sut.GetTaxaByRank(rank).ToList();
             Assert.IsNotNull(result);
@@ -33,8 +36,8 @@ namespace Foillan.Models.Tests.DataAccessLayer
         [Test]
         public void TaxonService_SaveChanges_TriggersSaveInUnitOfWork()
         {
-            var unitOfWork = new Mock<UnitOfWork>();
-            var repository = new GenericRepository<Taxon>(unitOfWork.Object);
+            var unitOfWork = new Mock<DummyUnitOfWork>();
+            var repository = new InMemoryTaxonRepository();
             var sut = new TaxonService(unitOfWork.Object, repository);
 
             sut.SaveChanges();
