@@ -1,0 +1,7 @@
+﻿@model Foillan.Models.Biodiversity.Taxon
+           
+@using (Html.BeginForm(FormMethod.Post))
+{
+    @Html.EditorForModel()
+    <input type="submit" value="Submit" class="btn btn-primary"/>
+}

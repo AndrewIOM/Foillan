@@ -1,7 +1,7 @@
 ﻿using System.Web.Mvc;
 using Foillan.Models.Biodiversity;
 using Foillan.Models.DataAccessLayer.Abstract;
-using Foillan.WebUI.Models;
+using Foillan.WebUI.Areas.BackOffice.Models;
 
 namespace Foillan.WebUI.Areas.BackOffice.Controllers
 {
@@ -14,10 +14,30 @@ namespace Foillan.WebUI.Areas.BackOffice.Controllers
             _taxonService = taxonServiceIn;
         }
 
-        public ViewResult Species()
+        public ViewResult Explore()
         {
-            var viewModel = new SpeciesExplorerViewModel {Species = _taxonService.GetTaxaByRank(TaxonRank.Species)};
-            return View("Species", viewModel);
+            var viewModel = new ExplorerViewModel {Species = _taxonService.GetTaxaByRank(TaxonRank.Species)};
+            return View("Explore", viewModel);
+        }
+
+        [HttpGet]
+        public ActionResult AddTaxon()
+        {
+            var model = new Taxon();
+            return View("AddTaxon", model);
+        }
+
+        [HttpPost]
+        public ActionResult AddTaxon(Taxon newTaxon)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View("AddTaxon");
+            }
+
+            _taxonService.AddTaxon(newTaxon);
+            _taxonService.SaveChanges();
+            return Explore();
         }
     }
 }

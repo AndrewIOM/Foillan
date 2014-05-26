@@ -198,6 +198,8 @@
     <Compile Include="Areas\BackOffice\BackOfficeAreaRegistration.cs" />
     <Compile Include="Areas\BackOffice\Controllers\BackOfficeController.cs" />
     <Compile Include="Areas\BackOffice\Controllers\BiodiversityController.cs" />
+    <Compile Include="Areas\BackOffice\Models\ExplorerViewModel.cs" />
+    <Compile Include="Areas\BackOffice\Models\TaxonViewModel.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SightingController.cs" />
@@ -206,7 +208,6 @@
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\SpeciesExplorerViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -230,9 +231,11 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Areas\BackOffice\Views\web.config" />
     <Content Include="Areas\BackOffice\Views\BackOffice\Index.cshtml" />
-    <Content Include="Areas\BackOffice\Views\Biodiversity\Species.cshtml" />
+    <Content Include="Areas\BackOffice\Views\Biodiversity\Explore.cshtml" />
     <Content Include="Areas\BackOffice\Views\_ViewStart.cshtml" />
     <Content Include="Areas\BackOffice\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\BackOffice\Views\Biodiversity\AddTaxon.cshtml" />
+    <Content Include="Areas\BackOffice\Views\Biodiversity\_SpeciesDetails.cshtml" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
     <Content Include="Scripts\jquery-2.1.1.min.js" />
@@ -279,7 +282,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\BackOffice\Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

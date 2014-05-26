@@ -34,5 +34,10 @@ namespace Foillan.Models.Tests.TestBuilders
         {
             return _service.Object;
         }
+
+        public Mock<TaxonService> BuildMock()
+        {
+            return _service;
+        }
     }
 }

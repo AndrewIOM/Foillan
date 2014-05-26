@@ -21,6 +21,11 @@ namespace Foillan.Models.DataAccessLayer.Concrete
             return taxaOfRank;
         }
 
+        public virtual void AddTaxon(Taxon taxon)
+        {
+            _taxonRepository.Add(taxon);
+        }
+
         public virtual void SaveChanges()
         {
             _unitOfWork.Save();

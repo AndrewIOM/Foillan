@@ -11,10 +11,12 @@ namespace Foillan.Models.DataAccessLayer.Concrete
     public class TaxonRepository : IRepository<Taxon>
     {
         private readonly DbSet<Taxon> _taxa;
+        private readonly IFoillanContext _dbContext;
 
         public TaxonRepository(IUnitOfWork unitOfWork)
         {
             _taxa = unitOfWork.DbContext.Taxa;
+            _dbContext = unitOfWork.DbContext;
         }
 
         public Taxon GetById(object id)
@@ -42,6 +44,8 @@ namespace Foillan.Models.DataAccessLayer.Concrete
             }
 
             _taxa.Add(entity);
+            _dbContext.SaveChanges();
+            
             return _taxa.FirstOrDefault(e => e.Id.Equals(entity.Id));
         }
 

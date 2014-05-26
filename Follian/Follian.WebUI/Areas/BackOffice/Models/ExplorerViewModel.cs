@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using Foillan.Models.Biodiversity;
 
-namespace Foillan.WebUI.Models
+namespace Foillan.WebUI.Areas.BackOffice.Models
 {
-    public class SpeciesExplorerViewModel
+    public class ExplorerViewModel
     {
         public IEnumerable<Taxon> Species { get; set; }
     }

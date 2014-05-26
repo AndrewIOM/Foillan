@@ -9,5 +9,7 @@ namespace Foillan.Models.Biodiversity
         public byte[] Image { get; set; }
         public virtual IEnumerable<AlternativeName> AlternativeNames { get; set; }
         public virtual IEnumerable<Sighting> Sightings { get; set; }
+
+        public virtual Taxon Taxon { get; set; }
     }
 }
