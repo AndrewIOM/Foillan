@@ -8,12 +8,13 @@
 <p>Welcome to the taxon database. Here you can view all taxa within Foillan.</p>
 <a href="@Url.Action("AddTaxon")" class="btn">Add New Taxon</a>
 
-<table>
+<table class="table">
     <thead>
         <tr>
             <td>Id</td>
             <td>Latin Name</td>
             <td>Rank</td>
+            <td>Description</td>
         </tr>
     </thead>
     <tbody>
@@ -23,6 +24,7 @@
                 <td>@taxon.Id</td>
                 <td>@taxon.LatinName</td>
                 <td>@taxon.Rank</td>
+                <td>@taxon.Description</td>
             </tr>
         }
     </tbody>

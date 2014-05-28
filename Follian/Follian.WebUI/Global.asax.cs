@@ -2,6 +2,7 @@
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using Foillan.WebUI.Utilities;
 
 namespace Foillan.WebUI
 {
@@ -13,6 +14,9 @@ namespace Foillan.WebUI
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            //Custom extension to handle enums in models:
+            ModelMetadataProviders.Current = new CustomMetadataProvider();
         }
     }
 }

@@ -5,7 +5,6 @@ using Foillan.Models.Biodiversity;
 using Foillan.Models.Tests.TestBuilders;
 using Foillan.WebUI.Areas.BackOffice.Controllers;
 using Foillan.WebUI.Areas.BackOffice.Models;
-using Foillan.WebUI.Models;
 using Moq;
 using NUnit.Framework;
 
@@ -66,7 +65,7 @@ namespace Foillan.WebUI.Tests.Backoffice.Biodiversity
             var result = sut.AddTaxon() as ViewResult;
             Assert.IsNotNull(result);
 
-            var model = result.Model as Taxon;
+            var model = result.Model as TaxonViewModel;
             Assert.IsNotNull(model);
         }
 
@@ -75,7 +74,7 @@ namespace Foillan.WebUI.Tests.Backoffice.Biodiversity
         {
             var taxonService = new TaxonServiceTestBuilder().BuildMock();
             var sut = new BiodiversityController(taxonService.Object);
-            var model = new Taxon {Id = 1, LatinName = "Test Taxon"};
+            var model = new TaxonViewModel {Taxon = new Taxon {Id = 1, LatinName = "Test Taxon"}};
             sut.AddTaxon(model);
             taxonService.Verify(m => m.SaveChanges(), Times.Once());
         }
@@ -85,9 +84,9 @@ namespace Foillan.WebUI.Tests.Backoffice.Biodiversity
         {
             var taxonService = new TaxonServiceTestBuilder().BuildMock();
             var sut = new BiodiversityController(taxonService.Object);
-            var model = new Taxon { Id = 1, LatinName = "Test Taxon" };
+            var model = new TaxonViewModel { Taxon = new Taxon { Id = 1, LatinName = "Test Taxon" } };
             sut.AddTaxon(model);
-            taxonService.Verify(m => m.AddTaxon(model), Times.Once());
+            taxonService.Verify(m => m.AddTaxon(model.Taxon), Times.Once());
         }
 
         [Test]
@@ -95,7 +94,7 @@ namespace Foillan.WebUI.Tests.Backoffice.Biodiversity
         {
             var taxonService = new TaxonServiceTestBuilder().BuildMock();
             var sut = new BiodiversityController(taxonService.Object);
-            var model = new Taxon { Id = 1, LatinName = "Test Taxon" };
+            var model = new TaxonViewModel { Taxon = new Taxon { Id = 1, LatinName = "Test Taxon" } };
             var result = sut.AddTaxon(model) as ViewResult;
             Assert.NotNull(result);
             Assert.AreEqual("Explore", result.ViewName);
@@ -106,7 +105,7 @@ namespace Foillan.WebUI.Tests.Backoffice.Biodiversity
         {
             var taxonService = new TaxonServiceTestBuilder().BuildMock();
             var sut = new BiodiversityController(taxonService.Object);
-            var model = new Taxon { Id = 1, LatinName = "Test Taxon" };
+            var model = new TaxonViewModel { Taxon = new Taxon { Id = 1, LatinName = "Test Taxon" } };
             sut.ModelState.AddModelError("Test Error", new Exception());
             var result = sut.AddTaxon(model) as ViewResult;
             Assert.NotNull(result);

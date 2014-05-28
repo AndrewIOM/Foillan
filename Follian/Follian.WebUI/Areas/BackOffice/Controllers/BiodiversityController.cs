@@ -23,19 +23,19 @@ namespace Foillan.WebUI.Areas.BackOffice.Controllers
         [HttpGet]
         public ActionResult AddTaxon()
         {
-            var model = new Taxon();
+            var model = new TaxonViewModel();
             return View("AddTaxon", model);
         }
 
         [HttpPost]
-        public ActionResult AddTaxon(Taxon newTaxon)
+        public ActionResult AddTaxon(TaxonViewModel newTaxon)
         {
             if (!ModelState.IsValid)
             {
                 return View("AddTaxon");
             }
 
-            _taxonService.AddTaxon(newTaxon);
+            _taxonService.AddTaxon(newTaxon.Taxon);
             _taxonService.SaveChanges();
             return Explore();
         }

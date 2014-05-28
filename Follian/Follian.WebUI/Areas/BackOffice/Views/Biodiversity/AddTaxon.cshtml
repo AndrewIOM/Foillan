@@ -1,7 +1,16 @@
-﻿@model Foillan.Models.Biodiversity.Taxon
-           
-@using (Html.BeginForm(FormMethod.Post))
-{
-    @Html.EditorForModel()
-    <input type="submit" value="Submit" class="btn btn-primary"/>
-}
+﻿@model Foillan.WebUI.Areas.BackOffice.Models.TaxonViewModel
+          
+<div class="row">
+    <div class="col-md-12">
+        <h3>Add a Taxon</h3>
+        <p>Enter the details of your new taxon below:</p>
+        @using (Html.BeginForm(FormMethod.Post))
+        {
+            @Html.EditorFor(m => m.Taxon)
+            @Html.EditorFor(m => m.AdditionalDetails.AlternativeNames)
+            @Html.EditorFor(m => m.AdditionalDetails.Image)
+
+            <input type="submit" value="Submit" class="btn btn-primary" />
+        }
+    </div>
+</div>

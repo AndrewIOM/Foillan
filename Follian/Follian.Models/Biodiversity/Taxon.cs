@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
 using Foillan.Models.DataAccessLayer.Abstract;
 
 namespace Foillan.Models.Biodiversity
@@ -21,9 +22,12 @@ namespace Foillan.Models.Biodiversity
 
     public class Taxon : IEntity<int>
     {
+        [HiddenInput(DisplayValue = false)]
         public int Id { get; set; }
 
         public TaxonRank Rank { get; set; }
+
+        [Display(Name = "Latin Name")]
         public String LatinName { get; set; }
         public String Description { get; set; }
 
