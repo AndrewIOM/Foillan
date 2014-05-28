@@ -101,6 +101,7 @@
     <Compile Include="Sighting.cs" />
     <Compile Include="Spotter.cs" />
     <Compile Include="Biodiversity\Taxon.cs" />
+    <Compile Include="ValidationAttributes\ParentTaxonValidationAttribute.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
