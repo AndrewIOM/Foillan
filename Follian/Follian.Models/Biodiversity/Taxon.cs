@@ -18,6 +18,8 @@ namespace Foillan.Models.Biodiversity
 
         [Required, Display(Name = "Latin Name")]
         public String LatinName { get; set; }
+
+        [DataType(DataType.MultilineText)]
         public String Description { get; set; }
 
         public virtual Taxon ParentTaxon { get; set; }

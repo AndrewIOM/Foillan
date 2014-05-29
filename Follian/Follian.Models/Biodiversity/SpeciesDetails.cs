@@ -7,6 +7,8 @@ namespace Foillan.Models.Biodiversity
     public class SpeciesDetails : IEntity<int>
     {
         public int Id { get; set; }
+
+        [UIHint("SingleImageUpload")]
         public byte[] Image { get; set; }
 
         public virtual IEnumerable<AlternativeName> AlternativeNames { get; set; }
