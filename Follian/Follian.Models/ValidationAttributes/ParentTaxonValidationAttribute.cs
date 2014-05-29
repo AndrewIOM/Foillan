@@ -9,7 +9,23 @@ namespace Foillan.Models.ValidationAttributes
     {
         public override bool IsValid(object value)
         {
-            return false;
+            var taxon = value as Taxon;
+            if (taxon == null)
+            {
+                return false;
+            }
+            if (taxon.ParentTaxon == null)
+            {
+                return false;
+            }
+            if (taxon.ParentTaxon.Rank == TaxonRank.Null)
+            {
+                return true;
+            }
+
+            var parentRank = taxon.ParentTaxon.Rank;
+            var taxonRank = taxon.Rank;
+            return taxonRank == (parentRank + 1);
         }
 
     }

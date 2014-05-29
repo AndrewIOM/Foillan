@@ -27,15 +27,15 @@ namespace Foillan.Models.Biodiversity
     public enum TaxonRank
     {
         Null = 0,
-        Subspecies = 1,
-        Species = 2,
-        Genus = 3,
-        Family = 4,
-        Order = 5,
-        Class = 6,
-        Phylum = 7,
-        Kingdom = 8,
-        Domain = 9,
-        Life = 10
+        Life = 1,
+        Domain = 2,
+        Kingdom = 3,
+        Phylum = 4,
+        Class = 5,
+        Order = 6,
+        Family = 7,
+        Genus = 8,
+        Species = 9,
+        Subspecies = 10
     }
 }
