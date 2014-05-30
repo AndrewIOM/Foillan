@@ -75,7 +75,7 @@ namespace Foillan.WebUI.Tests.Backoffice.Biodiversity
             var taxonService = new TaxonServiceTestBuilder().BuildMock();
             var sut = new BiodiversityController(taxonService.Object);
             var model = new TaxonViewModel {Taxon = new Taxon {Id = 1, LatinName = "Test Taxon"}};
-            sut.AddTaxon(model);
+            sut.AddTaxon(model, null);
             taxonService.Verify(m => m.SaveChanges(), Times.Once());
         }
 
@@ -85,7 +85,7 @@ namespace Foillan.WebUI.Tests.Backoffice.Biodiversity
             var taxonService = new TaxonServiceTestBuilder().BuildMock();
             var sut = new BiodiversityController(taxonService.Object);
             var model = new TaxonViewModel { Taxon = new Taxon { Id = 1, LatinName = "Test Taxon" } };
-            sut.AddTaxon(model);
+            sut.AddTaxon(model, null);
             taxonService.Verify(m => m.AddTaxon(model.Taxon), Times.Once());
         }
 
@@ -95,7 +95,7 @@ namespace Foillan.WebUI.Tests.Backoffice.Biodiversity
             var taxonService = new TaxonServiceTestBuilder().BuildMock();
             var sut = new BiodiversityController(taxonService.Object);
             var model = new TaxonViewModel { Taxon = new Taxon { Id = 1, LatinName = "Test Taxon" } };
-            var result = sut.AddTaxon(model) as ViewResult;
+            var result = sut.AddTaxon(model, null) as ViewResult;
             Assert.NotNull(result);
             Assert.AreEqual("Explore", result.ViewName);
         }
@@ -107,7 +107,7 @@ namespace Foillan.WebUI.Tests.Backoffice.Biodiversity
             var sut = new BiodiversityController(taxonService.Object);
             var model = new TaxonViewModel { Taxon = new Taxon { Id = 1, LatinName = "Test Taxon" } };
             sut.ModelState.AddModelError("Test Error", new Exception());
-            var result = sut.AddTaxon(model) as ViewResult;
+            var result = sut.AddTaxon(model, null) as ViewResult;
             Assert.NotNull(result);
             Assert.AreEqual("AddTaxon", result.ViewName);
         }

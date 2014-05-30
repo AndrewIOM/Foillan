@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System.Web;
+using System.Web.Mvc;
 using Foillan.Models.Biodiversity;
 using Foillan.Models.DataAccessLayer.Abstract;
 using Foillan.WebUI.Areas.BackOffice.Models;
@@ -28,7 +29,7 @@ namespace Foillan.WebUI.Areas.BackOffice.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddTaxon(TaxonViewModel newTaxon)
+        public ActionResult AddTaxon(TaxonViewModel newTaxon, HttpPostedFileBase file)
         {
             if (!ModelState.IsValid)
             {
