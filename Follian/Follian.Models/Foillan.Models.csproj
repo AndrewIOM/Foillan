@@ -96,7 +96,7 @@
     <Compile Include="DataAccessLayer\Concrete\TaxonRepository.cs" />
     <Compile Include="DataAccessLayer\Concrete\TaxonService.cs" />
     <Compile Include="DataAccessLayer\Concrete\UnitOfWork.cs" />
-    <Compile Include="Geography\Coordinate.cs" />
+    <Compile Include="Geography\Location.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sighting.cs" />

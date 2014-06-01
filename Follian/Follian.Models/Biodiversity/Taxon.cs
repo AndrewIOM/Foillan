@@ -7,7 +7,7 @@ using Foillan.Models.ValidationAttributes;
 
 namespace Foillan.Models.Biodiversity
 {
-    [ParentTaxonValidation]
+    [ParentTaxonValidation(ErrorMessage = "A valid parent taxon is required.")]
     public class Taxon : IEntity<int>
     {
         [Key, Required, HiddenInput(DisplayValue = false)]

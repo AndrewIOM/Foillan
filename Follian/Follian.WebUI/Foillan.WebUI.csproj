@@ -282,6 +282,8 @@
     <Content Include="Views\Sighting\Success.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Enum.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\SingleImageUpload.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\GoogleMapPicker.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\TaxonPicker.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

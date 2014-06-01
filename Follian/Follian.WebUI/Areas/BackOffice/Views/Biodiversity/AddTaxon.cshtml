@@ -6,6 +6,7 @@
         <p>Enter the details of your new taxon below:</p>
         @using (Html.BeginForm("AddTaxon", "Biodiversity", FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
+            @Html.ValidationSummary()
             @Html.EditorFor(m => m.Taxon)
             
             <h5>Additional Details for Species and Sub-Species:</h5>
