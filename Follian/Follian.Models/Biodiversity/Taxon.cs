@@ -13,6 +13,9 @@ namespace Foillan.Models.Biodiversity
         [Key, Required, HiddenInput(DisplayValue = false)]
         public int Id { get; set; }
 
+        [Required(ErrorMessage = "This species must be linked to a valid GBIF record")]
+        public int GbifTaxonId { get; set; }
+
         [Required]
         public TaxonRank Rank { get; set; }
 

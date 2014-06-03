@@ -1,20 +1,68 @@
 ﻿@model Foillan.WebUI.Areas.BackOffice.Models.TaxonViewModel
 
 <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-6">
         <h2>Add a Taxon</h2>
         <p>Enter the details of your new taxon below:</p>
         @using (Html.BeginForm("AddTaxon", "Biodiversity", FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
             @Html.ValidationSummary()
             @Html.EditorFor(m => m.Taxon)
-            
+
             <h5>Additional Details for Species and Sub-Species:</h5>
             @Html.EditorFor(m => m.AdditionalDetails.AlternativeNames)
             @Html.EditorFor(m => m.AdditionalDetails.Image)
 
-            <br/>
+            <br />
             <input type="submit" value="Submit" class="btn btn-primary" />
         }
     </div>
+    <div class="col-md-6">
+        <h4>GBIF Integration Prototype</h4>
+        <div class="row">
+            <div class="col-md-6">
+                <p>Enter species or subspecies:</p>
+            </div>
+            <div class="col-md-6">
+                <input id="gbif-query-entry" type="text" name="species" />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <table id="gbif-species">
+                    <thead>
+                        <tr>
+                            <td><b>Id</b></td>
+                            <td><b>Name</b></td>
+                            <td><b>Rank</b></td>
+                            <td><b>Parent</b></td>
+                        </tr>
+                    </thead>
+                    <tbody id="gbif-species-body">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#gbif-query-entry').keyup(function () {
+            var searchTerm = document.getElementById("gbif-query-entry").value;
+            var query = "http://api.gbif.org/v0.9/species?name=" + searchTerm;
+
+            document.getElementById("gbif-species-body").innerHTML = "";
+
+            $.getJSON(query, function (data) {
+                $.each(data.results, function (i, object) {
+                    $("#table-id").html(object.key);
+                    var row = '<tr><td>' + object.key + '</td><td>' + object.scientificName + '</td><td>'
+                        + object.rank + '</td><td>' + object.parent + '</td></tr>';
+                    $('#gbif-species tbody').append(row);
+                });
+            });
+        });
+    });
+</script>
