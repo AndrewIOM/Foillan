@@ -13,10 +13,11 @@ namespace Foillan.Models.Biodiversity
         [Key, Required, HiddenInput(DisplayValue = false)]
         public int Id { get; set; }
 
-        [Required(ErrorMessage = "This species must be linked to a valid GBIF record")]
+        [Required(ErrorMessage = "This taxon must be linked to a valid GBIF record"),
+        UIHint("ReadOnly")]
         public int GbifTaxonId { get; set; }
 
-        [Required]
+        [Required, HiddenInput(DisplayValue = false)]
         public TaxonRank Rank { get; set; }
 
         [Required, Display(Name = "Latin Name")]

@@ -85,7 +85,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AlternativeName.cs" />
-    <Compile Include="Biodiversity\GbifSpeciesResponse.cs" />
+    <Compile Include="Biodiversity\GbifSpecies.cs" />
     <Compile Include="Biodiversity\SpeciesDetails.cs" />
     <Compile Include="DataAccessLayer\Abstract\IEntity.cs" />
     <Compile Include="DataAccessLayer\Abstract\IFoillanContext.cs" />

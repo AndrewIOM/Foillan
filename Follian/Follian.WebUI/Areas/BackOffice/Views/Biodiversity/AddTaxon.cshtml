@@ -1,12 +1,32 @@
 ﻿@model Foillan.WebUI.Areas.BackOffice.Models.TaxonViewModel
 
 <div class="row">
-    <div class="col-md-6">
-        <h2>Add a Taxon</h2>
+    <div class="col-md-8">
+        <h2>Add a Species</h2>
+        <p>
+            Foillan uses the Global Biodiversity Information Facility (GBIF) as its taxon reference system.
+            You must validate your new species name against GBIF.
+        </p>
         <p>Enter the details of your new taxon below:</p>
         @using (Html.BeginForm("AddTaxon", "Biodiversity", FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
             @Html.ValidationSummary()
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="input-group">
+                        <span class="input-group-addon">Genus</span>
+                        <input id="gbif-query-genus" class="form-control" type="text" name="genus" />
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="input-group">
+                        <span class="input-group-addon">Species</span>
+                        <input id="gbif-query-species" class="form-control" type="text" name="species" />
+                    </div>
+                </div>
+            </div>
+
             @Html.EditorFor(m => m.Taxon)
 
             <h5>Additional Details for Species and Sub-Species:</h5>
@@ -17,31 +37,18 @@
             <input type="submit" value="Submit" class="btn btn-primary" />
         }
     </div>
-    <div class="col-md-6">
-        <h4>GBIF Integration Prototype</h4>
-        <div class="row">
-            <div class="col-md-6">
-                <p>Enter species or subspecies:</p>
-            </div>
-            <div class="col-md-6">
-                <input id="gbif-query-entry" type="text" name="species" />
-            </div>
-        </div>
-
+    <div class="col-md-4">
+        <h4>GBIF Results</h4>
         <div class="row">
             <div class="col-md-12">
-                <table id="gbif-species">
-                    <thead>
-                        <tr>
-                            <td><b>Id</b></td>
-                            <td><b>Name</b></td>
-                            <td><b>Rank</b></td>
-                            <td><b>Parent</b></td>
-                        </tr>
-                    </thead>
-                    <tbody id="gbif-species-body">
-                    </tbody>
-                </table>
+                <p>Rank: <span id="gbif-rank"></span></p>
+                <p>Kingdom: <span id="gbif-kingdom"></span></p>
+                <p>Phylum: <span id="gbif-phylum"></span></p>
+                <p>Class: <span id="gbif-class"></span></p>
+                <p>Order: <span id="gbif-order"></span></p>
+                <p>Family: <span id="gbif-family"></span></p>
+                <p>Genus: <span id="gbif-genus"></span></p>
+                <p><strong>Scientific name: </strong><span id="gbif-scientific-name"></span></p>
             </div>
         </div>
     </div>
@@ -49,19 +56,23 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-        $('#gbif-query-entry').keyup(function () {
-            var searchTerm = document.getElementById("gbif-query-entry").value;
-            var query = "http://api.gbif.org/v0.9/species?name=" + searchTerm;
+        $('#gbif-query-species, #gbif-query-genus').keyup(function () {
+            var searchGenus = document.getElementById("gbif-query-genus").value;
+            var searchSpecies = document.getElementById("gbif-query-species").value;
 
-            document.getElementById("gbif-species-body").innerHTML = "";
+            var query = "http://api.gbif.org/v0.9/species/match?rank=species&name=" + searchGenus + "%20" + searchSpecies;
 
             $.getJSON(query, function (data) {
-                $.each(data.results, function (i, object) {
-                    $("#table-id").html(object.key);
-                    var row = '<tr><td>' + object.key + '</td><td>' + object.scientificName + '</td><td>'
-                        + object.rank + '</td><td>' + object.parent + '</td></tr>';
-                    $('#gbif-species tbody').append(row);
-                });
+                document.getElementById("gbif-scientific-name").innerHTML = data.scientificName;
+                document.getElementById("gbif-class").innerHTML = data.clazz;
+                document.getElementById("gbif-family").innerHTML = data.family;
+                document.getElementById("gbif-genus").innerHTML = data.genus;
+                document.getElementById("gbif-kingdom").innerHTML = data.kingdom;
+                document.getElementById("gbif-order").innerHTML = data.order;
+                document.getElementById("gbif-phylum").innerHTML = data.phylum;
+                document.getElementById("gbif-rank").innerHTML = data.rank;
+                document.getElementById("Taxon_GbifTaxonId").value = data.usageKey;
+                document.getElementById("Taxon_LatinName").value = data.canonicalName;
             });
         });
     });

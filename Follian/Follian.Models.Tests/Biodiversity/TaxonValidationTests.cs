@@ -38,7 +38,7 @@ namespace Foillan.Models.Tests.Biodiversity
         {
             var taxon = new Taxon { Description = value };
             var validationResult = ValidateModel(taxon);
-            var result = !ValidationContainsKey(validationResult, "LatinName");
+            var result = !ValidationContainsKey(validationResult, "Description");
             Assert.AreEqual(expectedPass, result);
         }
 
