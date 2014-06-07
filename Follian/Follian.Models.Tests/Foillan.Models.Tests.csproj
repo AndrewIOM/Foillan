@@ -70,12 +70,14 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Biodiversity\TaxonValidationTests.cs" />
+    <Compile Include="DataAccessLayer\GbifHelperTests.cs" />
     <Compile Include="DataAccessLayer\TaxonRepositoryTests.cs" />
     <Compile Include="DataAccessLayer\TaxonServiceTests.cs" />
     <Compile Include="DataAccessLayer\UnitOfWorkTests.cs" />
     <Compile Include="DummyClasses\DummyUnitOfWork.cs" />
     <Compile Include="DummyClasses\InMemoryTaxonRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestBuilders\FoillanContextTestBuilder.cs" />
     <Compile Include="TestBuilders\TaxonRepositoryTestBuilder.cs" />
     <Compile Include="TestBuilders\TaxonServiceTestBuilder.cs" />
     <Compile Include="TestBuilders\UnitOfWorkTestBuilder.cs" />

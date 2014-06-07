@@ -53,6 +53,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.1.2\lib\net45\System.Web.Helpers.dll</HintPath>
@@ -85,7 +86,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AlternativeName.cs" />
-    <Compile Include="Biodiversity\GbifSpecies.cs" />
     <Compile Include="Biodiversity\SpeciesDetails.cs" />
     <Compile Include="DataAccessLayer\Abstract\IEntity.cs" />
     <Compile Include="DataAccessLayer\Abstract\IFoillanContext.cs" />
@@ -97,6 +97,8 @@
     <Compile Include="DataAccessLayer\Concrete\TaxonRepository.cs" />
     <Compile Include="DataAccessLayer\Concrete\TaxonService.cs" />
     <Compile Include="DataAccessLayer\Concrete\UnitOfWork.cs" />
+    <Compile Include="DataAccessLayer\GbifHelpers.cs" />
+    <Compile Include="DataAccessLayer\GbifSpecies.cs" />
     <Compile Include="Geography\Location.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

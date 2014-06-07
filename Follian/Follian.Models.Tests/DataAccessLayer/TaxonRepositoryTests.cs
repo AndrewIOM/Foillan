@@ -1,6 +1,10 @@
-﻿using Foillan.Models.Biodiversity;
+﻿using System.Data.Entity;
+using Foillan.Models.Biodiversity;
+using Foillan.Models.DataAccessLayer.Abstract;
 using Foillan.Models.DataAccessLayer.Concrete;
+using Foillan.Models.Tests.DummyClasses;
 using Foillan.Models.Tests.TestBuilders;
+using Moq;
 using NUnit.Framework;
 
 namespace Foillan.Models.Tests.DataAccessLayer
@@ -11,10 +15,12 @@ namespace Foillan.Models.Tests.DataAccessLayer
         //[Test]
         //public void TaxonRepository_GetById_IdInDatabase_ReturnsTaxonObject()
         //{
-        //    var expected = new Taxon {Id = 1, LatinName = "Fake Taxon"};
-        //    var fakeUnitOfWork = new UnitOfWorkTestBuilder().HasTaxon(expected).BuildMock();
-        //    var sut = new TaxonRepository(fakeUnitOfWork.Object);
+        //    var expected = new Taxon { Id = 1, LatinName = "Fake Taxon" };
+        //    var dummyUnitOfWork = new DummyUnitOfWork();
+        //    var sut = new TaxonRepository(dummyUnitOfWork);
+
         //    var result = sut.GetById(1);
+
         //    Assert.NotNull(result);
         //    Assert.AreEqual(expected, result);
         //}

@@ -25,33 +25,5 @@ namespace Foillan.Models.Tests.DataAccessLayer
             sut.Save();
             mock.Verify(m => m.SaveChanges(), Times.Once());
         }
-
-        //[Test]
-        //public void UnitOfWork_DisposeWithNoParameters_DisposeOnDbContextCalled()
-        //{
-        //    var mock = new Mock<FoillanContext>();
-        //    var sut = new UnitOfWork(mock.Object);
-        //    sut.Dispose();
-        //    mock.Verify(m => m.Dispose(), Times.Once);
-        //}
-
-        //[Test]
-        //[TestCase(true)]
-        //[TestCase(false)]
-        //public void UnitOfWork_Dispose_CallsDisposeOnDbContext(bool shouldDispose)
-        //{
-        //    var mock = new Mock<FoillanContext>();
-        //    var sut = new UnitOfWork(mock.Object);
-        //    sut.Dispose(shouldDispose);
-
-        //    if (shouldDispose)
-        //    {
-        //        mock.Verify(m => m.Dispose(), Times.Once);
-        //    }
-        //    else
-        //    {
-        //        mock.Verify(m => m.Dispose(), Times.Never);
-        //    }
-        //}
     }
 }
