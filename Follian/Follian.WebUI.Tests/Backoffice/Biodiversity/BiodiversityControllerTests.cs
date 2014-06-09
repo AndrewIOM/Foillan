@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using Foillan.Models.Biodiversity;
@@ -52,9 +53,9 @@ namespace Foillan.WebUI.Tests.Backoffice.Biodiversity
         {
             var taxonService = new TaxonServiceTestBuilder().ReturnsSpecies().Build();
             var sut = new BiodiversityController(taxonService);
-            var result = sut.AddTaxon() as ViewResult;
+            var result = sut.AddSpecies() as ViewResult;
             Assert.IsNotNull(result);
-            Assert.AreEqual("AddTaxon", result.ViewName);
+            Assert.AreEqual("AddSpecies", result.ViewName);
         }
 
         [Test]
@@ -62,10 +63,10 @@ namespace Foillan.WebUI.Tests.Backoffice.Biodiversity
         {
             var taxonService = new TaxonServiceTestBuilder().ReturnsSpecies().Build();
             var sut = new BiodiversityController(taxonService);
-            var result = sut.AddTaxon() as ViewResult;
+            var result = sut.AddSpecies() as ViewResult;
             Assert.IsNotNull(result);
 
-            var model = result.Model as TaxonViewModel;
+            var model = result.Model as AddSpeciesViewModel;
             Assert.IsNotNull(model);
         }
 
@@ -74,19 +75,9 @@ namespace Foillan.WebUI.Tests.Backoffice.Biodiversity
         {
             var taxonService = new TaxonServiceTestBuilder().BuildMock();
             var sut = new BiodiversityController(taxonService.Object);
-            var model = new TaxonViewModel {Taxon = new Taxon {Id = 1, LatinName = "Test Taxon"}};
-            sut.AddTaxon(model, null);
+            var model = new AddSpeciesViewModel {Taxon = new Taxon {Id = 1, LatinName = "Test Taxon"}};
+            sut.AddSpecies(model, null);
             taxonService.Verify(m => m.SaveChanges(), Times.Once());
-        }
-
-        [Test]
-        public void AddTaxon_HttpPost_ValidModel_TaxonAddedUsingTaxonService()
-        {
-            var taxonService = new TaxonServiceTestBuilder().BuildMock();
-            var sut = new BiodiversityController(taxonService.Object);
-            var model = new TaxonViewModel { Taxon = new Taxon { Id = 1, LatinName = "Test Taxon" } };
-            sut.AddTaxon(model, null);
-            taxonService.Verify(m => m.AddTaxon(model.Taxon), Times.Once());
         }
 
         [Test]
@@ -94,8 +85,8 @@ namespace Foillan.WebUI.Tests.Backoffice.Biodiversity
         {
             var taxonService = new TaxonServiceTestBuilder().BuildMock();
             var sut = new BiodiversityController(taxonService.Object);
-            var model = new TaxonViewModel { Taxon = new Taxon { Id = 1, LatinName = "Test Taxon" } };
-            var result = sut.AddTaxon(model, null) as ViewResult;
+            var model = new AddSpeciesViewModel { Taxon = new Taxon { Id = 1, LatinName = "Test Taxon" } };
+            var result = sut.AddSpecies(model, null) as ViewResult;
             Assert.NotNull(result);
             Assert.AreEqual("Explore", result.ViewName);
         }
@@ -105,11 +96,23 @@ namespace Foillan.WebUI.Tests.Backoffice.Biodiversity
         {
             var taxonService = new TaxonServiceTestBuilder().BuildMock();
             var sut = new BiodiversityController(taxonService.Object);
-            var model = new TaxonViewModel { Taxon = new Taxon { Id = 1, LatinName = "Test Taxon" } };
+            var model = new AddSpeciesViewModel { Taxon = new Taxon { Id = 1, LatinName = "Test Taxon" } };
             sut.ModelState.AddModelError("Test Error", new Exception());
-            var result = sut.AddTaxon(model, null) as ViewResult;
+            var result = sut.AddSpecies(model, null) as ViewResult;
             Assert.NotNull(result);
-            Assert.AreEqual("AddTaxon", result.ViewName);
+            Assert.AreEqual("AddSpecies", result.ViewName);
         }
+
+        [Test]
+        public void AddTaxon_HttpPost_ValidModel_TaxonAddedUsingTaxonService()
+        {
+            var taxonService = new TaxonServiceTestBuilder().BuildMock();
+            var sut = new BiodiversityController(taxonService.Object);
+            var model = new AddSpeciesViewModel { Taxon = new Taxon { GbifTaxonId = 4408612, LatinName = "arctica" } };
+            sut.AddSpecies(model, null);
+            taxonService.Verify(m => m.AddSpeciesWithHeirarchy(model.Taxon, 
+                It.IsAny<Dictionary<TaxonRank, String>>()), Times.Once());
+        }
+
     }
 }

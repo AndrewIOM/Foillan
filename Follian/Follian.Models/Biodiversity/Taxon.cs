@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 using Foillan.Models.DataAccessLayer.Abstract;
-using Foillan.Models.ValidationAttributes;
 
 namespace Foillan.Models.Biodiversity
 {
-    [ParentTaxonValidation(ErrorMessage = "A valid parent taxon is required.")]
+    //[ParentTaxonValidation(ErrorMessage = "A valid parent taxon is required.")]
     public class Taxon : IEntity<int>
     {
-        [Key, Required, HiddenInput(DisplayValue = false)]
+        [Key, HiddenInput(DisplayValue = false)]
         public int Id { get; set; }
 
         [Required(ErrorMessage = "This taxon must be linked to a valid GBIF record"),
@@ -20,7 +19,8 @@ namespace Foillan.Models.Biodiversity
         [Required, HiddenInput(DisplayValue = false)]
         public TaxonRank Rank { get; set; }
 
-        [Required, Display(Name = "Latin Name")]
+        [Required, Display(Name = "Latin Name"),
+        UIHint("ReadOnly")]
         public String LatinName { get; set; }
 
         [DataType(DataType.MultilineText)]

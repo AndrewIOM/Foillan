@@ -1,4 +1,4 @@
-﻿@model Foillan.WebUI.Areas.BackOffice.Models.TaxonViewModel
+﻿@model Foillan.WebUI.Areas.BackOffice.Models.AddSpeciesViewModel
 
 <div class="row">
     <div class="col-md-8">
@@ -8,7 +8,7 @@
             You must validate your new species name against GBIF.
         </p>
         <p>Enter the details of your new taxon below:</p>
-        @using (Html.BeginForm("AddTaxon", "Biodiversity", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        @using (Html.BeginForm("AddSpecies", "Biodiversity", FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
             @Html.ValidationSummary()
 
@@ -73,6 +73,7 @@
                 document.getElementById("gbif-rank").innerHTML = data.rank;
                 document.getElementById("Taxon_GbifTaxonId").value = data.usageKey;
                 document.getElementById("Taxon_LatinName").value = data.canonicalName;
+                document.getElementById("Taxon_Rank").value = data.rank;
             });
         });
     });

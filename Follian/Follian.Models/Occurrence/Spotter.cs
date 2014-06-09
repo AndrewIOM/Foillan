@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Web.Mvc;
 using Foillan.Models.DataAccessLayer.Abstract;
 
-namespace Foillan.Models
+namespace Foillan.Models.Occurrence
 {
     public class Spotter : IEntity<int>
     {

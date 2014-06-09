@@ -1,8 +1,7 @@
 ﻿using System;
-using Foillan.Models.Biodiversity;
 using Foillan.Models.DataAccessLayer.Abstract;
 
-namespace Foillan.Models
+namespace Foillan.Models.Biodiversity
 {
     public enum Language
     {

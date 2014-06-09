@@ -85,7 +85,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AlternativeName.cs" />
+    <Compile Include="Biodiversity\AlternativeName.cs" />
     <Compile Include="Biodiversity\SpeciesDetails.cs" />
     <Compile Include="DataAccessLayer\Abstract\IEntity.cs" />
     <Compile Include="DataAccessLayer\Abstract\IFoillanContext.cs" />
@@ -101,9 +101,9 @@
     <Compile Include="DataAccessLayer\GbifSpecies.cs" />
     <Compile Include="Geography\Location.cs" />
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Occurrence\Sighting.cs" />
+    <Compile Include="Occurrence\Spotter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Sighting.cs" />
-    <Compile Include="Spotter.cs" />
     <Compile Include="Biodiversity\Taxon.cs" />
     <Compile Include="ValidationAttributes\ParentTaxonValidationAttribute.cs" />
   </ItemGroup>

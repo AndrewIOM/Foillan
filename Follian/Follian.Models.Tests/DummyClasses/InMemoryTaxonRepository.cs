@@ -38,7 +38,7 @@ namespace Foillan.Models.Tests.DummyClasses
             _taxaInDatabase.Remove(entity);
         }
 
-        public Taxon GetById(object id)
+        public Taxon GetById(int id)
         {
             return _taxaInDatabase.Find(t => t.Id.Equals(id));
         }
@@ -57,8 +57,7 @@ namespace Foillan.Models.Tests.DummyClasses
 
         private void AddDummyData()
         {
-            _taxaInDatabase.Add(new Taxon { Id = 1, LatinName = "JellyBabius", Rank = TaxonRank.Genus });
-            _taxaInDatabase.Add(new Taxon { Id = 2, LatinName = "maximus", Rank = TaxonRank.Species});
+            _taxaInDatabase.Add(new Taxon {Id = 1, Rank = TaxonRank.Life, GbifTaxonId = 0, Description = "Life"});
         }
 
     }

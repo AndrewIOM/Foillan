@@ -153,7 +153,7 @@ namespace Foillan.Models.Tests.DataAccessLayer
             var sut = new TaxonService(unitOfWork.Object, repository);
 
             sut.AddSpeciesWithHeirarchy(species, taxonomy);
-            var result = repository.GetAll().FirstOrDefault(t => t.LatinName.Equals("arctica"));
+            var result = repository.GetAll().FirstOrDefault(t => t.LatinName == ("arctica"));
 
             Assert.IsTrue(result != null, "The species was not added to the database");
         }
@@ -182,12 +182,12 @@ namespace Foillan.Models.Tests.DataAccessLayer
 
             sut.AddSpeciesWithHeirarchy(species, taxonomy);
             var results = repository.GetAll().ToList();
-            var kingdomResult = results.FirstOrDefault(t => t.LatinName.Equals("Animalia"));
-            var phylumResult = results.FirstOrDefault(t => t.LatinName.Equals("Chordata"));
-            var classResult = results.FirstOrDefault(t => t.LatinName.Equals("Aves"));
-            var orderResult = results.FirstOrDefault(t => t.LatinName.Equals("Charadriiformes"));
-            var familyResult = results.FirstOrDefault(t => t.LatinName.Equals("Alcidae"));
-            var genusResult = results.FirstOrDefault(t => t.LatinName.Equals("Fratercula") && t.Rank.Equals(TaxonRank.Genus));
+            var kingdomResult = results.FirstOrDefault(t => t.LatinName == ("Animalia"));
+            var phylumResult = results.FirstOrDefault(t => t.LatinName == ("Chordata"));
+            var classResult = results.FirstOrDefault(t => t.LatinName == ("Aves"));
+            var orderResult = results.FirstOrDefault(t => t.LatinName == ("Charadriiformes"));
+            var familyResult = results.FirstOrDefault(t => t.LatinName == ("Alcidae"));
+            var genusResult = results.FirstOrDefault(t => t.LatinName == ("Fratercula") && t.Rank == (TaxonRank.Genus));
 
             Assert.IsNotNull(kingdomResult, "Kingdom taxon was not added");
             Assert.IsNotNull(phylumResult, "Phylum taxon was not added");
@@ -222,17 +222,17 @@ namespace Foillan.Models.Tests.DataAccessLayer
             sut.AddSpeciesWithHeirarchy(species, taxonomy);
             var results = repository.GetAll().ToList();
 
-            var kingdomResult = results.FirstOrDefault(t => t.LatinName.Equals("Animalia"));
-            var phylumResult = results.FirstOrDefault(t => t.LatinName.Equals("Chordata"));
-            var classResult = results.FirstOrDefault(t => t.LatinName.Equals("Aves"));
-            var orderResult = results.FirstOrDefault(t => t.LatinName.Equals("Charadriiformes"));
-            var familyResult = results.FirstOrDefault(t => t.LatinName.Equals("Alcidae"));
-            var genusResult = results.FirstOrDefault(t => t.LatinName.Equals("Fratercula")
-                && t.Rank.Equals(TaxonRank.Genus));
-            var speciesResult = results.FirstOrDefault(t => t.LatinName.Equals("arctica")
-                && t.Rank.Equals(TaxonRank.Species));
+            var kingdomResult = results.FirstOrDefault(t => t.LatinName == ("Animalia"));
+            var phylumResult = results.FirstOrDefault(t => t.LatinName ==("Chordata"));
+            var classResult = results.FirstOrDefault(t => t.LatinName == ("Aves"));
+            var orderResult = results.FirstOrDefault(t => t.LatinName == ("Charadriiformes"));
+            var familyResult = results.FirstOrDefault(t => t.LatinName == ("Alcidae"));
+            var genusResult = results.FirstOrDefault(t => t.LatinName == ("Fratercula")
+                && t.Rank == (TaxonRank.Genus));
+            var speciesResult = results.FirstOrDefault(t => t.LatinName == ("arctica")
+                && t.Rank == (TaxonRank.Species));
 
-            Assert.IsNull(kingdomResult.ParentTaxon, "Kingdom cannot have a parent taxon");
+            Assert.IsTrue(kingdomResult.ParentTaxon.Rank.Equals(TaxonRank.Life), "Kingdom cannot have a parent taxon");
             Assert.IsTrue(phylumResult.ParentTaxon.Rank.Equals(TaxonRank.Kingdom), "Phylum should be linked to a kingdom");
             Assert.IsTrue(classResult.ParentTaxon.Rank.Equals(TaxonRank.Phylum), "Class should be linked to a parent phylum");
             Assert.IsTrue(orderResult.ParentTaxon.Rank.Equals(TaxonRank.Class), "Order should be linked to a parent class");

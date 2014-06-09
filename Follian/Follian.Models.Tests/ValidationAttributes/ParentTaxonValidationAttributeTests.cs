@@ -1,4 +1,5 @@
 ﻿using Foillan.Models.Biodiversity;
+using Foillan.Models.Occurrence;
 using Foillan.Models.ValidationAttributes;
 using NUnit.Framework;
 

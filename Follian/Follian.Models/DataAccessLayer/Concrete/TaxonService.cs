@@ -51,7 +51,7 @@ namespace Foillan.Models.DataAccessLayer.Concrete
                 return;
             }
 
-            kingdom.ParentTaxon = null;
+            kingdom.ParentTaxon = _taxonRepository.GetById(1);
             phylum.ParentTaxon = kingdom;
             @class.ParentTaxon = phylum;
             order.ParentTaxon = @class;

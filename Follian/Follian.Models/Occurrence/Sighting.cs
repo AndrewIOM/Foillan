@@ -3,7 +3,7 @@ using Foillan.Models.Biodiversity;
 using Foillan.Models.DataAccessLayer.Abstract;
 using Foillan.Models.Geography;
 
-namespace Foillan.Models
+namespace Foillan.Models.Occurrence
 {
     public class Sighting : IEntity<int>
     {

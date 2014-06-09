@@ -11,7 +11,7 @@ namespace Foillan.Models.DataAccessLayer.Abstract
         void Update(TEntity entity);
         void Delete(TEntity entity);
 
-        TEntity GetById(object id);
+        TEntity GetById(int id);
         IEnumerable<TEntity> GetAll();
         IQueryable<TEntity> FindBy(Expression<Func<TEntity, bool>> predicate);
     }

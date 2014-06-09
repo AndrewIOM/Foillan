@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Validation;
+using System.Diagnostics;
 using System.Linq;
 using System.Linq.Expressions;
 using Foillan.Models.Biodiversity;
@@ -19,9 +21,9 @@ namespace Foillan.Models.DataAccessLayer.Concrete
             _dbContext = unitOfWork.DbContext;
         }
 
-        public Taxon GetById(object id)
+        public Taxon GetById(int id)
         {
-            var result = _taxa.FirstOrDefault(t => t.Id.Equals(id));
+            var result = _taxa.FirstOrDefault(t => t.Id == id);
             return result;
         }
 
@@ -44,8 +46,23 @@ namespace Foillan.Models.DataAccessLayer.Concrete
             }
 
             _taxa.Add(entity);
-            _dbContext.SaveChanges();
-            
+
+            try
+            {
+                _dbContext.SaveChanges();
+
+            }
+            catch (DbEntityValidationException dbEx)
+            {
+                foreach (var validationErrors in dbEx.EntityValidationErrors)
+                {
+                    foreach (var validationError in validationErrors.ValidationErrors)
+                    {
+                        Trace.TraceInformation("Property: {0} Error: {1}", validationError.PropertyName, validationError.ErrorMessage);
+                    }
+                }
+            }
+
             return _taxa.FirstOrDefault(e => e.Id.Equals(entity.Id));
         }
 

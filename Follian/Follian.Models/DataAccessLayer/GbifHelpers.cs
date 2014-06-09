@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Runtime.Serialization.Json;
 using Foillan.Models.Biodiversity;
@@ -49,6 +50,28 @@ namespace Foillan.Models.DataAccessLayer
             return newTaxon;
         }
 
+        public static Dictionary<TaxonRank, string> GetTaxonomyDictionary(int id)
+        {
+            var urlRequest = String.Format("http://api.gbif.org/v0.9/species/{0}", id);
+            var result = GetNameUsagePage(urlRequest);
+
+            if (result == null)
+            {
+                return null;
+            }
+
+            var taxonomy = new Dictionary<TaxonRank, string> // Puffin
+            {
+                {TaxonRank.Kingdom, result.Kingdom},
+                {TaxonRank.Phylum, result.Phylum},
+                {TaxonRank.Class, result.Class},
+                {TaxonRank.Order, result.Order},
+                {TaxonRank.Family, result.Family},
+                {TaxonRank.Genus, result.Genus}
+            };
+            return taxonomy;
+        }
+
         private static GbifSpecies GetNameUsagePage(string requestUrl)
         {
             try
@@ -73,6 +96,5 @@ namespace Foillan.Models.DataAccessLayer
                 return null;
             }
         }
-
     }
 }

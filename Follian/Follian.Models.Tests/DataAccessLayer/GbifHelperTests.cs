@@ -53,5 +53,25 @@ namespace Foillan.Models.Tests.DataAccessLayer
             var result = GbifHelpers.GetTaxonById(12345678);
             Assert.IsNull(result);
         }
+
+        [Test]
+        public void GetTaxonomyDictionary_InvalidGbifId_ReturnsNull()
+        {
+            var result = GbifHelpers.GetTaxonomyDictionary(12345678);
+            Assert.IsNull(result);
+        }
+
+        [Test]
+        public void GetTaxonomyDictionary_ValidGbifId_ReturnsDictionaryWithEachRank()
+        {
+            var result = GbifHelpers.GetTaxonomyDictionary(4408612);
+            Assert.IsNotNull(result);
+            Assert.IsTrue(result.ContainsKey(TaxonRank.Kingdom));
+            Assert.IsTrue(result.ContainsKey(TaxonRank.Phylum));
+            Assert.IsTrue(result.ContainsKey(TaxonRank.Class));
+            Assert.IsTrue(result.ContainsKey(TaxonRank.Order));
+            Assert.IsTrue(result.ContainsKey(TaxonRank.Family));
+            Assert.IsTrue(result.ContainsKey(TaxonRank.Genus));
+        }
     }
 }

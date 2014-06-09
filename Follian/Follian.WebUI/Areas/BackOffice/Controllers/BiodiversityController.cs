@@ -1,6 +1,8 @@
-﻿using System.Web;
+﻿using System.Collections.Generic;
+using System.Web;
 using System.Web.Mvc;
 using Foillan.Models.Biodiversity;
+using Foillan.Models.DataAccessLayer;
 using Foillan.Models.DataAccessLayer.Abstract;
 using Foillan.WebUI.Areas.BackOffice.Models;
 
@@ -22,23 +24,29 @@ namespace Foillan.WebUI.Areas.BackOffice.Controllers
         }
 
         [HttpGet]
-        public ActionResult AddTaxon()
+        public ActionResult AddSpecies()
         {
-            var model = new TaxonViewModel();
-            return View("AddTaxon", model);
+            var model = new AddSpeciesViewModel();
+            return View("AddSpecies", model);
         }
 
         [HttpPost]
-        public ActionResult AddTaxon(TaxonViewModel newTaxon, HttpPostedFileBase file)
+        public ActionResult AddSpecies(AddSpeciesViewModel newTaxon, HttpPostedFileBase file)
         {
+            ModelState.Remove("Taxon.Id");
+            ModelState.Remove("Taxon.ParentTaxon");
+
             if (!ModelState.IsValid)
             {
-                return View("AddTaxon");
+                return View("AddSpecies");
             }
 
-            _taxonService.AddTaxon(newTaxon.Taxon);
+            var taxonomy = GbifHelpers.GetTaxonomyDictionary(newTaxon.Taxon.GbifTaxonId);
+            _taxonService.AddSpeciesWithHeirarchy(newTaxon.Taxon, taxonomy);
+            //TODO Handle additional data
+
             _taxonService.SaveChanges();
-            return Explore();
+            return RedirectToAction("Explore");
         }
     }
 }

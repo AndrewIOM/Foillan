@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Web.Mvc;
 using Foillan.Models;
+using Foillan.Models.Occurrence;
 using Foillan.WebUI.Controllers;
 using NUnit.Framework;
 

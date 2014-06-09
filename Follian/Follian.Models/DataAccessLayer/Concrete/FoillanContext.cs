@@ -1,6 +1,7 @@
 ﻿using System.Data.Entity;
 using Foillan.Models.Biodiversity;
 using Foillan.Models.DataAccessLayer.Abstract;
+using Foillan.Models.Occurrence;
 
 namespace Foillan.Models.DataAccessLayer.Concrete
 {

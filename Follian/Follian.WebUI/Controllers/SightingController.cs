@@ -2,6 +2,7 @@
 using Foillan.Models;
 using Foillan.Models.DataAccessLayer;
 using Foillan.Models.DataAccessLayer.Concrete;
+using Foillan.Models.Occurrence;
 
 namespace Foillan.WebUI.Controllers
 {
