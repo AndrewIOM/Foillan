@@ -27,7 +27,7 @@ namespace Foillan.Models.DataAccessLayer.Concrete
         {
             _taxonRepository.Add(taxon);
         }
-        
+
         public void AddSpeciesWithHeirarchy(Taxon species, IDictionary<TaxonRank, String> heirarchyDictionary)
         {
             Taxon kingdom;
@@ -52,20 +52,36 @@ namespace Foillan.Models.DataAccessLayer.Concrete
             }
 
             kingdom.ParentTaxon = _taxonRepository.GetById(1);
-            phylum.ParentTaxon = kingdom;
-            @class.ParentTaxon = phylum;
-            order.ParentTaxon = @class;
-            family.ParentTaxon = order;
-            genus.ParentTaxon = family;
-            species.ParentTaxon = genus;
+            var returnedKingdom = AddOrUpdateTaxon(kingdom);
 
-            _taxonRepository.Add(kingdom);
-            _taxonRepository.Add(phylum);
-            _taxonRepository.Add(@class);
-            _taxonRepository.Add(order);
-            _taxonRepository.Add(family);
-            _taxonRepository.Add(genus);
-            _taxonRepository.Add(species);
+            phylum.ParentTaxon = returnedKingdom;
+            var returnedPhylum = AddOrUpdateTaxon(phylum);
+
+            @class.ParentTaxon = returnedPhylum;
+            var returnedClass = AddOrUpdateTaxon(@class);
+
+            order.ParentTaxon =returnedClass;
+            var returnedOrder = AddOrUpdateTaxon(order);
+
+            family.ParentTaxon = returnedOrder;
+            var returnedFamily = AddOrUpdateTaxon(family);
+
+            genus.ParentTaxon = returnedFamily;
+            var returnedGenus = AddOrUpdateTaxon(genus);
+
+            species.ParentTaxon = returnedGenus;
+            AddOrUpdateTaxon(species);
+        }
+
+        private Taxon AddOrUpdateTaxon(Taxon taxon)
+        {
+            var existingTaxon = _taxonRepository.FindBy(t => t.GbifTaxonId == taxon.GbifTaxonId).FirstOrDefault();
+            if (existingTaxon == null)
+            {
+                var result = _taxonRepository.Add(taxon);
+                return result;
+            }
+            return existingTaxon;
         }
 
         public virtual void SaveChanges()
