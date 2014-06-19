@@ -29,7 +29,7 @@
 
             @Html.EditorFor(m => m.Taxon)
 
-            <h5>Additional Details for Species and Sub-Species:</h5>
+            @Html.EditorFor(m => m.AdditionalDetails)
             @Html.EditorFor(m => m.AdditionalDetails.AlternativeNames)
             @Html.EditorFor(m => m.AdditionalDetails.Image)
 

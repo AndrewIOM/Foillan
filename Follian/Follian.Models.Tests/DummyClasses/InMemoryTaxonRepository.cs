@@ -10,17 +10,19 @@ namespace Foillan.Models.Tests.DummyClasses
     public class InMemoryTaxonRepository : IRepository<Taxon>
     {
         private readonly List<Taxon> _taxaInDatabase;
+        private readonly List<SpeciesDetails> _speciesDetails;
 
         public InMemoryTaxonRepository()
         {
             _taxaInDatabase = new List<Taxon>();
+            _speciesDetails = new List<SpeciesDetails>();
             AddDummyData();
         }
 
-        public Taxon Add(Taxon entity)
+        public virtual Taxon Add(Taxon entity)
         {
             _taxaInDatabase.Add(entity);
-            return _taxaInDatabase.Find(m => m.Id.Equals(entity.Id));
+            return _taxaInDatabase.Last();
         }
 
         public void Update(Taxon entity)

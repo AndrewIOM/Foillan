@@ -1,12 +1,13 @@
 ﻿@model Foillan.WebUI.Areas.BackOffice.Models.ExplorerViewModel
 
 @{
-    ViewBag.Title = "title";
+    ViewBag.Title = "Explorer";
 }
 
 <h2>Taxon Database</h2>
 <p>Welcome to the taxon database. Here you can view all taxa within Foillan.</p>
-<a href="@Url.Action("AddSpecies")" class="btn">Add New Taxon</a>
+<a href="@Url.Action("AddSpecies")" class="btn">Add New Species</a>
+<a href="@Url.Action("AddSpeciesBatch")" class="btn">Add Species using Existing Dataset</a>
 
 <table class="table">
     <thead>

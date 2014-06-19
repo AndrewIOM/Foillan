@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web;
 using Foillan.Models.Biodiversity;
 using Foillan.Models.DataAccessLayer.Abstract;
 
@@ -17,19 +18,19 @@ namespace Foillan.Models.DataAccessLayer.Concrete
             _taxonRepository = taxonRepository;
         }
 
-        public virtual IEnumerable<Taxon> GetTaxaByRank(TaxonRank rank)
+        public virtual Taxon AddTaxon(Taxon taxon)
         {
-            var taxaOfRank = _taxonRepository.GetAll().Where(t => t.Rank.Equals(rank));
-            return taxaOfRank;
+            var saved = _taxonRepository.Add(taxon);
+            return saved;
         }
 
-        public virtual void AddTaxon(Taxon taxon)
+        public Taxon AddSpeciesWithHeirarchy(Taxon species, IDictionary<TaxonRank, String> heirarchyDictionary)
         {
-            _taxonRepository.Add(taxon);
-        }
+            if (species.GbifTaxonId == 0)
+            {
+                throw new ArgumentException("The species cannot have a GBIF ID of 0.");
+            }
 
-        public void AddSpeciesWithHeirarchy(Taxon species, IDictionary<TaxonRank, String> heirarchyDictionary)
-        {
             Taxon kingdom;
             Taxon phylum;
             Taxon @class;
@@ -39,16 +40,16 @@ namespace Foillan.Models.DataAccessLayer.Concrete
 
             try
             {
-                kingdom = GbifHelpers.GenerateTaxonByNameAndRank(heirarchyDictionary[TaxonRank.Kingdom], TaxonRank.Kingdom);
-                phylum = GbifHelpers.GenerateTaxonByNameAndRank(heirarchyDictionary[TaxonRank.Phylum], TaxonRank.Phylum);
-                @class = GbifHelpers.GenerateTaxonByNameAndRank(heirarchyDictionary[TaxonRank.Class], TaxonRank.Class);
-                order = GbifHelpers.GenerateTaxonByNameAndRank(heirarchyDictionary[TaxonRank.Order], TaxonRank.Order);
-                family = GbifHelpers.GenerateTaxonByNameAndRank(heirarchyDictionary[TaxonRank.Family], TaxonRank.Family);
-                genus = GbifHelpers.GenerateTaxonByNameAndRank(heirarchyDictionary[TaxonRank.Genus], TaxonRank.Genus);
+                kingdom = GbifHelper.GenerateTaxonByNameAndRank(heirarchyDictionary[TaxonRank.Kingdom], TaxonRank.Kingdom);
+                phylum = GbifHelper.GenerateTaxonByNameAndRank(heirarchyDictionary[TaxonRank.Phylum], TaxonRank.Phylum);
+                @class = GbifHelper.GenerateTaxonByNameAndRank(heirarchyDictionary[TaxonRank.Class], TaxonRank.Class);
+                order = GbifHelper.GenerateTaxonByNameAndRank(heirarchyDictionary[TaxonRank.Order], TaxonRank.Order);
+                family = GbifHelper.GenerateTaxonByNameAndRank(heirarchyDictionary[TaxonRank.Family], TaxonRank.Family);
+                genus = GbifHelper.GenerateTaxonByNameAndRank(heirarchyDictionary[TaxonRank.Genus], TaxonRank.Genus);
             }
             catch (KeyNotFoundException)
             {
-                return;
+                return null;
             }
 
             kingdom.ParentTaxon = _taxonRepository.GetById(1);
@@ -70,7 +71,30 @@ namespace Foillan.Models.DataAccessLayer.Concrete
             var returnedGenus = AddOrUpdateTaxon(genus);
 
             species.ParentTaxon = returnedGenus;
-            AddOrUpdateTaxon(species);
+            var returnedSpecies = AddOrUpdateTaxon(species);
+
+            return returnedSpecies;
+        }
+
+        public virtual IEnumerable<Taxon> GetTaxaByRank(TaxonRank rank)
+        {
+            var taxaOfRank = _taxonRepository.GetAll().Where(t => t.Rank.Equals(rank));
+            return taxaOfRank;
+        }
+
+        public virtual void SaveChanges()
+        {
+            _unitOfWork.Save();
+        }
+
+        public SpeciesDetails UpdateSpeciesImage(Taxon taxon, HttpPostedFileBase image)
+        {
+            throw new NotImplementedException();
+        }
+
+        public SpeciesDetails UpdateSpeciesAdditionalNames(IEnumerable<AlternativeName> newNames)
+        {
+            throw new NotImplementedException();
         }
 
         private Taxon AddOrUpdateTaxon(Taxon taxon)
@@ -82,11 +106,6 @@ namespace Foillan.Models.DataAccessLayer.Concrete
                 return result;
             }
             return existingTaxon;
-        }
-
-        public virtual void SaveChanges()
-        {
-            _unitOfWork.Save();
         }
     }
 }

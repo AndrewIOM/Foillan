@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.IO;
 using System.Linq;
+using System.Web;
 using Foillan.Models.Biodiversity;
 using Foillan.Models.DataAccessLayer.Concrete;
 using Foillan.Models.Tests.DummyClasses;
@@ -30,6 +33,23 @@ namespace Foillan.Models.Tests.DataAccessLayer
                           select String.Format("Found error: {0} was of type {1}", taxon.LatinName, taxon.Rank)).ToList();
 
             Assert.IsEmpty(errors);
+        }
+
+        [Test]
+        public void TaxonService_AddTaxon_UsesRepositoryToAddTaxon()
+        {
+            var repository = new Mock<InMemoryTaxonRepository>();
+            var unitOfWork = new UnitOfWorkTestBuilder().Build();
+            var sut = new TaxonService(unitOfWork, repository.Object);
+            var taxonToAdd = new Taxon()
+                             {
+                                 Rank = TaxonRank.Kingdom,
+                                 ParentTaxon = repository.Object.GetById(1),
+                                 LatinName = "TestTaxon"
+                             };
+
+            sut.AddTaxon(taxonToAdd);
+            repository.Verify(m => m.Add(taxonToAdd), Times.Once);
         }
 
         [Test]
@@ -241,5 +261,99 @@ namespace Foillan.Models.Tests.DataAccessLayer
             Assert.IsTrue(speciesResult.ParentTaxon.Rank.Equals(TaxonRank.Genus), "Species should be linked to a parent genus");
         }
 
+        [Test]
+        public void TaxonService_UpdateSpeciesImage_TaxonHasNoId_ReturnsNull()
+        {
+            var species = new Taxon()
+            {
+                Rank = TaxonRank.Species,
+                LatinName = "arctica",
+                GbifTaxonId = 4408612
+            };
+            var image = new Mock<HttpPostedFileBase>();
+            
+            var unitOfWork = new Mock<DummyUnitOfWork>();
+            var repository = new InMemoryTaxonRepository();
+            var sut = new TaxonService(unitOfWork.Object, repository);
+
+            var result = sut.UpdateSpeciesImage(species, image.Object);
+            Assert.IsNull(result);
+        }
+
+        [Test]
+        public void TaxonService_UpdateSpeciesImage_TaxonWithIdNotInDatabase_ReturnsNull()
+        {
+            var species = new Taxon()
+            {
+                Id = 2432, //ID Not in DB
+                Rank = TaxonRank.Species,
+                LatinName = "arctica",
+                GbifTaxonId = 4408612
+            };
+            var uploadedFile = new Mock<HttpPostedFileBase>();
+
+            var unitOfWork = new Mock<DummyUnitOfWork>();
+            var repository = new InMemoryTaxonRepository();
+            var sut = new TaxonService(unitOfWork.Object, repository);
+
+            var result = sut.UpdateSpeciesImage(species, uploadedFile.Object);
+            Assert.IsNull(result);
+        }
+
+        [Test]
+        public void TaxonService_UpdateSpeciesImage_TaxonInDatabaseNullImage_ReturnsNull()
+        {
+            var species = new Taxon()
+            {
+                Rank = TaxonRank.Species,
+                LatinName = "arctica",
+                GbifTaxonId = 4408612
+            };
+            var image = new Mock<HttpPostedFileBase>();
+
+            var unitOfWork = new Mock<DummyUnitOfWork>();
+            var repository = new InMemoryTaxonRepository();
+            var sut = new TaxonService(unitOfWork.Object, repository);
+
+            var result = sut.UpdateSpeciesImage(species, image.Object);
+            Assert.IsNull(result);
+        }
+
+        [Test]
+        public void TaxonService_UpdateSpeciesImage_SpeciesDetailsNotInDatabase_ThrowsException()
+        {
+            var species = new Taxon()
+            {
+                Rank = TaxonRank.Species,
+                LatinName = "arctica",
+                GbifTaxonId = 4408612
+            };
+            var image = new Mock<HttpPostedFileBase>();
+
+            var unitOfWork = new Mock<DummyUnitOfWork>();
+            var repository = new InMemoryTaxonRepository();
+            var sut = new TaxonService(unitOfWork.Object, repository);
+
+            var result = sut.UpdateSpeciesImage(species, image.Object);
+            Assert.IsNull(result);
+        }
+
+        [Test]
+        public void TaxonService_UpdateSpeciesImage_ValidImageAndSpeciesId_WritesFileToDisk()
+        {
+            Assert.Inconclusive();
+        }
+
+        [Test]
+        public void TaxonService_UpdateSpeciesImage_ValidImageAndSpeciesId_FileLocationInDatabaseMatchesGeneratedFile()
+        {
+            Assert.Inconclusive();
+        }
+
+        [Test]
+        public void TaxonService_UpdateSpeciesImage_ValidImageAndSpeciesId_FileIsAlwaysValidImage()
+        {
+            Assert.Inconclusive();
+        }
     }
 }

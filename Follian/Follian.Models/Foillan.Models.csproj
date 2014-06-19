@@ -42,6 +42,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Follian.WebUI\Bin\Foillan.Models.dll</HintPath>
     </Reference>
+    <Reference Include="LINQtoCSV">
+      <HintPath>..\packages\LINQtoCSV.1.5.0.0\lib\net35\LINQtoCSV.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
@@ -54,6 +57,7 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.1.2\lib\net45\System.Web.Helpers.dll</HintPath>
@@ -97,7 +101,7 @@
     <Compile Include="DataAccessLayer\Concrete\TaxonRepository.cs" />
     <Compile Include="DataAccessLayer\Concrete\TaxonService.cs" />
     <Compile Include="DataAccessLayer\Concrete\UnitOfWork.cs" />
-    <Compile Include="DataAccessLayer\GbifHelpers.cs" />
+    <Compile Include="DataAccessLayer\GbifHelper.cs" />
     <Compile Include="DataAccessLayer\GbifSpecies.cs" />
     <Compile Include="Geography\Location.cs" />
     <Compile Include="Migrations\Configuration.cs" />
@@ -105,6 +109,7 @@
     <Compile Include="Occurrence\Spotter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Biodiversity\Taxon.cs" />
+    <Compile Include="Utilities\CommaSeperatedFileUtility.cs" />
     <Compile Include="ValidationAttributes\ParentTaxonValidationAttribute.cs" />
   </ItemGroup>
   <ItemGroup>

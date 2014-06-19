@@ -19,7 +19,7 @@ namespace Foillan.Models.DataAccessLayer
         public string Kingdom { get; set; }
         [DataMember(Name = "phylum")]
         public string Phylum { get; set; }
-        [DataMember(Name = "clazz")]
+        [DataMember(Name = "class")]
         public string Class { get; set; }
         [DataMember(Name = "order")]
         public string Order { get; set; }

@@ -5,8 +5,8 @@ namespace Foillan.Models.Biodiversity
 {
     public enum Language
     {
-        English = 1,
-        Manx = 2
+        English,
+        Manx
     }
 
     public class AlternativeName : IEntity<int>

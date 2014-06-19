@@ -1,10 +1,16 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Data.Entity.Infrastructure;
+using System.IO;
+using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Foillan.Models.Biodiversity;
 using Foillan.Models.DataAccessLayer;
 using Foillan.Models.DataAccessLayer.Abstract;
+using Foillan.Models.Utilities;
 using Foillan.WebUI.Areas.BackOffice.Models;
+using Microsoft.VisualBasic.FileIO;
 
 namespace Foillan.WebUI.Areas.BackOffice.Controllers
 {
@@ -41,12 +47,45 @@ namespace Foillan.WebUI.Areas.BackOffice.Controllers
                 return View("AddSpecies");
             }
 
-            var taxonomy = GbifHelpers.GetTaxonomyDictionary(newTaxon.Taxon.GbifTaxonId);
+            var taxonomy = GbifHelper.GetTaxonomyDictionary(newTaxon.Taxon.GbifTaxonId);
             _taxonService.AddSpeciesWithHeirarchy(newTaxon.Taxon, taxonomy);
             //TODO Handle additional data
 
             _taxonService.SaveChanges();
             return RedirectToAction("Explore");
+        }
+
+        [HttpGet]
+        public ActionResult AddSpeciesBatch()
+        {
+            return View("AddSpeciesBatch");
+        }
+
+        [HttpPost]
+        public ActionResult AddSpeciesBatch(HttpPostedFileBase batch)
+        {
+            if (batch == null)
+            {
+                ModelState.AddModelError("file", "The file upload was empty");
+                return View("AddSpeciesBatch");
+            }
+
+            if (batch.ContentLength <= 0)
+            {
+                ModelState.AddModelError("file", "The file upload was empty");
+                return View("AddSpeciesBatch");
+            }
+
+            var speciesFromFile = CommaSeperatedFileUtility.GetSpeciesFromCommaSeperatedFile(batch.InputStream);
+            foreach (var species in speciesFromFile)
+            {
+                var gbifIdentifier = GbifHelper.GetGbifIdForTaxon(species.LatinName, species.Rank);
+                species.GbifTaxonId = gbifIdentifier;
+                 var taxonomy = GbifHelper.GetTaxonomyDictionary(gbifIdentifier);
+                _taxonService.AddSpeciesWithHeirarchy(species, taxonomy);
+            }
+
+            return View("AddSpeciesBatch");
         }
     }
 }

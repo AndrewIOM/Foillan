@@ -10,7 +10,7 @@ namespace Foillan.Models.Biodiversity
         public int Id { get; set; }
 
         [UIHint("SingleImageUpload")]
-        public byte[] Image { get; set; }
+        public string Image { get; set; }
 
         public virtual IEnumerable<AlternativeName> AlternativeNames { get; set; }
         public virtual IEnumerable<Sighting> Sightings { get; set; }
