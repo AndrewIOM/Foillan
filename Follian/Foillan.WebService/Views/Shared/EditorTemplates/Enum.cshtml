@@ -1,0 +1,13 @@
+﻿@model Enum
+
+@{
+    var dropdownListValues = Enum.GetValues(ViewData.ModelMetadata.ModelType).Cast<object>()
+        .Select(m => new SelectListItem
+                     {
+                         Selected = m.Equals(Model),
+                         Text = m.ToString(),
+                         Value = m.ToString()
+                     });
+}
+
+@Html.DropDownList("", dropdownListValues)

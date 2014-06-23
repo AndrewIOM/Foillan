@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30110.0
+VisualStudioVersion = 12.0.30501.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Foillan.WebUI", "Follian.WebUI\Foillan.WebUI.csproj", "{438D10F3-A37E-4956-94B2-E8BD2DCA5AD4}"
 EndProject
@@ -19,6 +19,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{E069A0
 		.nuget\NuGet.exe = .nuget\NuGet.exe
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Foillan.WebService", "Foillan.WebService\Foillan.WebService.csproj", "{5DC34DC3-7001-4420-8AAC-5F1B78A1230C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Foillan.WebService.Tests", "Foillan.WebService.Tests\Foillan.WebService.Tests.csproj", "{EFDC7D30-4038-4228-82DD-FC4AFED2DCE6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -42,12 +46,21 @@ Global
 		{57B70219-4857-44AC-BC1A-B1014F8D868E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{57B70219-4857-44AC-BC1A-B1014F8D868E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{57B70219-4857-44AC-BC1A-B1014F8D868E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5DC34DC3-7001-4420-8AAC-5F1B78A1230C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5DC34DC3-7001-4420-8AAC-5F1B78A1230C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5DC34DC3-7001-4420-8AAC-5F1B78A1230C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5DC34DC3-7001-4420-8AAC-5F1B78A1230C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EFDC7D30-4038-4228-82DD-FC4AFED2DCE6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EFDC7D30-4038-4228-82DD-FC4AFED2DCE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EFDC7D30-4038-4228-82DD-FC4AFED2DCE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EFDC7D30-4038-4228-82DD-FC4AFED2DCE6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{57B70219-4857-44AC-BC1A-B1014F8D868E} = {2EC2641B-462D-454F-9595-E47703B0547D}
 		{8D234CA7-FF1C-4A66-8323-28B2BD99A402} = {2EC2641B-462D-454F-9595-E47703B0547D}
+		{57B70219-4857-44AC-BC1A-B1014F8D868E} = {2EC2641B-462D-454F-9595-E47703B0547D}
+		{EFDC7D30-4038-4228-82DD-FC4AFED2DCE6} = {2EC2641B-462D-454F-9595-E47703B0547D}
 	EndGlobalSection
 EndGlobal

@@ -95,7 +95,6 @@
     <Reference Include="System.Net.Http.WebRequest" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Backoffice\Biodiversity\BiodiversityControllerTests.cs" />
     <Compile Include="Controllers\SightingControllerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\HomeControllerTest.cs" />
@@ -107,6 +106,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Foillan.WebService\Foillan.WebService.csproj">
+      <Project>{5DC34DC3-7001-4420-8AAC-5F1B78A1230C}</Project>
+      <Name>Foillan.WebService</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Follian.Models.Tests\Foillan.Models.Tests.csproj">
       <Project>{57B70219-4857-44AC-BC1A-B1014F8D868E}</Project>
       <Name>Foillan.Models.Tests</Name>

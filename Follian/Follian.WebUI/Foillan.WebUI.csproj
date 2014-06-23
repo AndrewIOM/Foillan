@@ -196,26 +196,16 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="App_Start\UnityMvcActivator.cs" />
-    <Compile Include="Areas\BackOffice\BackOfficeAreaRegistration.cs" />
-    <Compile Include="Areas\BackOffice\Controllers\BackOfficeController.cs" />
-    <Compile Include="Areas\BackOffice\Controllers\BiodiversityController.cs" />
-    <Compile Include="Areas\BackOffice\Models\ExplorerViewModel.cs" />
-    <Compile Include="Areas\BackOffice\Models\AddSpeciesViewModel.cs" />
-    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SightingController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Utilities\CustomMetadataProvider.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\BackOffice\Content\Images\FoillanLogo.png" />
-    <Content Include="Areas\BackOffice\Content\Stylesheets\follian-backoffice.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -231,14 +221,6 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Areas\BackOffice\Views\web.config" />
-    <Content Include="Areas\BackOffice\Views\BackOffice\Index.cshtml" />
-    <Content Include="Areas\BackOffice\Views\Biodiversity\Explore.cshtml" />
-    <Content Include="Areas\BackOffice\Views\_ViewStart.cshtml" />
-    <Content Include="Areas\BackOffice\Views\Shared\_Layout.cshtml" />
-    <Content Include="Areas\BackOffice\Views\Biodiversity\AddSpecies.cshtml" />
-    <Content Include="Areas\BackOffice\Views\Biodiversity\_SpeciesDetails.cshtml" />
-    <Content Include="Areas\BackOffice\Views\Biodiversity\AddSpeciesBatch.cshtml" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
     <Content Include="Scripts\jquery-2.1.1.min.js" />
@@ -253,6 +235,7 @@
     <Content Include="Scripts\respond.matchmedia.addListener.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\tree.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -270,28 +253,13 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Account\_ChangePasswordPartial.cshtml" />
-    <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
-    <Content Include="Views\Account\_RemoveAccountPartial.cshtml" />
-    <Content Include="Views\Account\_SetPasswordPartial.cshtml" />
-    <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
-    <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
-    <Content Include="Views\Account\Login.cshtml" />
-    <Content Include="Views\Account\Manage.cshtml" />
-    <Content Include="Views\Account\Register.cshtml" />
-    <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Sighting\Sighting.cshtml" />
     <Content Include="Views\Sighting\Success.cshtml" />
-    <Content Include="Views\Shared\EditorTemplates\Enum.cshtml" />
-    <Content Include="Views\Shared\EditorTemplates\SingleImageUpload.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\GoogleMapPicker.cshtml" />
-    <Content Include="Views\Shared\EditorTemplates\TaxonPicker.cshtml" />
-    <Content Include="Views\Shared\EditorTemplates\ReadOnly.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\BackOffice\Views\Gbif\" />
-    <Folder Include="Areas\BackOffice\Views\Shared\EditorTemplates\" />
+    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
