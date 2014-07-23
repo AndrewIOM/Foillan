@@ -1,5 +1,4 @@
-using System.Web;
-using System.Web.Optimization;
+﻿using System.Web.Optimization;
 
 namespace Foillan.WebService
 {
@@ -8,24 +7,16 @@ namespace Foillan.WebService
         // For more information on bundling, visit http://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
         {
+            bundles.Add(new ScriptBundle("~/bundles/nest/taxon").Include(
+                      "~/Scripts/knockout-3.1.0.js",
+                      "~/Scripts/Nest/taxon.js"));
+
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Scripts/jquery-{version}.js"));
+                      "~/Scripts/jquery-2.1.1.min.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
-                        "~/Scripts/jquery.validate*"));
-
-            // Use the development version of Modernizr to develop with and learn from. Then, when you're
-            // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
-            bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
-                        "~/Scripts/modernizr-*"));
-
-            bundles.Add(new StyleBundle("~/Content/css").Include(
-           "~/Content/site.css"));
-
-            #region Foundation Bundles
-
-            bundles.Add(Foundation.Scripts());
-            #endregion
+            // Set EnableOptimizations to false for debugging. For more information,
+            // visit http://go.microsoft.com/fwlink/?LinkId=301862
+            BundleTable.EnableOptimizations = true;
         }
     }
 }

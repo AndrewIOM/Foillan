@@ -24,6 +24,11 @@ namespace Foillan.Models.DataAccessLayer.Concrete
             return saved;
         }
 
+        public Taxon GetTaxonById(int id)
+        {
+            return _taxonRepository.GetById(id);
+        }
+
         public Taxon AddSpeciesWithHeirarchy(Taxon species, IDictionary<TaxonRank, String> heirarchyDictionary)
         {
             if (species.GbifTaxonId == 0)
@@ -61,7 +66,7 @@ namespace Foillan.Models.DataAccessLayer.Concrete
             @class.ParentTaxon = returnedPhylum;
             var returnedClass = AddOrUpdateTaxon(@class);
 
-            order.ParentTaxon =returnedClass;
+            order.ParentTaxon = returnedClass;
             var returnedOrder = AddOrUpdateTaxon(order);
 
             family.ParentTaxon = returnedOrder;

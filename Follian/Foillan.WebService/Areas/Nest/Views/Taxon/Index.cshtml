@@ -1,0 +1,39 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section scripts {
+    @Scripts.Render("~/bundles/nest/taxon")
+    @Scripts.Render("~/bundles/jquery")
+}
+
+<h1>Taxon Service</h1>
+
+<h2>Species</h2>
+
+<div data-bind="visible: error">
+    <p data-bind="text: error"></p>
+</div>
+
+<ul data-bind="foreach: taxa">
+    <li>
+        <strong><span data-bind="text: Id"></span></strong>: <span data-bind="text: LatinName"></span>
+        <small><a href="#" data-bind="click: $parent.getSpeciesDetail">Details</a></small>
+    </li>
+</ul>
+
+<table>
+    <tr><td>ID</td><td data-bind="text: detail().Id"></td></tr>
+    <tr><td>Latin Name</td><td data-bind="text: detail().LatinName"></td></tr>
+    <tr><td>Description</td><td data-bind="text: detail().Description"></td></tr>
+    <tr><td>Rank</td><td data-bind="text: detail().Rank"></td></tr>
+    <tr>
+        <td>Taxonomy</td>
+        <td>
+            <ul>
+                <li data-bind="text: detail().Taxonomy.Genus"></li>
+                <li data-bind="text: detail().Taxonomy.Species"></li>
+            </ul>
+        </td>
+    </tr>
+</table>

@@ -8,6 +8,7 @@ namespace Foillan.Models.DataAccessLayer.Abstract
     {
         IEnumerable<Taxon> GetTaxaByRank(TaxonRank rank);
         Taxon AddTaxon(Taxon taxon);
+        Taxon GetTaxonById(int id);
         Taxon AddSpeciesWithHeirarchy(Taxon species, IDictionary<TaxonRank, String> heirarchyDictionary);
         void SaveChanges();
     }

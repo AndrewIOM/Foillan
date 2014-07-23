@@ -1,11 +1,10 @@
+using Foillan.Models.Biodiversity;
+
 namespace Foillan.Models.Migrations
 {
-    using System;
-    using System.Data.Entity;
     using System.Data.Entity.Migrations;
-    using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<Foillan.Models.DataAccessLayer.Concrete.FoillanContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<DataAccessLayer.Concrete.FoillanContext>
     {
         public Configuration()
         {
@@ -13,20 +12,17 @@ namespace Foillan.Models.Migrations
             ContextKey = "Foillan.Models.DataAccessLayer.Concrete.FoillanContext";
         }
 
-        protected override void Seed(Foillan.Models.DataAccessLayer.Concrete.FoillanContext context)
+        protected override void Seed(DataAccessLayer.Concrete.FoillanContext context)
         {
-            //  This method will be called after migrating to the latest version.
-
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
-            //  to avoid creating duplicate seed data. E.g.
-            //
-            //    context.People.AddOrUpdate(
-            //      p => p.FullName,
-            //      new Person { FullName = "Andrew Peters" },
-            //      new Person { FullName = "Brice Lambson" },
-            //      new Person { FullName = "Rowan Miller" }
-            //    );
-            //
+            var life = new Taxon() {Id = 1, Rank = TaxonRank.Life, LatinName = "Life"};
+            var kingdom = new Taxon() {Id = 2, Rank = TaxonRank.Kingdom, LatinName = "Animalia", ParentTaxon = life};
+            var phylum = new Taxon() {Id = 3, Rank = TaxonRank.Phylum, LatinName = "Chordata", ParentTaxon = kingdom};
+            var @class = new Taxon() {Id = 4, Rank = TaxonRank.Class, LatinName = "Aves", ParentTaxon = phylum};
+            var order = new Taxon() {Id = 5, Rank = TaxonRank.Order, LatinName = " 	Procellariiformes", ParentTaxon = @class};
+            var family = new Taxon() {Id = 6, Rank = TaxonRank.Family, LatinName = "Procellariidae", ParentTaxon = order};
+            var genus = new Taxon() {Id = 6, Rank = TaxonRank.Genus, LatinName = "Puffinus", ParentTaxon = family};
+            var species = new Taxon() {Id = 6, Rank = TaxonRank.Species, LatinName = "puffinus", ParentTaxon = genus};
+            context.Taxa.AddOrUpdate(x => x.Id, life, kingdom, phylum, @class, order, family, genus, species);
         }
     }
 }
