@@ -6,10 +6,10 @@ namespace Foillan.Models.DataAccessLayer.Abstract
 {
     public interface ITaxonService
     {
+        Taxon AddTaxonWithTaxonomy(Taxon newTaxon, IDictionary<TaxonRank, string> taxonomy);
         IEnumerable<Taxon> GetTaxaByRank(TaxonRank rank);
-        Taxon AddTaxon(Taxon taxon);
         Taxon GetTaxonById(int id);
-        Taxon AddSpeciesWithHeirarchy(Taxon species, IDictionary<TaxonRank, String> heirarchyDictionary);
+        Taxon GetTaxonByNameAndRank(string taxonLatinName, TaxonRank rank);
         void SaveChanges();
     }
 }

@@ -10,12 +10,12 @@ namespace Foillan.Models.Tests.DummyClasses
     public class InMemoryTaxonRepository : IRepository<Taxon>
     {
         private readonly List<Taxon> _taxaInDatabase;
-        private readonly List<SpeciesDetails> _speciesDetails;
+        private readonly List<AdditionalDetails> _speciesDetails;
 
         public InMemoryTaxonRepository()
         {
             _taxaInDatabase = new List<Taxon>();
-            _speciesDetails = new List<SpeciesDetails>();
+            _speciesDetails = new List<AdditionalDetails>();
             AddDummyData();
         }
 
@@ -59,7 +59,7 @@ namespace Foillan.Models.Tests.DummyClasses
 
         private void AddDummyData()
         {
-            _taxaInDatabase.Add(new Taxon {Id = 1, Rank = TaxonRank.Life, GbifTaxonId = 0, Description = "Life"});
+            _taxaInDatabase.Add(new Taxon {Id = 1, Rank = TaxonRank.Life, Description = "Life"});
         }
 
     }

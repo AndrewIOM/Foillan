@@ -9,18 +9,13 @@ namespace Foillan.Models.Biodiversity
     //[ParentTaxonValidation(ErrorMessage = "A valid parent taxon is required.")]
     public class Taxon : IEntity<int>
     {
-        [Key, HiddenInput(DisplayValue = false)]
+        [Key]
         public int Id { get; set; }
-
-        [Required(ErrorMessage = "This taxon must be linked to a valid GBIF record"),
-        UIHint("ReadOnly")]
-        public int GbifTaxonId { get; set; }
 
         [Required, HiddenInput(DisplayValue = false)]
         public TaxonRank Rank { get; set; }
 
-        [Required, Display(Name = "Latin Name"),
-        UIHint("ReadOnly")]
+        [Required]
         public String LatinName { get; set; }
 
         [DataType(DataType.MultilineText)]
@@ -34,14 +29,13 @@ namespace Foillan.Models.Biodiversity
     {
         Null = 0,
         Life = 1,
-        Domain = 2,
-        Kingdom = 3,
-        Phylum = 4,
-        Class = 5,
-        Order = 6,
-        Family = 7,
-        Genus = 8,
-        Species = 9,
-        Subspecies = 10
+        Kingdom = 2,
+        Phylum = 3,
+        Class = 4,
+        Order = 5,
+        Family = 6,
+        Genus = 7,
+        Species = 8,
+        Subspecies = 9
     }
 }

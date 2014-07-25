@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using Foillan.Models.Biodiversity;
 using Foillan.Models.DataAccessLayer.Abstract;
 
@@ -18,24 +16,10 @@ namespace Foillan.Models.DataAccessLayer.Concrete
             _taxonRepository = taxonRepository;
         }
 
-        public virtual Taxon AddTaxon(Taxon taxon)
+        //TODO Handle case where newTaxon is not of rank Species
+        public Taxon AddTaxonWithTaxonomy(Taxon newTaxon, IDictionary<TaxonRank, string> taxonomy)
         {
-            var saved = _taxonRepository.Add(taxon);
-            return saved;
-        }
-
-        public Taxon GetTaxonById(int id)
-        {
-            return _taxonRepository.GetById(id);
-        }
-
-        public Taxon AddSpeciesWithHeirarchy(Taxon species, IDictionary<TaxonRank, String> heirarchyDictionary)
-        {
-            if (species.GbifTaxonId == 0)
-            {
-                throw new ArgumentException("The species cannot have a GBIF ID of 0.");
-            }
-
+            var life = _taxonRepository.GetById(1);
             Taxon kingdom;
             Taxon phylum;
             Taxon @class;
@@ -45,38 +29,39 @@ namespace Foillan.Models.DataAccessLayer.Concrete
 
             try
             {
-                kingdom = GbifHelper.GenerateTaxonByNameAndRank(heirarchyDictionary[TaxonRank.Kingdom], TaxonRank.Kingdom);
-                phylum = GbifHelper.GenerateTaxonByNameAndRank(heirarchyDictionary[TaxonRank.Phylum], TaxonRank.Phylum);
-                @class = GbifHelper.GenerateTaxonByNameAndRank(heirarchyDictionary[TaxonRank.Class], TaxonRank.Class);
-                order = GbifHelper.GenerateTaxonByNameAndRank(heirarchyDictionary[TaxonRank.Order], TaxonRank.Order);
-                family = GbifHelper.GenerateTaxonByNameAndRank(heirarchyDictionary[TaxonRank.Family], TaxonRank.Family);
-                genus = GbifHelper.GenerateTaxonByNameAndRank(heirarchyDictionary[TaxonRank.Genus], TaxonRank.Genus);
+                kingdom = GenerateStubTaxon(taxonomy[TaxonRank.Kingdom], TaxonRank.Kingdom);
+                phylum = GenerateStubTaxon(taxonomy[TaxonRank.Phylum], TaxonRank.Phylum);
+                @class = GenerateStubTaxon(taxonomy[TaxonRank.Class], TaxonRank.Class);
+                order = GenerateStubTaxon(taxonomy[TaxonRank.Order], TaxonRank.Order);
+                family = GenerateStubTaxon(taxonomy[TaxonRank.Family], TaxonRank.Family);
+                genus = GenerateStubTaxon(taxonomy[TaxonRank.Genus], TaxonRank.Genus);
             }
             catch (KeyNotFoundException)
             {
                 return null;
             }
 
-            kingdom.ParentTaxon = _taxonRepository.GetById(1);
-            var returnedKingdom = AddOrUpdateTaxon(kingdom);
+            //TODO Tidy up this implementation
+            kingdom.ParentTaxon = life;
+            var returnedKingdom = AddNewOrReturnExistingTaxon(kingdom);
 
             phylum.ParentTaxon = returnedKingdom;
-            var returnedPhylum = AddOrUpdateTaxon(phylum);
+            var returnedPhylum = AddNewOrReturnExistingTaxon(phylum);
 
             @class.ParentTaxon = returnedPhylum;
-            var returnedClass = AddOrUpdateTaxon(@class);
+            var returnedClass = AddNewOrReturnExistingTaxon(@class);
 
             order.ParentTaxon = returnedClass;
-            var returnedOrder = AddOrUpdateTaxon(order);
+            var returnedOrder = AddNewOrReturnExistingTaxon(order);
 
             family.ParentTaxon = returnedOrder;
-            var returnedFamily = AddOrUpdateTaxon(family);
+            var returnedFamily = AddNewOrReturnExistingTaxon(family);
 
             genus.ParentTaxon = returnedFamily;
-            var returnedGenus = AddOrUpdateTaxon(genus);
+            var returnedGenus = AddNewOrReturnExistingTaxon(genus);
 
-            species.ParentTaxon = returnedGenus;
-            var returnedSpecies = AddOrUpdateTaxon(species);
+            newTaxon.ParentTaxon = returnedGenus;
+            var returnedSpecies = AddNewOrReturnExistingTaxon(newTaxon);
 
             return returnedSpecies;
         }
@@ -87,30 +72,46 @@ namespace Foillan.Models.DataAccessLayer.Concrete
             return taxaOfRank;
         }
 
+        public virtual Taxon GetTaxonById(int id)
+        {
+            return _taxonRepository.GetById(id);
+        }
+
+        public Taxon GetTaxonByNameAndRank(string taxonLatinName, TaxonRank rank)
+        {
+            var taxon = _taxonRepository.GetAll()
+                .FirstOrDefault(t => t.LatinName.Equals(taxonLatinName) && t.Rank.Equals(rank));
+            return taxon;
+        }
+
         public virtual void SaveChanges()
         {
             _unitOfWork.Save();
         }
 
-        public SpeciesDetails UpdateSpeciesImage(Taxon taxon, HttpPostedFileBase image)
+        private Taxon AddNewOrReturnExistingTaxon(Taxon taxon)
         {
-            throw new NotImplementedException();
-        }
+            var existingTaxon = _taxonRepository.FindBy(t => t.LatinName == taxon.LatinName
+                && t.Rank == taxon.Rank
+                && t.ParentTaxon == taxon.ParentTaxon).FirstOrDefault();
 
-        public SpeciesDetails UpdateSpeciesAdditionalNames(IEnumerable<AlternativeName> newNames)
-        {
-            throw new NotImplementedException();
-        }
-
-        private Taxon AddOrUpdateTaxon(Taxon taxon)
-        {
-            var existingTaxon = _taxonRepository.FindBy(t => t.GbifTaxonId == taxon.GbifTaxonId).FirstOrDefault();
             if (existingTaxon == null)
             {
                 var result = _taxonRepository.Add(taxon);
                 return result;
             }
+
             return existingTaxon;
+        }
+
+        private static Taxon GenerateStubTaxon(string latinName, TaxonRank rank)
+        {
+            return new Taxon
+            {
+                LatinName = latinName,
+                Rank = rank,
+                Description = "Autogenerated taxon stub."
+            };
         }
     }
 }

@@ -13,7 +13,7 @@ namespace Foillan.Models.DataAccessLayer.Concrete
     public class TaxonRepository : IRepository<Taxon>
     {
         private readonly DbSet<Taxon> _taxa;
-        private readonly DbSet<SpeciesDetails> _speciesDetails;
+        private readonly DbSet<AdditionalDetails> _speciesDetails;
         private readonly IFoillanContext _dbContext;
 
         public TaxonRepository(IUnitOfWork unitOfWork)
@@ -50,7 +50,7 @@ namespace Foillan.Models.DataAccessLayer.Concrete
             var saved = _taxa.Add(entity);
             if (entity.Rank == TaxonRank.Species)
             {
-                _speciesDetails.Add(new SpeciesDetails {Id = saved.Id});
+                _speciesDetails.Add(new AdditionalDetails {Id = saved.Id});
             }
 
             try

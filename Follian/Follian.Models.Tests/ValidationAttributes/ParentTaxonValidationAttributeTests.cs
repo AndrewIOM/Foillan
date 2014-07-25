@@ -11,7 +11,7 @@ namespace Foillan.Models.Tests.ValidationAttributes
         [Test]
         public void IsValid_NullObjectParameter_Invalid()
         {
-            var sut = new ParentTaxonValidationAttribute();
+            var sut = new RequiredIfAttribute();
             var result = sut.IsValid(null);
             Assert.IsFalse(result);
         }
@@ -20,7 +20,7 @@ namespace Foillan.Models.Tests.ValidationAttributes
         public void IsValid_ModelIsNotTaxonClass_Invalid()
         {
             var model = new Spotter();
-            var sut = new ParentTaxonValidationAttribute();
+            var sut = new RequiredIfAttribute();
             var result = sut.IsValid(model);
             Assert.IsFalse(result);
         }
@@ -29,7 +29,7 @@ namespace Foillan.Models.Tests.ValidationAttributes
         public void IsValid_ModelHasNullRank_Invalid()
         {
             var model = new Taxon{Rank = TaxonRank.Null};
-            var sut = new ParentTaxonValidationAttribute();
+            var sut = new RequiredIfAttribute();
             var result = sut.IsValid(model);
             Assert.IsFalse(result);
         }
@@ -39,7 +39,7 @@ namespace Foillan.Models.Tests.ValidationAttributes
         public void IsValid_ParentRankIsNull_Valid()
         {
             var model = new Taxon { Rank = TaxonRank.Null, ParentTaxon = new Taxon{Rank = TaxonRank.Null}};
-            var sut = new ParentTaxonValidationAttribute();
+            var sut = new RequiredIfAttribute();
             var result = sut.IsValid(model);
             Assert.IsTrue(result);
         }
@@ -48,8 +48,8 @@ namespace Foillan.Models.Tests.ValidationAttributes
         [Test]
         public void IsValid_ModelIsLifeRank_NoParentTaxonAllowed()
         {
-            var model = new Taxon { Rank = TaxonRank.Life, ParentTaxon = new Taxon { Rank = TaxonRank.Domain } };
-            var sut = new ParentTaxonValidationAttribute();
+            var model = new Taxon { Rank = TaxonRank.Life, ParentTaxon = new Taxon { Rank = TaxonRank.Order } };
+            var sut = new RequiredIfAttribute();
             var result = sut.IsValid(model);
             Assert.IsFalse(result);
         }
@@ -64,7 +64,7 @@ namespace Foillan.Models.Tests.ValidationAttributes
             bool shouldPassValidation)
         {
             var model = new Taxon { Rank = rank, ParentTaxon = new Taxon { Rank = parentRank } };
-            var sut = new ParentTaxonValidationAttribute();
+            var sut = new RequiredIfAttribute();
             var result = sut.IsValid(model);
             Assert.AreEqual(shouldPassValidation, result);
         }

@@ -14,7 +14,7 @@ namespace Foillan.Models.DataAccessLayer.Concrete
         }
 
         public DbSet<Taxon> Taxa { get; set; }
-        public DbSet<SpeciesDetails> SpeciesDetails { get; set; }
+        public DbSet<AdditionalDetails> SpeciesDetails { get; set; }
         public DbSet<Sighting> Sightings { get; set; }
         public DbSet<Spotter> Spotter { get; set; }
     }

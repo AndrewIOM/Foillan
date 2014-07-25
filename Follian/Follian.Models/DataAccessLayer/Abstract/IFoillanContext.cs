@@ -7,7 +7,7 @@ namespace Foillan.Models.DataAccessLayer.Abstract
     public interface IFoillanContext
     {
         DbSet<Taxon> Taxa { get; }
-        DbSet<SpeciesDetails> SpeciesDetails { get; }
+        DbSet<AdditionalDetails> SpeciesDetails { get; }
 
         DbSet<Sighting> Sightings { get; }
         DbSet<Spotter> Spotter { get; }

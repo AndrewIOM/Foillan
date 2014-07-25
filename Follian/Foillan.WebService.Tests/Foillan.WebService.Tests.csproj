@@ -36,20 +36,40 @@
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework" />
+    <Reference Include="Moq, Version=4.2.1402.2112, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Moq.4.2.1402.2112\lib\net40\Moq.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.4.5.11\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework, Version=2.6.3.13283, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <HintPath>..\packages\NUnit.2.6.3\lib\nunit.framework.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.0\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Http, Version=5.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.0\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.Routing" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\TaxonControllerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -61,6 +81,28 @@
     <Content Include="Scripts\jasmine-html.js" />
     <Content Include="Scripts\jasmine.js" />
     <Content Include="Scripts\Tests\Nest\taxonTests.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Foillan.DataTransferObjects.Tests\Foillan.DataTransferObjects.Tests.csproj">
+      <Project>{5CAEA5FB-8CCB-49E2-AA4A-B13F78BC5C1C}</Project>
+      <Name>Foillan.DataTransferObjects.Tests</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Foillan.DataTransferObjects\Foillan.DataTransferObjects.csproj">
+      <Project>{bf6df228-02ec-4578-8bbc-7a35a69ff0b0}</Project>
+      <Name>Foillan.DataTransferObjects</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Foillan.WebService\Foillan.WebService.csproj">
+      <Project>{75fe5c28-35ed-4693-8d8b-89f0667876e3}</Project>
+      <Name>Foillan.WebService</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Follian.Models.Tests\Foillan.Models.Tests.csproj">
+      <Project>{57b70219-4857-44ac-bc1a-b1014f8d868e}</Project>
+      <Name>Foillan.Models.Tests</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Follian.Models\Foillan.Models.csproj">
+      <Project>{9F016B42-845B-41E9-8941-73C0285915A0}</Project>
+      <Name>Foillan.Models</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

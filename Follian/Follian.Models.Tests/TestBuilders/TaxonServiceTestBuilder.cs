@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Foillan.Models.Biodiversity;
 using Foillan.Models.DataAccessLayer.Concrete;
+using Foillan.Models.Tests.DummyClasses;
 using Moq;
 
 namespace Foillan.Models.Tests.TestBuilders
@@ -11,8 +12,8 @@ namespace Foillan.Models.Tests.TestBuilders
 
         public TaxonServiceTestBuilder()
         {
-            var unitOfWork = new UnitOfWork(new Mock<FoillanContext>().Object);
-            var taxonRepository = new TaxonRepository(unitOfWork);
+            var unitOfWork = new DummyUnitOfWork();
+            var taxonRepository = new InMemoryTaxonRepository();
             _service = new Mock<TaxonService>(unitOfWork, taxonRepository);
         }
 
@@ -27,6 +28,12 @@ namespace Foillan.Models.Tests.TestBuilders
 
             var speciesList = new List<Taxon> {species};
             _service.Setup(m => m.GetTaxaByRank(TaxonRank.Species)).Returns(speciesList);
+            return this;
+        }
+
+        public TaxonServiceTestBuilder ReturnsTaxonOfId(int id, Taxon taxon)
+        {
+            _service.Setup(m => m.GetTaxonById(id)).Returns(taxon);
             return this;
         }
 

@@ -45,7 +45,7 @@ namespace Foillan.Models.Tests.Biodiversity
         [Test]
         public void Taxon_IsLifeRank_CannotHaveParentTaxon()
         {
-            var parentTaxon = new Taxon {Rank = TaxonRank.Domain};
+            var parentTaxon = new Taxon {Rank = TaxonRank.Kingdom};
             var taxon = new Taxon { Rank = TaxonRank.Life, ParentTaxon = parentTaxon};
             var validationResult = ValidateModel(taxon);
             var result = ValidationContainsKey(validationResult, "ParentTaxon");
@@ -55,7 +55,7 @@ namespace Foillan.Models.Tests.Biodiversity
         [Test]
         public void Taxon_RankIsNull_ParentTaxonValidationError()
         {
-            var parentTaxon = new Taxon { Rank = TaxonRank.Domain };
+            var parentTaxon = new Taxon { Rank = TaxonRank.Kingdom };
             var taxon = new Taxon { Rank = TaxonRank.Null, ParentTaxon = parentTaxon };
             var validationResult = ValidateModel(taxon);
             var result = ValidationContainsKey(validationResult, "ParentTaxon");

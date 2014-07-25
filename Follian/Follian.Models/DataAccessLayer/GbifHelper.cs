@@ -23,7 +23,6 @@ namespace Foillan.Models.DataAccessLayer
             {
                 Rank = resultantRank,
                 LatinName = result.CanonicalName,
-                GbifTaxonId = result.UsageKey
             };
 
             return newTaxon;
@@ -57,7 +56,6 @@ namespace Foillan.Models.DataAccessLayer
             {
                 Rank = resultantRank,
                 LatinName = result.CanonicalName,
-                GbifTaxonId = result.Key
             };
 
             return newTaxon;

@@ -98,8 +98,8 @@
     <Compile Include="Account\AccountBindingModels.cs" />
     <Compile Include="Account\AccountViewModels.cs" />
     <Compile Include="Account\IdentityModels.cs" />
-    <Compile Include="Biodiversity\AlternativeName.cs" />
-    <Compile Include="Biodiversity\SpeciesDetails.cs" />
+    <Compile Include="Biodiversity\AdditionalName.cs" />
+    <Compile Include="Biodiversity\AdditionalDetails.cs" />
     <Compile Include="DataAccessLayer\Abstract\IEntity.cs" />
     <Compile Include="DataAccessLayer\Abstract\IFoillanContext.cs" />
     <Compile Include="DataAccessLayer\Abstract\IRepository.cs" />
@@ -113,26 +113,17 @@
     <Compile Include="DataAccessLayer\GbifHelper.cs" />
     <Compile Include="DataAccessLayer\GbifSpecies.cs" />
     <Compile Include="Geography\Location.cs" />
-    <Compile Include="Migrations\201407211255025_Initial.cs" />
-    <Compile Include="Migrations\201407211255025_Initial.Designer.cs">
-      <DependentUpon>201407211255025_Initial.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Occurrence\Sighting.cs" />
     <Compile Include="Occurrence\Spotter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Biodiversity\Taxon.cs" />
     <Compile Include="Utilities\CommaSeperatedFileUtility.cs" />
-    <Compile Include="ValidationAttributes\ParentTaxonValidationAttribute.cs" />
+    <Compile Include="ValidationAttributes\RequiredIfAttribute.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201407211255025_Initial.resx">
-      <DependentUpon>201407211255025_Initial.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

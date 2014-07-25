@@ -30,20 +30,11 @@ namespace Foillan.Models.Tests.DataAccessLayer
         }
 
         [Test]
-        public void GenerateTaxonByNameAndRank_MatchesGbifRecord_ReturnedTaxonHasGbifId()
-        {
-            var result = GbifHelper.GenerateTaxonByNameAndRank("Procellariiformes", TaxonRank.Order);
-            Assert.IsNotNull(result);
-            Assert.Greater(result.GbifTaxonId, 0);
-        }
-
-        [Test]
         public void GetTaxonById_MatchesGbifRecord_ReturnsPopulatedTaxon()
         {
             var result = GbifHelper.GetTaxonById(4408612);
             Assert.IsNotNull(result);
             Assert.IsNotNull(result.LatinName);
-            Assert.Greater(result.GbifTaxonId, 0);
             Assert.AreNotEqual(TaxonRank.Null, result.Rank, "The rank was returned as null");
         }
 

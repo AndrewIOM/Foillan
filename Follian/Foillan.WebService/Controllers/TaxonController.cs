@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Web;
 using System.Web.Http;
 using Foillan.DataTransferObjects;
 using Foillan.Models.Biodiversity;
@@ -21,6 +24,12 @@ namespace Foillan.WebService.Controllers
         //GET: /Api/Taxon?rank={rank}
         public IEnumerable<TaxonDTO> Get(TaxonRank rank)
         {
+            if (rank.Equals(TaxonRank.Null))
+            {
+                var response = new HttpResponseMessage(HttpStatusCode.BadRequest);
+                throw new HttpResponseException(response);
+            }
+
             var taxaOfRank = from t in _taxonService.GetTaxaByRank(rank)
                              select new TaxonDTO
                                     {
@@ -42,12 +51,54 @@ namespace Foillan.WebService.Controllers
             return taxaOfRank;
         }
 
+        //GET: /Api/Taxon?parent={id}
+        public IHttpActionResult Get(int ParentId)
+        {
+            var parent = _taxonService.GetTaxonById(ParentId);
+            if (parent == null)
+            {
+                return BadRequest("The parent taxa specified does not exist");
+            }
+
+            if (parent.ChildTaxa.Any())
+            {
+                var childTaxa = from t in parent.ChildTaxa
+                    select new TaxonDTO
+                           {
+                               Id = t.Id,
+                               Rank = t.Rank,
+                               LatinName = t.LatinName,
+                               Description = t.Description ?? String.Empty,
+                               Taxonomy = new Taxonomy
+                                          {
+                                              Kingdom = GetLatinRankForTaxon(TaxonRank.Kingdom, t),
+                                              Order = GetLatinRankForTaxon(TaxonRank.Order, t),
+                                              Phylum = GetLatinRankForTaxon(TaxonRank.Phylum, t),
+                                              Class = GetLatinRankForTaxon(TaxonRank.Class, t),
+                                              Genus = GetLatinRankForTaxon(TaxonRank.Genus, t),
+                                              Species = GetLatinRankForTaxon(TaxonRank.Species, t),
+                                              SubSpecies = GetLatinRankForTaxon(TaxonRank.Subspecies, t),
+                                          }
+                           };
+                return Ok(childTaxa);
+            }
+            else
+            {
+                return BadRequest(String.Format("A taxon with the ID {0} does not exist", ParentId));
+            }
+        }
+
         //GET: /Api/Taxon/{id}
-        public TaxonDTO GetTaxon(int id)
+        public IHttpActionResult GetTaxon(int id)
         {
             var taxon = _taxonService.GetTaxonById(id);
 
-            var dto = new TaxonDTO()
+            if (taxon == null)
+            {
+                return NotFound();
+            }
+
+            var dto = new TaxonDTO
                       {
                           Id = taxon.Id,
                           Rank = taxon.Rank,
@@ -67,37 +118,57 @@ namespace Foillan.WebService.Controllers
 
                       };
 
-            return dto;
+            return Ok(dto);
         }
 
         // POST /api/Taxon
-        public void Post(TaxonDTO newTaxonDto)
+        public IHttpActionResult Post(TaxonDTO newTaxonDto)
         {
-            _taxonService.AddSpeciesWithHeirarchy(new Taxon
-                                                  {
-                                                      Description = newTaxonDto.Description,
-                                                      LatinName = newTaxonDto.LatinName,
-                                                      Rank = TaxonRank.Species
-                                                  }, new Dictionary<TaxonRank, string> {
-                                                  {TaxonRank.Class, newTaxonDto.Taxonomy.Class},
-                                                  {TaxonRank.Family, newTaxonDto.Taxonomy.Family},
-                                                  {TaxonRank.Genus, newTaxonDto.Taxonomy.Genus},
-                                                  {TaxonRank.Kingdom, newTaxonDto.Taxonomy.Kingdom},
-                                                  {TaxonRank.Order, newTaxonDto.Taxonomy.Order},
-                                                  {TaxonRank.Phylum, newTaxonDto.Taxonomy.Phylum},
-                                                  {TaxonRank.Species, newTaxonDto.Taxonomy.Species},
-                                                  {TaxonRank.Subspecies, newTaxonDto.Taxonomy.SubSpecies},
-                                                  });
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var taxonomy = new Dictionary<TaxonRank, string>
+                           {
+                               {TaxonRank.Kingdom, newTaxonDto.Taxonomy.Kingdom},
+                               {TaxonRank.Phylum, newTaxonDto.Taxonomy.Phylum},
+                               {TaxonRank.Order, newTaxonDto.Taxonomy.Order},
+                               {TaxonRank.Class, newTaxonDto.Taxonomy.Class},
+                               {TaxonRank.Family, newTaxonDto.Taxonomy.Family},
+                               {TaxonRank.Genus, newTaxonDto.Taxonomy.Genus},
+                               {TaxonRank.Species, newTaxonDto.Taxonomy.Species},
+                               {TaxonRank.Subspecies, newTaxonDto.Taxonomy.SubSpecies}
+                           };
+
+            var newTaxon = new Taxon
+                           {
+                               Description = newTaxonDto.Description,
+                               LatinName = newTaxonDto.LatinName,
+                               Rank = newTaxonDto.Rank
+                           };
+
+            _taxonService.AddTaxonWithTaxonomy(newTaxon, taxonomy);
             _taxonService.SaveChanges();
+
+            return Ok();
         }
 
         //PUT /api/Taxon/{id}
-        public void PUT(int id, TaxonDTO updatedDto)
+        public IHttpActionResult Put(int id, TaxonDTO updatedDto)
         {
             var existingTaxon = _taxonService.GetTaxonById(updatedDto.Id);
+
+            if (existingTaxon == null)
+            {
+                return BadRequest(String.Format("A taxon with the ID {0} does not exist", id));
+            }
+
             existingTaxon.Description = updatedDto.Description;
             existingTaxon.LatinName = updatedDto.LatinName;
             _taxonService.SaveChanges();
+
+            return Ok();
         }
 
         private static string GetLatinRankForTaxon(TaxonRank rank, Taxon taxon)
