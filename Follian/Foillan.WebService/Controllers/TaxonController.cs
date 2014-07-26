@@ -124,6 +124,11 @@ namespace Foillan.WebService.Controllers
         // POST /api/Taxon
         public IHttpActionResult Post(TaxonDTO newTaxonDto)
         {
+            if (newTaxonDto == null)
+            {
+                return BadRequest("You must post a TaxonDTO");
+            }
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -157,6 +162,11 @@ namespace Foillan.WebService.Controllers
         //PUT /api/Taxon/{id}
         public IHttpActionResult Put(int id, TaxonDTO updatedDto)
         {
+            if (updatedDto == null || id == 0)
+            {
+                return BadRequest();
+            } 
+
             var existingTaxon = _taxonService.GetTaxonById(updatedDto.Id);
 
             if (existingTaxon == null)
@@ -168,7 +178,7 @@ namespace Foillan.WebService.Controllers
             existingTaxon.LatinName = updatedDto.LatinName;
             _taxonService.SaveChanges();
 
-            return Ok();
+            return Ok(updatedDto);
         }
 
         private static string GetLatinRankForTaxon(TaxonRank rank, Taxon taxon)

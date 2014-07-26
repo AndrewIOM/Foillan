@@ -14,13 +14,6 @@ namespace Foillan.WebService.Tests.Controllers
     [TestFixture]
     public class TaxonControllerTests
     {
-        private readonly Taxon _TestTaxon = new Taxon
-        {
-            Id = 6,
-            LatinName = "testTaxon",
-            Rank = TaxonRank.Phylum
-        };
-
         //GET: /Api/Taxon?rank={rank}
 
         [Test]
@@ -169,7 +162,10 @@ namespace Foillan.WebService.Tests.Controllers
         [Test]
         public void Post_ValidModel_ChangesSavedUsingServiceExactlyOnce()
         {
-            Assert.Inconclusive();
+            var service = new TaxonServiceTestBuilder().BuildMock();
+            var sut = new TaxonController(service.Object);
+            sut.Post(new TaxonDTOTestBuilder().ValidInitial().Build());
+            service.Verify(m => m.SaveChanges(), Times.Once);
         }
 
         //PUT /api/Taxon/{id}
@@ -177,56 +173,113 @@ namespace Foillan.WebService.Tests.Controllers
         [Test]
         public void Put_UnderpostedId_BadRequest()
         {
-            Assert.Inconclusive();
+            var service = new TaxonServiceTestBuilder().Build();
+            var sut = new TaxonController(service);
+            var result = sut.Put(0, _TestTaxonDTO);
+            Assert.IsInstanceOf<BadRequestResult>(result);
         }
 
         [Test]
         public void Put_UnderpostedTaxon_BadRequest()
         {
-            Assert.Inconclusive();
+            var service = new TaxonServiceTestBuilder().Build();
+            var sut = new TaxonController(service);
+            var result = sut.Put(6, null);
+            Assert.IsInstanceOf<BadRequestResult>(result);
         }
 
         [Test]
         public void Put_TaxonRetrievedFromServiceUsingId()
         {
-            Assert.Inconclusive();
+            var service = new TaxonServiceTestBuilder().ReturnsTaxonOfId(6, _TestTaxon).BuildMock();
+            var sut = new TaxonController(service.Object);
+            var result = sut.Put(6, _TestTaxonDTO);
+            service.Verify(m => m.GetTaxonById(6), Times.Once);
         }
 
         [Test]
         public void Put_NoExistingTaxon_BadRequest()
         {
+            var service = new TaxonServiceTestBuilder().Build();
+            var sut = new TaxonController(service);
+            var result = sut.Put(6, _TestTaxonDTO);
+        }
 
+        [Test]
+        public void Put_IdAndTaxonIdDoNotMatch_BadRequest()
+        {
+            var service = new TaxonServiceTestBuilder().Build();
+            var sut = new TaxonController(service);
+            var result = sut.Put(21, _TestTaxonDTO); //Taxon has ID of 6
+            Assert.IsInstanceOf<BadRequestErrorMessageResult>(result);
         }
 
         [Test]
         public void Put_NewTaxonInvalid_BadRequest()
         {
-            Assert.Inconclusive();
+            var service = new TaxonServiceTestBuilder().Build();
+            var sut = new TaxonController(service);
+            sut.ModelState.AddModelError("Test Error", "Test error description.");
+            var result = sut.Put(21, _TestTaxonDTO);
+            Assert.IsInstanceOf<BadRequestErrorMessageResult>(result);
         }
 
         [Test]
         public void Put_TaxonAlreadyExists_DescriptionUpdated()
         {
-            Assert.Inconclusive();
+            var updated = _TestTaxonDTO;
+            updated.Description = "Updated description";
+            var service = new TaxonServiceTestBuilder().ReturnsTaxonOfId(6, _TestTaxon).Build();
+            var sut = new TaxonController(service);
+            var result = sut.Put(6, updated) as OkNegotiatedContentResult<TaxonDTO>;
+            Assert.AreEqual(updated.Description, result.Content.Description);
         }
 
         [Test]
         public void Put_TaxonAlreadyExists_LatinNameUpdated()
         {
-            Assert.Inconclusive();
+            var updated = _TestTaxonDTO;
+            updated.LatinName = "Updated name";
+            var service = new TaxonServiceTestBuilder().ReturnsTaxonOfId(6, _TestTaxon).Build();
+            var sut = new TaxonController(service);
+            var result = sut.Put(6, updated) as OkNegotiatedContentResult<TaxonDTO>;
+            Assert.AreEqual(updated.LatinName, result.Content.LatinName);
         }
 
         [Test]
         public void Put_TaxonAlreadyExists_SaveChangesCalledOnce()
         {
-            Assert.Inconclusive();
+            var service = new TaxonServiceTestBuilder().ReturnsTaxonOfId(6, _TestTaxon).BuildMock();
+            var sut = new TaxonController(service.Object);
+            sut.Put(6, _TestTaxonDTO);
+            service.Verify(m => m.SaveChanges(), Times.Once);
         }
 
         [Test]
         public void Put_TaxonAlreadyExists_ReturnsOkResult()
         {
-            Assert.Inconclusive();
+            var service = new TaxonServiceTestBuilder().ReturnsTaxonOfId(6, _TestTaxon).Build();
+            var sut = new TaxonController(service);
+            var result = sut.Put(6, _TestTaxonDTO);
+            Assert.IsInstanceOf<OkNegotiatedContentResult<TaxonDTO>>(result);
         }
 
+        private readonly Taxon _TestTaxon = new Taxon
+        {
+            Id = 6,
+            LatinName = "testTaxon",
+            Rank = TaxonRank.Phylum
+        };
+
+        private readonly TaxonDTO _TestTaxonDTO = new TaxonDTO
+        {
+            Id = 6,
+            LatinName = "testTaxon",
+            Rank = TaxonRank.Phylum,
+            Taxonomy = new Taxonomy
+            {
+                Kingdom = "Test Kingdom"
+            }
+        };
     }
 }

@@ -17,7 +17,7 @@ namespace Foillan.Models.DataAccessLayer.Concrete
         }
 
         //TODO Handle case where newTaxon is not of rank Species
-        public Taxon AddTaxonWithTaxonomy(Taxon newTaxon, IDictionary<TaxonRank, string> taxonomy)
+        public virtual Taxon AddTaxonWithTaxonomy(Taxon newTaxon, IDictionary<TaxonRank, string> taxonomy)
         {
             var life = _taxonRepository.GetById(1);
             Taxon kingdom;
@@ -91,9 +91,10 @@ namespace Foillan.Models.DataAccessLayer.Concrete
 
         private Taxon AddNewOrReturnExistingTaxon(Taxon taxon)
         {
-            var existingTaxon = _taxonRepository.FindBy(t => t.LatinName == taxon.LatinName
+            var existingTaxon = _taxonRepository.GetAll().FirstOrDefault(
+                t => t.LatinName == taxon.LatinName
                 && t.Rank == taxon.Rank
-                && t.ParentTaxon == taxon.ParentTaxon).FirstOrDefault();
+                && t.ParentTaxon == taxon.ParentTaxon);
 
             if (existingTaxon == null)
             {
