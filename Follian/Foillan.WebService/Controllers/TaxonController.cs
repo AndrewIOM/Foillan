@@ -134,17 +134,17 @@ namespace Foillan.WebService.Controllers
                 return BadRequest(ModelState);
             }
 
-            var taxonomy = new Dictionary<TaxonRank, string>
-                           {
-                               {TaxonRank.Kingdom, newTaxonDto.Taxonomy.Kingdom},
-                               {TaxonRank.Phylum, newTaxonDto.Taxonomy.Phylum},
-                               {TaxonRank.Order, newTaxonDto.Taxonomy.Order},
-                               {TaxonRank.Class, newTaxonDto.Taxonomy.Class},
-                               {TaxonRank.Family, newTaxonDto.Taxonomy.Family},
-                               {TaxonRank.Genus, newTaxonDto.Taxonomy.Genus},
-                               {TaxonRank.Species, newTaxonDto.Taxonomy.Species},
-                               {TaxonRank.Subspecies, newTaxonDto.Taxonomy.SubSpecies}
-                           };
+            var taxonomy = new Taxonomy
+            {
+                Kingdom = newTaxonDto.Taxonomy.Kingdom,
+                Phylum = newTaxonDto.Taxonomy.Phylum,
+                Order = newTaxonDto.Taxonomy.Order,
+                Class = newTaxonDto.Taxonomy.Class,
+                Family = newTaxonDto.Taxonomy.Family,
+                Genus = newTaxonDto.Taxonomy.Genus,
+                Species = newTaxonDto.Taxonomy.Species,
+                SubSpecies = newTaxonDto.Taxonomy.SubSpecies
+            };
 
             var newTaxon = new Taxon
                            {
@@ -153,7 +153,7 @@ namespace Foillan.WebService.Controllers
                                Rank = newTaxonDto.Rank
                            };
 
-            _taxonService.AddTaxonWithTaxonomy(newTaxon, taxonomy);
+            _taxonService.AddTaxon(newTaxon, taxonomy);
             _taxonService.SaveChanges();
 
             return Ok();

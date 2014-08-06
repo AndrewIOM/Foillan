@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.Data.Entity.Core;
 using System.Linq;
 using Foillan.Models.Biodiversity;
 using Foillan.Models.DataAccessLayer.Abstract;
+using System;
 
 namespace Foillan.Models.DataAccessLayer.Concrete
 {
@@ -16,54 +18,51 @@ namespace Foillan.Models.DataAccessLayer.Concrete
             _taxonRepository = taxonRepository;
         }
 
-        //TODO Handle case where newTaxon is not of rank Species
-        public virtual Taxon AddTaxonWithTaxonomy(Taxon newTaxon, IDictionary<TaxonRank, string> taxonomy)
+        public virtual Taxon AddTaxon(Taxon newTaxon, Taxonomy taxonomy)
         {
+            if (newTaxon == null || newTaxon.Rank == TaxonRank.Null)
+            {
+                throw new ArgumentException("Rank invalid");
+            }
+
+            var taxonomyDictionary = new Dictionary<TaxonRank, String>
+            {
+                {TaxonRank.Kingdom, taxonomy.Kingdom},
+                {TaxonRank.Phylum, taxonomy.Phylum},
+                {TaxonRank.Class, taxonomy.Class},
+                {TaxonRank.Order, taxonomy.Order},
+                {TaxonRank.Family, taxonomy.Family},
+                {TaxonRank.Genus, taxonomy.Genus},
+                {TaxonRank.Species, taxonomy.Species},
+                {TaxonRank.Subspecies, taxonomy.SubSpecies}
+            };
+
+            if (!TaxonomyContainsAncestors(newTaxon.Rank, taxonomyDictionary))
+            {
+                throw new ArgumentException("Taxonony invalid");
+            }
+
             var life = _taxonRepository.GetById(1);
-            Taxon kingdom;
-            Taxon phylum;
-            Taxon @class;
-            Taxon order;
-            Taxon family;
-            Taxon genus;
+            return CreateRanks(life, newTaxon, taxonomyDictionary);
+        }
 
-            try
+        private Taxon CreateRanks(Taxon rootTaxon, Taxon newTaxon, IReadOnlyDictionary<TaxonRank, string> taxonomy)
+        {
+            var currentRank = TaxonRank.Kingdom;
+            var parent = rootTaxon;
+            while (true)
             {
-                kingdom = GenerateStubTaxon(taxonomy[TaxonRank.Kingdom], TaxonRank.Kingdom);
-                phylum = GenerateStubTaxon(taxonomy[TaxonRank.Phylum], TaxonRank.Phylum);
-                @class = GenerateStubTaxon(taxonomy[TaxonRank.Class], TaxonRank.Class);
-                order = GenerateStubTaxon(taxonomy[TaxonRank.Order], TaxonRank.Order);
-                family = GenerateStubTaxon(taxonomy[TaxonRank.Family], TaxonRank.Family);
-                genus = GenerateStubTaxon(taxonomy[TaxonRank.Genus], TaxonRank.Genus);
+                if (newTaxon.Rank == currentRank)
+                {
+                    newTaxon.ParentTaxon = parent;
+                    return AddNewOrReturnExistingTaxon(newTaxon);
+                }
+                var taxonForCurrentRank = GenerateStubTaxon(taxonomy[currentRank], currentRank);
+                taxonForCurrentRank.ParentTaxon = parent;
+                taxonForCurrentRank = AddNewOrReturnExistingTaxon(taxonForCurrentRank);
+                currentRank++;
+                parent = taxonForCurrentRank;
             }
-            catch (KeyNotFoundException)
-            {
-                return null;
-            }
-
-            //TODO Tidy up this implementation
-            kingdom.ParentTaxon = life;
-            var returnedKingdom = AddNewOrReturnExistingTaxon(kingdom);
-
-            phylum.ParentTaxon = returnedKingdom;
-            var returnedPhylum = AddNewOrReturnExistingTaxon(phylum);
-
-            @class.ParentTaxon = returnedPhylum;
-            var returnedClass = AddNewOrReturnExistingTaxon(@class);
-
-            order.ParentTaxon = returnedClass;
-            var returnedOrder = AddNewOrReturnExistingTaxon(order);
-
-            family.ParentTaxon = returnedOrder;
-            var returnedFamily = AddNewOrReturnExistingTaxon(family);
-
-            genus.ParentTaxon = returnedFamily;
-            var returnedGenus = AddNewOrReturnExistingTaxon(genus);
-
-            newTaxon.ParentTaxon = returnedGenus;
-            var returnedSpecies = AddNewOrReturnExistingTaxon(newTaxon);
-
-            return returnedSpecies;
         }
 
         public virtual IEnumerable<Taxon> GetTaxaByRank(TaxonRank rank)
@@ -79,8 +78,17 @@ namespace Foillan.Models.DataAccessLayer.Concrete
 
         public Taxon GetTaxonByNameAndRank(string taxonLatinName, TaxonRank rank)
         {
-            var taxon = _taxonRepository.GetAll()
-                .FirstOrDefault(t => t.LatinName.Equals(taxonLatinName) && t.Rank.Equals(rank));
+            if (rank == 0 || rank > TaxonRank.Subspecies)
+            {
+                throw new ArgumentException("Taxon Rank is invalid");
+            }
+
+            if (String.IsNullOrEmpty(taxonLatinName))
+            {
+                throw new ArgumentException("Taxon Latin Name is invalid");
+            }
+
+            var taxon = _taxonRepository.FindBy(t => t.LatinName.Equals(taxonLatinName) && t.Rank.Equals(rank)).FirstOrDefault();
             return taxon;
         }
 
@@ -96,13 +104,10 @@ namespace Foillan.Models.DataAccessLayer.Concrete
                 && t.Rank == taxon.Rank
                 && t.ParentTaxon == taxon.ParentTaxon);
 
-            if (existingTaxon == null)
-            {
-                var result = _taxonRepository.Add(taxon);
-                return result;
-            }
-
-            return existingTaxon;
+            if (existingTaxon != null) return existingTaxon;
+            var result = _taxonRepository.Add(taxon);
+            if (result == null) throw new Exception("Repository returned a null taxon");
+            return result;
         }
 
         private static Taxon GenerateStubTaxon(string latinName, TaxonRank rank)
@@ -113,6 +118,20 @@ namespace Foillan.Models.DataAccessLayer.Concrete
                 Rank = rank,
                 Description = "Autogenerated taxon stub."
             };
+        }
+
+        private static bool TaxonomyContainsAncestors(TaxonRank rank, Dictionary<TaxonRank, String> heirarchy)
+        {
+            var level = TaxonRank.Kingdom;
+            while (level < rank)
+            {
+                if (String.IsNullOrEmpty(heirarchy[level]))
+                {
+                    return false;
+                }
+                level++;
+            }
+            return true;
         }
     }
 }

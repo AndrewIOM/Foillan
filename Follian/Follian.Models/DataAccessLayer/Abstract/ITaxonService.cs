@@ -6,7 +6,7 @@ namespace Foillan.Models.DataAccessLayer.Abstract
 {
     public interface ITaxonService
     {
-        Taxon AddTaxonWithTaxonomy(Taxon newTaxon, IDictionary<TaxonRank, string> taxonomy);
+        Taxon AddTaxon(Taxon newTaxon, Taxonomy taxonomy);
         IEnumerable<Taxon> GetTaxaByRank(TaxonRank rank);
         Taxon GetTaxonById(int id);
         Taxon GetTaxonByNameAndRank(string taxonLatinName, TaxonRank rank);

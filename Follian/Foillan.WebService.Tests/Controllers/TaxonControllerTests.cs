@@ -140,8 +140,8 @@ namespace Foillan.WebService.Tests.Controllers
             var service = new TaxonServiceTestBuilder().BuildMock();
             var sut = new TaxonController(service.Object);
             sut.Post(new TaxonDTOTestBuilder().ValidInitial().Build());
-            service.Verify(m => m.AddTaxonWithTaxonomy(It.IsAny<Taxon>(),
-                It.IsAny<IDictionary<TaxonRank, string>>()), Times.Once);
+            service.Verify(m => m.AddTaxon(It.IsAny<Taxon>(),
+                It.IsAny<Taxonomy>()), Times.Once);
         }
 
         [Test]
@@ -151,7 +151,7 @@ namespace Foillan.WebService.Tests.Controllers
             var sut = new TaxonController(service.Object);
 
             Taxon result = null;
-            service.Setup(h => h.AddTaxonWithTaxonomy(It.IsAny<Taxon>(), It.IsAny<IDictionary<TaxonRank, string>>()))
+            service.Setup(h => h.AddTaxon(It.IsAny<Taxon>(), It.IsAny<Taxonomy>()))
                 .Callback<Taxon>(r => result = r);
 
             sut.Post(new TaxonDTOTestBuilder().ValidInitial().Build());

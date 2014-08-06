@@ -9,8 +9,9 @@ namespace Foillan.Models.Tests.DummyClasses
 {
     public class InMemoryTaxonRepository : IRepository<Taxon>
     {
-        private readonly List<Taxon> _taxaInDatabase;
-        private readonly List<AdditionalDetails> _speciesDetails;
+        private List<Taxon> _taxaInDatabase;
+        private List<AdditionalDetails> _speciesDetails;
+        private int _id;
 
         public InMemoryTaxonRepository()
         {
@@ -35,22 +36,22 @@ namespace Foillan.Models.Tests.DummyClasses
             _taxaInDatabase.Add(entity);
         }
 
-        public void Delete(Taxon entity)
+        public virtual void Delete(Taxon entity)
         {
             _taxaInDatabase.Remove(entity);
         }
 
-        public Taxon GetById(int id)
+        public virtual Taxon GetById(int id)
         {
             return _taxaInDatabase.Find(t => t.Id.Equals(id));
         }
 
-        public IEnumerable<Taxon> GetAll()
+        public virtual IEnumerable<Taxon> GetAll()
         {
             return _taxaInDatabase;
         }
 
-        public IQueryable<Taxon> FindBy(Expression<Func<Taxon, bool>> predicate)
+        public virtual IQueryable<Taxon> FindBy(Expression<Func<Taxon, bool>> predicate)
         {
             //Returns all regardless of expression
             var result = _taxaInDatabase.Where(m => m.Id > 0) as IQueryable<Taxon>;
