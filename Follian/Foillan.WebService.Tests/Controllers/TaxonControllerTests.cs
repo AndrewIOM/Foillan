@@ -90,7 +90,7 @@ namespace Foillan.WebService.Tests.Controllers
             var service = new TaxonServiceTestBuilder().Build();
             var sut = new TaxonController(service);
             var result = sut.GetTaxon(0);
-            Assert.IsInstanceOf<BadRequestErrorMessageResult>(result);
+            Assert.IsInstanceOf<BadRequestResult>(result);
         }
 
         [Test]
@@ -150,13 +150,13 @@ namespace Foillan.WebService.Tests.Controllers
             var service = new TaxonServiceTestBuilder().BuildMock();
             var sut = new TaxonController(service.Object);
 
-            Taxon result = null;
-            service.Setup(h => h.AddTaxon(It.IsAny<Taxon>(), It.IsAny<Taxonomy>()))
-                .Callback<Taxon>(r => result = r);
-
-            sut.Post(new TaxonDTOTestBuilder().ValidInitial().Build());
-
-
+            var result = sut.Post(new TaxonDTOTestBuilder().ValidInitial().Build());
+            service.Verify(m => m.AddTaxon(It.Is<Taxon>(t => t.LatinName == "Testfish"
+                && t.Id == 4
+                && t.Description == "test dto"
+                && t.Rank == TaxonRank.Species),
+                It.Is<Taxonomy>(l => l.Class == "testclass" && l.Family=="testfamily" && l.Genus=="testgenus"
+                && l.Kingdom=="testkingdom" && l.Order == "testorder" && l.Phylum == "testphylum")));
         }
 
         [Test]

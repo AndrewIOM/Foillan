@@ -91,6 +91,11 @@ namespace Foillan.WebService.Controllers
         //GET: /Api/Taxon/{id}
         public IHttpActionResult GetTaxon(int id)
         {
+            if (id == 0)
+            {
+                return BadRequest();
+            }
+
             var taxon = _taxonService.GetTaxonById(id);
 
             if (taxon == null)
@@ -150,7 +155,8 @@ namespace Foillan.WebService.Controllers
                            {
                                Description = newTaxonDto.Description,
                                LatinName = newTaxonDto.LatinName,
-                               Rank = newTaxonDto.Rank
+                               Rank = newTaxonDto.Rank,
+                               Id = newTaxonDto.Id
                            };
 
             _taxonService.AddTaxon(newTaxon, taxonomy);

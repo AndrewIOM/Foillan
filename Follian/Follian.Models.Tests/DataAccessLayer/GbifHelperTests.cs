@@ -1,6 +1,7 @@
 ﻿using Foillan.Models.Biodiversity;
 using Foillan.Models.DataAccessLayer;
 using NUnit.Framework;
+using System;
 
 namespace Foillan.Models.Tests.DataAccessLayer
 {
@@ -10,8 +11,7 @@ namespace Foillan.Models.Tests.DataAccessLayer
         [Test]
         public void GenerateTaxonByNameAndRank_NoMatchInGbif_ReturnsNull()
         {
-            var result = GbifHelper.GenerateTaxonByNameAndRank("Fake Species", TaxonRank.Species);
-            Assert.IsNull(result);
+            Assert.Throws<Exception>(() => GbifHelper.GenerateTaxonByNameAndRank("Fake Species", TaxonRank.Species));
         }
 
         [Test]
