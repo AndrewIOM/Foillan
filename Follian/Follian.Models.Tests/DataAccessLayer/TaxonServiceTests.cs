@@ -18,7 +18,7 @@ namespace Foillan.Models.Tests.DataAccessLayer
         public void Setup()
         {
             _unitOfWork = new DummyUnitOfWork();
-            _repository = new Mock<InMemoryTaxonRepository> {CallBase = true};
+            _repository = new Mock<InMemoryTaxonRepository> { CallBase = true };
         }
 
         [Test]
@@ -67,7 +67,7 @@ namespace Foillan.Models.Tests.DataAccessLayer
         //TODO Expand to cover all ranks
         public void AddTaxon_TaxonomyDoesNotContainAllAncestors_ThrowsArgumentException()
         {
-            var taxon = new Taxon {Rank = TaxonRank.Genus};
+            var taxon = new Taxon { Rank = TaxonRank.Genus };
             var taxonomy = new Taxonomy
             {
                 Kingdom = "TestKingdom",
@@ -116,7 +116,7 @@ namespace Foillan.Models.Tests.DataAccessLayer
             var sut = new TaxonService(_unitOfWork, _repository.Object);
             sut.AddTaxon(taxon, taxonomy);
 
-            _repository.Verify(m => m.Add(It.Is<Taxon>(t => t.ParentTaxon.Rank == TaxonRank.Kingdom 
+            _repository.Verify(m => m.Add(It.Is<Taxon>(t => t.ParentTaxon.Rank == TaxonRank.Kingdom
                 && t.ParentTaxon.LatinName == "Animalia")), Times.Once);
         }
 
@@ -641,21 +641,21 @@ namespace Foillan.Models.Tests.DataAccessLayer
         }
 
         [Test]
-        //TODO This method should probably return an IEnumerable, or also take account of the parent node
         public void GetTaxonByNameAndRank_RepositoryContainsMultipleMatches_ThrowsNotImplementedException()
         {
             var first = new Taxon
-            {
-                Id = 77,
-                LatinName = "Test",
-                Rank = TaxonRank.Genus
-            };
+                        {
+                            Id = 77,
+                            LatinName = "Test",
+                            Rank = TaxonRank.Genus
+                        };
             var second = new Taxon
-            {
-                Id = 654,
-                LatinName = "Test",
-                Rank = TaxonRank.Genus
-            };
+                         {
+                             Id = 654,
+                             LatinName = "Test",
+                             Rank = TaxonRank.Genus
+                         };
+
             _repository.Object.Add(first);
             _repository.Object.Add(second);
             var sut = new TaxonService(_unitOfWork, _repository.Object);

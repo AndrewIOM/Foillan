@@ -88,8 +88,18 @@ namespace Foillan.Models.DataAccessLayer.Concrete
                 throw new ArgumentException("Taxon Latin Name is invalid");
             }
 
-            var taxon = _taxonRepository.FindBy(t => t.LatinName.Equals(taxonLatinName) && t.Rank.Equals(rank)).FirstOrDefault();
-            return taxon;
+            var taxon = _taxonRepository.GetAll().Where(t => t.LatinName == taxonLatinName && t.Rank.Equals(rank)).ToList();
+            if (!taxon.Any())
+            {
+                return null;
+            }
+
+            if (taxon.Count() > 1)
+            {
+                throw new NotImplementedException("Multiple matches not handled yet");
+            }
+
+            return taxon.FirstOrDefault();
         }
 
         public virtual void SaveChanges()

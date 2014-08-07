@@ -54,8 +54,8 @@ namespace Foillan.Models.Tests.DummyClasses
         public virtual IQueryable<Taxon> FindBy(Expression<Func<Taxon, bool>> predicate)
         {
             //Returns all regardless of expression
-            var result = _taxaInDatabase.Where(m => m.Id > 0) as IQueryable<Taxon>;
-            return result;
+            var result = _taxaInDatabase.Where(m => m.Id > 0);
+            return result.AsQueryable();
         }
 
         private void AddDummyData()

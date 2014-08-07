@@ -1,18 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Web.Mvc;
 using Foillan.Models.DataAccessLayer.Abstract;
 
 namespace Foillan.Models.Biodiversity
 {
-    //[ParentTaxonValidation(ErrorMessage = "A valid parent taxon is required.")]
     public class Taxon : IEntity<int>
     {
         [Key]
         public int Id { get; set; }
 
-        [Required, HiddenInput(DisplayValue = false)]
+        [Required]
         public TaxonRank Rank { get; set; }
 
         [Required]
