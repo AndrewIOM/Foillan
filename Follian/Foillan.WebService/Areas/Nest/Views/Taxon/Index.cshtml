@@ -1,39 +1,85 @@
 ﻿@{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 @section scripts {
     @Scripts.Render("~/bundles/nest/taxon")
     @Scripts.Render("~/bundles/jquery")
 }
-
-<h1>Taxon Service</h1>
-
-<h2>Species</h2>
-
-<div data-bind="visible: error">
-    <p data-bind="text: error"></p>
+<div class="row">
+    <div class="column small-12">
+        <h1>Taxonomy</h1>
+        <div data-bind="visible: error">
+            <p data-bind="text: error"></p>
+        </div>
+    </div>
 </div>
+<div class="row">
+    <div class="column medium-4">
+        <h2>Taxonomic Tree</h2>
+        <ul data-bind="foreach: taxa">
+            <li>
+                <strong><span data-bind="text: Id"></span></strong>: <span data-bind="text: LatinName"></span>
+                <small><a href="#" data-bind="click: $parent.getSpeciesDetail">Details</a></small>
+            </li>
+        </ul>
+    </div>
+    <!-- ko if:detail() -->
+    <div class="column medium-4">
+        <h2>Details</h2>
+        <table>
+            <tr><td>ID</td><td data-bind="text: detail().Id"></td></tr>
+            <tr><td>Latin Name</td><td data-bind="text: detail().LatinName"></td></tr>
+            <tr><td>Description</td><td data-bind="text: detail().Description"></td></tr>
+            <tr><td>Rank</td><td data-bind="text: detail().Rank"></td></tr>
+            <tr>
+                <td>Taxonomy</td>
+                <td>
+                    <ul>
+                        <li data-bind="text: detail().Taxonomy.Genus"></li>
+                        <li data-bind="text: detail().Taxonomy.Species"></li>
+                    </ul>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <!-- /ko -->
+    <div class="column medium-4">
+        <h2>Add Taxon</h2>
+        <form data-bind="submit: addTaxon">
+            <div id="taxonDetails" data-bind="with: newTaxon">
+                <label for="inputLatinName">Latin Name</label>
+                <input id="inputLatinName=" data-bind="value:LatinName" />
 
-<ul data-bind="foreach: taxa">
-    <li>
-        <strong><span data-bind="text: Id"></span></strong>: <span data-bind="text: LatinName"></span>
-        <small><a href="#" data-bind="click: $parent.getSpeciesDetail">Details</a></small>
-    </li>
-</ul>
+                <label for="inputDescription">Description</label>
+                <input id="inputDescription" data-bind="value:Description" />
+                <label for="inputRank">Rank</label>
+                <input id="inputRank" data-bind="value:Rank" />
+            </div>
+            <div id="taxonomyDetails" data-bind="with: newTaxonTaxonomy">
+                <h3>Taxonomy</h3>
+                <label for="inputKingdom">Kingdom</label>
+                <input id="inputKingdom" data-bind="value:Kingdom" />
 
-<table>
-    <tr><td>ID</td><td data-bind="text: detail().Id"></td></tr>
-    <tr><td>Latin Name</td><td data-bind="text: detail().LatinName"></td></tr>
-    <tr><td>Description</td><td data-bind="text: detail().Description"></td></tr>
-    <tr><td>Rank</td><td data-bind="text: detail().Rank"></td></tr>
-    <tr>
-        <td>Taxonomy</td>
-        <td>
-            <ul>
-                <li data-bind="text: detail().Taxonomy.Genus"></li>
-                <li data-bind="text: detail().Taxonomy.Species"></li>
-            </ul>
-        </td>
-    </tr>
-</table>
+                <label for="inputPhylum">Phylum</label>
+                <input id="inputPhylum" data-bind="value:Phylum" />
+
+                <label for="inputClass">Class</label>
+                <input id="inputClass" data-bind="value:Class" />
+
+                <label for="inputOrder">Order</label>
+                <input id="inputOrder" data-bind="value:Order" />
+
+                <label for="inputFamily">Family</label>
+                <input id="inputFamily" data-bind="value:Family" />
+
+                <label for="inputGenus">Genus</label>
+                <input id="inputGenus" data-bind="value:Genus" />
+
+                <label for="inputSpecies">Species</label>
+                <input id="inputSpecies" data-bind="value:Species" />
+            </div>
+
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+</div>

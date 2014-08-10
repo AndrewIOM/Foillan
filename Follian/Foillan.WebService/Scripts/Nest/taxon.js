@@ -1,8 +1,24 @@
-﻿var TaxonVIewModel = function () {
+﻿var TaxonViewModel = function () {
     var self = this;
     self.taxa = ko.observableArray();
     self.error = ko.observable();
     self.detail = ko.observable();
+
+    self.newTaxon = {
+        LatinName: ko.observable(),
+        Rank: ko.observable(),
+        Description: ko.observable()
+    };
+
+    self.newTaxonTaxonomy = {
+        Kingdom: ko.observable(),
+        Phylum: ko.observable(),
+        Class: ko.observable(),
+        Order: ko.observable(),
+        Family: ko.observable(),
+        Genus: ko.observable(),
+        Species: ko.observable()
+    };
 
     var speciesuri = '/api/taxon/';
 
@@ -29,10 +45,33 @@
         ajaxHelper(speciesuri + item.Id, 'GET').done(function (data) {
             self.detail(data);
         });
-    }
+    };
+
+    self.addTaxon = function (formElement) {
+        var taxon = {
+            LatinName: self.newTaxon.LatinName(),
+            Description: self.newTaxon.Description(),
+            Rank: self.newTaxon.Rank(),
+            Taxonomy: {
+                Kingdom: self.newTaxonTaxonomy.Kingdom(),
+                Phylum: self.newTaxonTaxonomy.Phylum(),
+                Class: self.newTaxonTaxonomy.Class(),
+                Order: self.newTaxonTaxonomy.Order(),
+                Family: self.newTaxonTaxonomy.Family(),
+                Genus: self.newTaxonTaxonomy.Genus(),
+                Species: self.newTaxonTaxonomy.Species()
+            }
+        };
+
+        ajaxHelper(speciesuri, 'POST', taxon).done(function (item) {
+            self.taxa.push(item);
+        });
+    };
 
     // Fetch the initial data.
     getAllSpecies();
 };
 
-ko.applyBindings(new TaxonVIewModel());
+$(document).ready(function () {
+    ko.applyBindings(new TaxonViewModel());
+});

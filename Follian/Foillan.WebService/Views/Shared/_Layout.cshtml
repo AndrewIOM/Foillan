@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/Common")
-    @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
     @* Navigation: Top Bar *@
@@ -34,7 +33,6 @@
         <p>&copy; @DateTime.Now.Year - Foillan</p>
     </footer>
     @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
 </body>
 </html>

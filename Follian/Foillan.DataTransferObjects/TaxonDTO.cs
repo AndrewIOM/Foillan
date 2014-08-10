@@ -5,7 +5,6 @@ namespace Foillan.DataTransferObjects
 {
     public class TaxonDTO
     {
-        [Required]
         public int Id { get; set; }
 
         [Required]
@@ -16,7 +15,6 @@ namespace Foillan.DataTransferObjects
 
         public string Description { get; set; }
 
-        [Required]
         public Taxonomy Taxonomy { get; set; }
     }
 }
