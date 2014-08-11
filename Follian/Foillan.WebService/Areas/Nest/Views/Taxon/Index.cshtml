@@ -8,7 +8,7 @@
 <div class="row">
     <div class="column small-12">
         <h1>Taxonomy</h1>
-        <div data-bind="visible: error">
+        <div data-alert class="alert alert-box error radius" data-bind="visible: error">
             <p data-bind="text: error"></p>
         </div>
     </div>
@@ -35,6 +35,11 @@
                 <td>Taxonomy</td>
                 <td>
                     <ul>
+                        <li data-bind="text: detail().Taxonomy.Kingdom"></li>
+                        <li data-bind="text: detail().Taxonomy.Phylum"></li>
+                        <li data-bind="text: detail().Taxonomy.Class"></li>
+                        <li data-bind="text: detail().Taxonomy.Order"></li>
+                        <li data-bind="text: detail().Taxonomy.Family"></li>
                         <li data-bind="text: detail().Taxonomy.Genus"></li>
                         <li data-bind="text: detail().Taxonomy.Species"></li>
                     </ul>

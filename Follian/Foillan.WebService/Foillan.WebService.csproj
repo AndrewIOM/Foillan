@@ -328,30 +328,29 @@
     <Content Include="Content\Stylesheets\Common.css.map">
       <DependentUpon>Common.css</DependentUpon>
     </Content>
-    <None Include="Scripts\jquery-2.1.1.intellisense.js" />
-    <Content Include="Scripts\foundation\fastclick.js" />
-    <Content Include="Scripts\foundation\foundation.abide.js" />
-    <Content Include="Scripts\foundation\foundation.accordion.js" />
-    <Content Include="Scripts\foundation\foundation.alert.js" />
-    <Content Include="Scripts\foundation\foundation.clearing.js" />
-    <Content Include="Scripts\foundation\foundation.dropdown.js" />
-    <Content Include="Scripts\foundation\foundation.equalizer.js" />
-    <Content Include="Scripts\foundation\foundation.interchange.js" />
-    <Content Include="Scripts\foundation\foundation.joyride.js" />
-    <Content Include="Scripts\foundation\foundation.js" />
-    <Content Include="Scripts\foundation\foundation.magellan.js" />
-    <Content Include="Scripts\foundation\foundation.offcanvas.js" />
-    <Content Include="Scripts\foundation\foundation.orbit.js" />
-    <Content Include="Scripts\foundation\foundation.reveal.js" />
-    <Content Include="Scripts\foundation\foundation.slider.js" />
-    <Content Include="Scripts\foundation\foundation.tab.js" />
-    <Content Include="Scripts\foundation\foundation.tooltip.js" />
-    <Content Include="Scripts\foundation\foundation.topbar.js" />
-    <Content Include="Scripts\foundation\jquery.cookie.js" />
-    <Content Include="Scripts\jquery-2.1.1.js" />
-    <Content Include="Scripts\jquery-2.1.1.min.js" />
-    <Content Include="Scripts\knockout-3.1.0.debug.js" />
-    <Content Include="Scripts\knockout-3.1.0.js" />
+    <None Include="Scripts\External\jQuery\jquery-2.1.1.intellisense.js" />
+    <Content Include="Scripts\External\Foundation\fastclick.js" />
+    <Content Include="Scripts\External\Foundation\foundation.abide.js" />
+    <Content Include="Scripts\External\Foundation\foundation.accordion.js" />
+    <Content Include="Scripts\External\Foundation\foundation.alert.js" />
+    <Content Include="Scripts\External\Foundation\foundation.clearing.js" />
+    <Content Include="Scripts\External\Foundation\foundation.dropdown.js" />
+    <Content Include="Scripts\External\Foundation\foundation.equalizer.js" />
+    <Content Include="Scripts\External\Foundation\foundation.interchange.js" />
+    <Content Include="Scripts\External\Foundation\foundation.joyride.js" />
+    <Content Include="Scripts\External\Foundation\foundation.js" />
+    <Content Include="Scripts\External\Foundation\foundation.magellan.js" />
+    <Content Include="Scripts\External\Foundation\foundation.offcanvas.js" />
+    <Content Include="Scripts\External\Foundation\foundation.orbit.js" />
+    <Content Include="Scripts\External\Foundation\foundation.reveal.js" />
+    <Content Include="Scripts\External\Foundation\foundation.slider.js" />
+    <Content Include="Scripts\External\Foundation\foundation.tab.js" />
+    <Content Include="Scripts\External\Foundation\foundation.tooltip.js" />
+    <Content Include="Scripts\External\Foundation\foundation.topbar.js" />
+    <Content Include="Scripts\External\Foundation\jquery.cookie.js" />
+    <Content Include="Scripts\External\jQuery\jquery-2.1.1.min.js" />
+    <Content Include="Scripts\External\jQuery\Plugins\TreeView.js" />
+    <Content Include="Scripts\External\knockout-3.1.0.js" />
     <Content Include="Scripts\Nest\taxon.js" />
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
@@ -367,7 +366,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Scripts\jquery-2.1.1.min.map" />
+    <Content Include="Scripts\External\jQuery\jquery-2.1.1.min.map" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

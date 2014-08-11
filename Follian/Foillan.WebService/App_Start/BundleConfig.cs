@@ -8,11 +8,11 @@ namespace Foillan.WebService
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/nest/taxon").Include(
-                      "~/Scripts/knockout-3.1.0.js",
+                      "~/Scripts/External/knockout-3.1.0.js",
                       "~/Scripts/Nest/taxon.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                      "~/Scripts/jquery-2.1.1.min.js"));
+                      "~/Scripts/External/jQuery/jquery-2.1.1.min.js"));
 
             bundles.Add(new StyleBundle("~/Content/Common").Include(
                 "~/Content/Stylesheets/Common.min.css"));
