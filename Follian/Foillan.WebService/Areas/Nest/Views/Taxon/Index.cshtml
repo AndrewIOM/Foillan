@@ -14,7 +14,7 @@
     </div>
 </div>
 <div class="row">
-    <div class="column medium-4">
+    <div class="column medium-6">
         <h2>Taxonomic Tree</h2>
         <ul data-bind="foreach: taxa">
             <li>
@@ -24,7 +24,7 @@
         </ul>
     </div>
     <!-- ko if:detail() -->
-    <div class="column medium-4">
+    <div class="column medium-6">
         <h2>Details</h2>
         <table>
             <tr><td>ID</td><td data-bind="text: detail().Id"></td></tr>
@@ -43,7 +43,38 @@
         </table>
     </div>
     <!-- /ko -->
-    <div class="column medium-4">
+</div>
+<div class="row">
+    <div class="column medium-6">
+        <h2>Search</h2>
+        <form data-bind="submit: gbifSearch">
+            <div id="searchCriteria" data-bind="with: gbifSearchCriteria">
+                <label for="inputSearchTerm">Search Term</label>
+                <input id="inputSearchTerm" data-bind="value:SearchTerm" />
+
+                <label for="inputSearchRank">Search Rank</label>
+                <input id="inputSearchRank" data-bind="value:SearchRank" />
+            </div>
+
+            <button type="submit">Search</button>
+        </form>
+
+        <!-- ko if:searchResults() -->
+        <div id="searchResults" data-bind="foreach: searchResults">
+            <div class="panel">
+                <h4><strong><span data-bind="text: taxonID"></span></strong>: <span data-bind="text: scientificName"></span></h4>
+                <p><span data-bind="text: rank"></span></p>
+                <span>Common Names: </span>
+                <ul data-bind="foreach:vernacularNames">
+                    <li><span data-bind="text:vernacularName"></span>(<span data-bind="text:language"></span>)</li>
+                </ul>
+                <small><a href="#" data-bind="click: $parent.useGbifSpecies">Use this Taxon</a></small>
+            </div>
+        </div>
+        <!-- /ko -->
+
+    </div>
+    <div class="column medium-6">
         <h2>Add Taxon</h2>
         <form data-bind="submit: addTaxon">
             <div id="taxonDetails" data-bind="with: newTaxon">

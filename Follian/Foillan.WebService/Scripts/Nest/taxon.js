@@ -1,5 +1,8 @@
 ﻿var TaxonViewModel = function () {
     var self = this;
+
+    //Taxonomy
+    var speciesUri = '/api/taxon/';
     self.taxa = ko.observableArray();
     self.error = ko.observable();
     self.detail = ko.observable();
@@ -20,34 +23,42 @@
         Species: ko.observable()
     };
 
-    var speciesuri = '/api/taxon/';
+    //GBIF Search
+    var gbifUri = "http://api.gbif.org/v1/species/";
+    self.searchResults = ko.observableArray();
 
-    function ajaxHelper(uri, method, data) {
-        self.error(''); // Clear error message
+    self.gbifSearchCriteria = {
+        SearchTerm: ko.observable(),
+        SearchRank: ko.observable()
+    };
+
+    //Functions
+    function ajaxHelper(uri, method, dataType, data) {
+        self.error('');
         return $.ajax({
             type: method,
             url: uri,
-            dataType: 'json',
+            dataType: dataType,
             contentType: 'application/json',
             data: data ? JSON.stringify(data) : null
-        }).fail(function (jqXHR, textStatus, errorThrown) {
+        }).fail(function (jqXhr, textStatus, errorThrown) {
             self.error(errorThrown);
         });
     }
 
     function getAllSpecies() {
-        ajaxHelper(speciesuri + '?rank=species', 'GET').done(function (data) {
+        ajaxHelper(speciesUri + '?rank=species', 'GET', 'json').done(function (data) {
             self.taxa(data);
         });
     }
 
     self.getSpeciesDetail = function (item) {
-        ajaxHelper(speciesuri + item.Id, 'GET').done(function (data) {
+        ajaxHelper(speciesUri + item.Id, 'GET', 'json').done(function (data) {
             self.detail(data);
         });
     };
 
-    self.addTaxon = function (formElement) {
+    self.addTaxon = function () {
         var taxon = {
             LatinName: self.newTaxon.LatinName(),
             Description: self.newTaxon.Description(),
@@ -63,9 +74,28 @@
             }
         };
 
-        ajaxHelper(speciesuri, 'POST', taxon).done(function (item) {
+        ajaxHelper(speciesUri, 'POST','json', taxon).done(function (item) {
             self.taxa.push(item);
         });
+    };
+
+    self.gbifSearch = function () {
+        var searchString = 'search?q=' + self.gbifSearchCriteria.SearchTerm() + '&rank=' + self.gbifSearchCriteria.SearchRank();
+        ajaxHelper(gbifUri + searchString, 'GET', 'jsonp').done(function (data) {
+            self.searchResults(data.results);
+        });
+    }
+
+    self.useGbifSpecies = function(item) {
+        self.newTaxon.LatinName(item.canonicalName);
+        self.newTaxon.Rank(item.rank);
+        self.newTaxonTaxonomy.Kingdom(item.kingdom);
+        self.newTaxonTaxonomy.Phylum(item.phylum);
+        self.newTaxonTaxonomy.Order(item.order);
+        self.newTaxonTaxonomy.Class(item.class);
+        self.newTaxonTaxonomy.Family(item.family);
+        self.newTaxonTaxonomy.Genus(item.genus);
+        self.newTaxonTaxonomy.Species(item.species);
     };
 
     // Fetch the initial data.
