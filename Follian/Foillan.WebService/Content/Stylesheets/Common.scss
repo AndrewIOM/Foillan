@@ -1,2 +1,77 @@
-@import '../../sass/foundation';
-@import '../../sass/normalize';
+@import 'grid';
+@import 'base';
+@import 'forms';
+
+.taxonomy-sidebar {
+    @include column(4);
+    border-top: 1px solid #F5F5F5;
+    border-bottom: 1px solid #F5F5F5;
+}
+
+.detail-pane {
+    @include column(8);
+    border-top: 1px solid #F5F5F5;
+    border-bottom: 1px solid #F5F5F5;
+}
+
+.add-taxon-form {
+    @include column(12);
+}
+
+.detail-row {
+    @include row(12);
+
+    .detail-label {
+        @include column(4);
+    }
+
+    .detail-value {
+        @include column(8);
+    }
+}
+
+.taxon-list {
+    ul {
+        padding-left: 0;
+        margin-top: 0;
+
+        li {
+            list-style: none;
+        }
+    }
+}
+
+.search-form {
+    background-color: #F5F5F5;
+    border: thin solid #CCC;
+    padding: 1em 1.5em;
+}
+
+.taxonomy-summary {
+    li {
+        list-style: none;
+        display: inline;
+    }
+
+    li:not(:first-child)::before {
+        content: " > ";
+    }
+}
+
+.vernacular-names {
+    li {
+        display: inline;
+        font-size: 0.8em;
+    }
+
+    li:not(:last-child)::after {
+        content: ", ";
+    }
+}
+
+.sidebar-header {
+    text-transform: uppercase;
+    color: grey;
+    font-size: 1em;
+    margin-bottom: 0;
+}

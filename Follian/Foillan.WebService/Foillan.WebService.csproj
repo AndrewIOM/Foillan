@@ -234,7 +234,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
-    <Compile Include="Areas\Nest\Controllers\TaxonController.cs" />
+    <Compile Include="Areas\Nest\Controllers\TaxonomyController.cs" />
     <Compile Include="Areas\Nest\NestAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\Mvc\HomeController.cs" />
@@ -250,62 +250,13 @@
   <ItemGroup>
     <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="Content\Stylesheets\Common.css">
-      <DependentUpon>Common.scss</DependentUpon>
+      <DependentUpon>common.scss</DependentUpon>
     </Content>
     <Content Include="Content\Stylesheets\Common.min.css">
       <DependentUpon>Common.css</DependentUpon>
     </Content>
     <Content Include="packages.config" />
-    <Content Include="sass\foundation\test.html" />
-    <Content Include="Content\Stylesheets\Common.scss" />
-    <Content Include="sass\foundation\components\_xy-center.scss" />
-    <Content Include="sass\foundation\components\_visibility.scss" />
-    <Content Include="sass\foundation\components\_type.scss" />
-    <Content Include="sass\foundation\components\_top-bar.scss" />
-    <Content Include="sass\foundation\components\_tooltips.scss" />
-    <Content Include="sass\foundation\components\_toolbar.scss" />
-    <Content Include="sass\foundation\components\_thumbs.scss" />
-    <Content Include="sass\foundation\components\_tabs.scss" />
-    <Content Include="sass\foundation\components\_tables.scss" />
-    <Content Include="sass\foundation\components\_switches.scss" />
-    <Content Include="sass\foundation\components\_switch.scss" />
-    <Content Include="sass\foundation\components\_sub-nav.scss" />
-    <Content Include="sass\foundation\components\_split-buttons.scss" />
-    <Content Include="sass\foundation\components\_side-nav.scss" />
-    <Content Include="sass\foundation\components\_reveal-new.scss" />
-    <Content Include="sass\foundation\components\_reveal.scss" />
-    <Content Include="sass\foundation\components\_range-slider.scss" />
-    <Content Include="sass\foundation\components\_progress-bars.scss" />
-    <Content Include="sass\foundation\components\_pricing-tables.scss" />
-    <Content Include="sass\foundation\components\_panels.scss" />
-    <Content Include="sass\foundation\components\_pagination.scss" />
-    <Content Include="sass\foundation\components\_orbit.scss" />
-    <Content Include="sass\foundation\components\_offcanvas.scss" />
-    <Content Include="sass\foundation\components\_magellan.scss" />
-    <Content Include="sass\foundation\components\_labels.scss" />
-    <Content Include="sass\foundation\components\_keystrokes.scss" />
-    <Content Include="sass\foundation\components\_joyride.scss" />
-    <Content Include="sass\foundation\components\_inline-lists.scss" />
-    <Content Include="sass\foundation\components\_icon-bar.scss" />
-    <Content Include="sass\foundation\components\_iconbar.scss" />
-    <Content Include="sass\foundation\components\_grid.scss" />
-    <Content Include="sass\foundation\components\_global.scss" />
-    <Content Include="sass\foundation\components\_forms.scss" />
-    <Content Include="sass\foundation\components\_flex-video.scss" />
-    <Content Include="sass\foundation\components\_dropdown-buttons.scss" />
-    <Content Include="sass\foundation\components\_dropdown.scss" />
-    <Content Include="sass\foundation\components\_clearing.scss" />
-    <Content Include="sass\foundation\components\_buttons.scss" />
-    <Content Include="sass\foundation\components\_button-groups.scss" />
-    <Content Include="sass\foundation\components\_breadcrumbs.scss" />
-    <Content Include="sass\foundation\components\_block-grid.scss" />
-    <Content Include="sass\foundation\components\_alert-boxes.scss" />
-    <Content Include="sass\foundation\components\_accordion.scss" />
-    <Content Include="sass\foundation\_settings.scss" />
-    <Content Include="sass\foundation\_functions.scss" />
-    <Content Include="sass\_normalize.scss" />
-    <Content Include="sass\_foundation.scss" />
-    <Content Include="sass\_foundation.mvc.scss" />
+    <Content Include="Content\Stylesheets\common.scss" />
     <Content Include="Areas\HelpPage\Views\Web.config" />
     <Content Include="Areas\HelpPage\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\ResourceModel.cshtml" />
@@ -328,6 +279,10 @@
     <Content Include="Content\Stylesheets\Common.css.map">
       <DependentUpon>Common.css</DependentUpon>
     </Content>
+    <Content Include="Content\Stylesheets\_base.scss" />
+    <Content Include="Content\Stylesheets\_grid.scss" />
+    <Content Include="Content\Stylesheets\_forms.scss" />
+    <Content Include="Content\Stylesheets\_variables.scss" />
     <None Include="Scripts\External\jQuery\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\External\Foundation\fastclick.js" />
     <Content Include="Scripts\External\Foundation\foundation.abide.js" />
@@ -349,7 +304,8 @@
     <Content Include="Scripts\External\Foundation\foundation.topbar.js" />
     <Content Include="Scripts\External\Foundation\jquery.cookie.js" />
     <Content Include="Scripts\External\jQuery\jquery-2.1.1.min.js" />
-    <Content Include="Scripts\External\jQuery\Plugins\TreeView.js" />
+    <Content Include="Scripts\External\jQuery\Plugins\jquery.velocity.min.js" />
+    <Content Include="Scripts\External\jQuery\Plugins\jquery.mtree.min.js" />
     <Content Include="Scripts\External\knockout-3.1.0.js" />
     <Content Include="Scripts\Nest\taxon.js" />
     <Content Include="Global.asax" />
@@ -377,7 +333,7 @@
     <Content Include="Areas\Nest\Views\web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\Nest\Views\Taxon\Index.cshtml" />
+    <Content Include="Areas\Nest\Views\Taxonomy\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Foillan.DataTransferObjects\Foillan.DataTransferObjects.csproj">

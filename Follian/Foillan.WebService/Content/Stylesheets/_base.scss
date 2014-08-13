@@ -1,0 +1,83 @@
+﻿@import 'grid';
+
+body {
+    font-family: 'Hind', sans-serif;
+    margin-top: 0;
+    color: #666;
+}
+
+h1 {
+    color: #80B23C;
+}
+
+h2 {
+    color: #80B23C;
+}
+
+h3 {
+    color: #80B23C;
+}
+
+h4 {
+    color: #80B23C;
+}
+
+h5 {
+    color: #80B23C;
+}
+
+#top-nav {
+    @include row(12);
+    background-color: #007ACC;
+    color: white;
+
+    .foillan-logo {
+        display: inline-block;
+
+        a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+    }
+
+    .top-nav-links {
+        display: inline-block;
+
+        li {
+            display: inline;
+
+            a {
+                color: white;
+                text-decoration: none;
+            }
+        }
+
+        .left {
+        }
+
+        .right {
+        }
+    }
+}
+
+#content-container {
+    max-width: 80%;
+    margin: auto;
+
+    #main-content {
+        @include row(12);
+        margin: auto;
+        .content-header {
+            @include column(12);
+        }
+    }
+}
+
+.panel {
+    border: solid 1px #D8D8D8;
+    margin-bottom: 1.11111rem;
+    padding: 1.11111rem;
+    background: none repeat scroll 0 0 #F2F2F2;
+    margin: 1em;
+}

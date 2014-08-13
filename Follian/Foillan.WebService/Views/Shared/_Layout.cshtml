@@ -5,34 +5,32 @@
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/Common")
+    <link href='http://fonts.googleapis.com/css?family=Hind:400,700' rel='stylesheet' type='text/css'>
 </head>
-<body>
-    @* Navigation: Top Bar *@
-    <nav class="top-bar" data-topbar>
-        <ul class="title-area">
-            <li class="name">
-                <h1><a href="#">Foillan</a></h1>
-            </li>
-            <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
-        </ul>
-        <section class="top-bar-section">
-            <ul class="right">
-                <li>Login</li>
-            </ul>
-            <ul class="left">
+    <body>
+        <nav id="top-nav">
+            <div class="foillan-logo">
+                <a href="@Url.Action("Index", "Home")"><img src="/Content/Images/foillan-logo.png" />Foillan</a>
+            </div>
+            <ul class="top-nav-links left">
                 <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, null)</li>
-                <li>@Html.ActionLink("The Nest", "Index", "Taxon", new { area = "Nest" }, null)</li>
+                <li>@Html.ActionLink("Data Store", "Index", "Taxon", new { area = "Nest" }, null)</li>
                 <li>@Html.ActionLink("API", "Index", "Help", new { area = "" }, null)</li>
             </ul>
-        </section>
-    </nav>
-    <div class="main-content">
-        @RenderBody()
-    </div>
-    <footer>
-        <p>&copy; @DateTime.Now.Year - Foillan</p>
-    </footer>
-    @Scripts.Render("~/bundles/jquery")
-    @RenderSection("scripts", required: false)
-</body>
+            <ul class="top-nav-links right">
+                <li><a href="#">Login</a></li>
+            </ul>
+        </nav>
+
+        <div id="content-container">
+            <section id="main-content">
+                @RenderBody()
+            </section>
+            <footer>
+                <p>&copy; @DateTime.Now.Year AndrewIOM - <a href="https://github.com/AndrewIOM/Foillan">View on GitHub</a></p>
+            </footer>
+            @Scripts.Render("~/bundles/jquery")
+            @RenderSection("scripts", required: false)
+        </div>
+    </body>
 </html>

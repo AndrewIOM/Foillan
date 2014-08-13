@@ -6,6 +6,7 @@
     self.taxa = ko.observableArray();
     self.error = ko.observable();
     self.detail = ko.observable();
+    self.currentView = '';
 
     self.newTaxon = {
         LatinName: ko.observable(),
@@ -86,7 +87,7 @@
         });
     }
 
-    self.useGbifSpecies = function(item) {
+    self.useGbifSpecies = function (item) {
         self.newTaxon.LatinName(item.canonicalName);
         self.newTaxon.Rank(item.rank);
         self.newTaxonTaxonomy.Kingdom(item.kingdom);
