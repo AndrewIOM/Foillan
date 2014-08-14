@@ -1,7 +1,7 @@
 ﻿@import 'grid';
 @import 'variables';
 
-input {
+input, select, textarea {
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
     border: 0.2em solid #E5E5E5;
     outline: 0 none;
@@ -12,6 +12,56 @@ input {
     transition: all 0.25s ease-in-out 0s;
 }
 
-input:focus {
+textarea {
+    font: inherit;
+    width: 90%;
+}
+
+input:focus, select:focus, textarea:focus {
     border: 0.2em solid #003D50;
+}
+
+button, .button {
+    background-color: $button-colour;
+    border: 1px solid $button-border-colour;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    padding: 0.4em 1em;
+    text-decoration: none;
+}
+
+button:hover, .button:hover {
+    background-color: $button-hover-colour;
+}
+
+button:disabled, .button:disabled {
+    background-color: $button-disabled-colour;
+}
+
+button[type=submit], .primary {
+    background-color: $primary-button-colour;
+    color: $primary-button-font-colour;
+}
+
+button[type=submit][disabled], .primary:disabled {
+    background-color: $primary-button-disabled-colour;
+    color: $primary-button-font-colour;
+}
+
+button[type=submit]:hover, .primary:hover {
+    background-color: $primary-button-hover-colour;
+    color: $primary-button-font-colour;
+}
+
+.delete-button:hover {
+    color: #FFF;
+    background-color: $delete-button-hover-colour;
+    border-color: $delete-button-hover-border-colour;
+}
+
+.delete-button {
+    color: #FFF;
+    background-color: $delete-button-colour;
+    border-color: $delete-button-border-colour;
 }

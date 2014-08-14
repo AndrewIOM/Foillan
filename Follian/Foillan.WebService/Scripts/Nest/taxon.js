@@ -3,10 +3,10 @@
 
     //Taxonomy
     var speciesUri = '/api/taxon/';
+
     self.taxa = ko.observableArray();
     self.error = ko.observable();
     self.detail = ko.observable();
-    self.currentView = '';
 
     self.newTaxon = {
         LatinName: ko.observable(),
@@ -29,8 +29,9 @@
     self.searchResults = ko.observableArray();
 
     self.gbifSearchCriteria = {
-        SearchTerm: ko.observable(),
-        SearchRank: ko.observable()
+        SearchTerm: ko.observable(''),
+        SearchRank: ko.observable('Species'),
+        AvailableRanks: ko.observableArray(['Kingdom', 'Phylum', 'Class', 'Order', 'Family', 'Genus', 'Species'])
     };
 
     //Functions
@@ -80,6 +81,23 @@
         });
     };
 
+    self.updateTaxon = function () {
+        var update = self.detail();
+        ajaxHelper(speciesUri + update.Id, 'PUT', 'json', update);
+    };
+
+    self.search = function () {
+        self.localSearch();
+        self.gbifSearch();
+    }
+
+    self.localSearch = function () {
+        var searchString = speciesUri + '?match=' + self.gbifSearchCriteria.SearchTerm() + '&rank=' + self.gbifSearchCriteria.SearchRank();
+        ajaxHelper(searchString, 'GET', 'json').done(function (data) {
+            self.taxa(data);
+        });
+    }
+
     self.gbifSearch = function () {
         var searchString = 'search?q=' + self.gbifSearchCriteria.SearchTerm() + '&rank=' + self.gbifSearchCriteria.SearchRank();
         ajaxHelper(gbifUri + searchString, 'GET', 'jsonp').done(function (data) {
@@ -87,7 +105,7 @@
         });
     }
 
-    self.useGbifSpecies = function (item) {
+    self.getGbifSpeciesDetail = function (item) {
         self.newTaxon.LatinName(item.canonicalName);
         self.newTaxon.Rank(item.rank);
         self.newTaxonTaxonomy.Kingdom(item.kingdom);
@@ -98,6 +116,13 @@
         self.newTaxonTaxonomy.Genus(item.genus);
         self.newTaxonTaxonomy.Species(item.species);
     };
+
+    this.showTaxon = function (elem) {
+        $(elem).hide().slideDown();
+    }
+    this.hideTaxon = function (elem) {
+        if (elem.nodeType === 1) $(elem).slideUp(function () { $(elem).remove(); });
+    }
 
     // Fetch the initial data.
     getAllSpecies();

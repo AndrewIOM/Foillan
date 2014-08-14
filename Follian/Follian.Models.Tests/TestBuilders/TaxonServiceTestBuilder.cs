@@ -19,14 +19,28 @@ namespace Foillan.Models.Tests.TestBuilders
 
         public TaxonServiceTestBuilder ReturnsSpecies()
         {
-            var species = new Taxon()
+            var species1 = new Taxon
             {
                 Rank = TaxonRank.Species,
                 Id = 1,
-                LatinName = "puffinus"
+                LatinName = "Puffinus puffinus"
             };
 
-            var speciesList = new List<Taxon> {species};
+            var species2 = new Taxon
+            {
+                Rank = TaxonRank.Species,
+                Id = 1,
+                LatinName = "Abies alba"
+            };
+
+            var species3 = new Taxon
+            {
+                Rank = TaxonRank.Species,
+                Id = 1,
+                LatinName = "Fraxinus Excelsior"
+            };
+
+            var speciesList = new List<Taxon> {species1, species2, species3};
             _service.Setup(m => m.GetTaxaByRank(TaxonRank.Species)).Returns(speciesList);
             return this;
         }

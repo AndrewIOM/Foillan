@@ -4,6 +4,7 @@
 @section scripts {
     @Scripts.Render("~/bundles/nest/taxon")
     @Scripts.Render("~/bundles/jquery")
+    <script src="/Scripts/External/jQuery/Plugins/jquery.velocity.ui.js"></script>
 }
 
 <div class="content-header">
@@ -15,22 +16,40 @@
 
 <div class="taxonomy-sidebar">
     <h2>Taxa</h2>
+    <div class="searchFilters">
+        <form class="search-form" data-bind="submit: search">
+            <div id="searchCriteria" data-bind="with: gbifSearchCriteria">
+                <input id="inputSearchTerm" data-bind="value:SearchTerm" placeholder="Search for..." />
+                <select data-bind="options: AvailableRanks, value: SearchRank"></select>
+            </div>
+
+            <button type="submit">Search</button>
+        </form>
+    </div>
     <div class="taxon-list">
         <h3 class="sidebar-header">Foillan</h3>
-        <ul data-bind="foreach: taxa">
+        <ul data-bind="template: { foreach: taxa,
+                            beforeRemove: hideTaxon,
+                            afterAdd: showTaxon }">
             <li>
-                <strong><span data-bind="text: Id"></span></strong>: <span data-bind="text: LatinName"></span>
-                <small><a href="#" data-bind="click: $parent.getSpeciesDetail">Details</a></small>
+                <a href="#" data-bind="click: $parent.getSpeciesDetail">
+                    <span data-bind="text: LatinName"></span>
+                </a>
+                (#<span class="taxon-id" data-bind="text: Id"></span>)
             </li>
         </ul>
     </div>
-    <!-- ko if:searchResults() -->
+    <!-- ko if:searchResults -->
     <div class="taxon-list">
         <h3 class="sidebar-header">Global Biodiversity Information Facility</h3>
-        <ul data-bind="foreach: searchResults">
+        <ul data-bind="template: { foreach: searchResults,
+                            beforeRemove: hideTaxon,
+                            afterAdd: showTaxon }">
             <li>
-                <strong><span data-bind="text: taxonID"></span></strong>: <span data-bind="text: scientificName"></span>
-                <small><a href="#" data-bind="click: $parent.useGbifSpecies">Details</a></small>
+                <a href="#" data-bind="click: $parent.getGbifSpeciesDetail">
+                    <span data-bind="text: scientificName"></span>
+                </a>
+                (#<span class="taxon-id" data-bind="text: taxonID"></span>)
                 <ul class="vernacular-names" data-bind="foreach:vernacularNames">
                     <li><span data-bind="text:vernacularName"></span> (<span data-bind="text:language"></span>)</li>
                 </ul>
@@ -40,141 +59,129 @@
     <!-- /ko -->
 </div>
 
+
 <div class="detail-pane">
-    <div class="searchFilters">
-        <form class="search-form" data-bind="submit: gbifSearch">
-            <div id="searchCriteria" data-bind="with: gbifSearchCriteria">
-                <label for="inputSearchTerm">Search Term</label>
-                <input id="inputSearchTerm" data-bind="value:SearchTerm" />
-
-                <label for="inputSearchRank">Search Rank</label>
-                <input id="inputSearchRank" data-bind="value:SearchRank" />
+    <!-- ko if:detail -->
+    <form class="taxon-detail" data-bind="submit: updateTaxon">
+        <h3>Details: <span data-bind="text: detail().LatinName"></span></h3>
+        <div class="detail-row">
+            <div class="detail-label">Foillan ID</div>
+            <div class="detail-value" data-bind="text: detail().Id"></div>
+        </div>
+        <div class="detail-row">
+            <div class="detail-label">Rank</div>
+            <div class="detail-value" data-bind="text: detail().Rank"></div>
+        </div>
+        <div class="detail-row">
+            <div class="detail-label">Description</div>
+            <div class="detail-value">
+                <textarea id="inputDescription" rows="3" cols="50" data-bind="value: detail().Description"></textarea>
             </div>
-
-            <button type="submit">Search</button>
-        </form>
-    </div>
-    <div class="taxon-detail">
-        <!-- ko if:detail() -->
-        <div class="taxon-detail">
-            <h3>Details: <span data-bind="text: detail().LatinName"></span></h3>
-            <div class="detail-row">
-                <div class="detail-label">Foillan ID</div>
-                <div class="detail-value" data-bind="text: detail().Id"></div>
+        </div>
+        <div class="detail-row">
+            <div class="detail-label">Taxonomy</div>
+            <div class="detail-value">
+                <ul class="taxonomy-summary">
+                    <li data-bind="text: detail().Taxonomy.Kingdom"></li>
+                    <li data-bind="text: detail().Taxonomy.Phylum"></li>
+                    <li data-bind="text: detail().Taxonomy.Class"></li>
+                    <li data-bind="text: detail().Taxonomy.Order"></li>
+                    <li data-bind="text: detail().Taxonomy.Family"></li>
+                    <li data-bind="text: detail().Taxonomy.Genus"></li>
+                    <li data-bind="text: detail().Taxonomy.Species"></li>
+                </ul>
             </div>
+        </div>
+        <button type="submit">Update Taxon</button>
+    </form>
+    <!-- /ko -->
+    <form class="add-taxon-form" data-bind="submit: addTaxon">
+        <h3>GBIF Taxon: <span data-bind="text: newTaxon.LatinName()"></span></h3>
+        <div id="taxonDetails" data-bind="with: newTaxon">
             <div class="detail-row">
-                <div class="detail-label">Rank</div>
-                <div class="detail-value" data-bind="text: detail().Rank"></div>
-            </div>
-            <div class="detail-row">
-                <div class="detail-label">Description</div>
-                <div class="detail-value" data-bind="text: detail().Description"></div>
-            </div>
-            <div class="detail-row">
-                <div class="detail-label">Taxonomy</div>
+                <div class="detail-label">
+                    <label for="inputLatinName">Latin Name</label>
+                </div>
                 <div class="detail-value">
-                    <ul class="taxonomy-summary">
-                        <li data-bind="text: detail().Taxonomy.Kingdom"></li>
-                        <li data-bind="text: detail().Taxonomy.Phylum"></li>
-                        <li data-bind="text: detail().Taxonomy.Class"></li>
-                        <li data-bind="text: detail().Taxonomy.Order"></li>
-                        <li data-bind="text: detail().Taxonomy.Family"></li>
-                        <li data-bind="text: detail().Taxonomy.Genus"></li>
-                        <li data-bind="text: detail().Taxonomy.Species"></li>
-                    </ul>
+                    <input id="inputLatinName=" data-bind="value:LatinName" />
+                </div>
+            </div>
+            <div class="detail-row">
+                <div class="detail-label">
+                    <label for="inputDescription">Description</label>
+                </div>
+                <div class="detail-value">
+                    <textarea id="inputDescription" rows="3" cols="50" data-bind="value:Description"></textarea>
+                </div>
+            </div>
+            <div class="detail-row">
+                <div class="detail-label">
+                    <label for="inputRank">Rank</label>
+                </div>
+                <div class="detail-value">
+                    <input id="inputRank" data-bind="value:Rank" />
                 </div>
             </div>
         </div>
-        <!-- /ko -->
-    </div>
+        <div id="taxonomyDetails" data-bind="with: newTaxonTaxonomy">
+            <h3>Taxonomy</h3>
+            <div class="detail-row">
+                <div class="detail-label">
+                    <label for="inputKingdom">Kingdom</label>
+                </div>
+                <div class="detail-value">
+                    <input id="inputKingdom" data-bind="value:Kingdom" />
+                </div>
+            </div>
+            <div class="detail-row">
+                <div class="detail-label">
+                    <label for="inputPhylum">Phylum</label>
+                </div>
+                <div class="detail-value">
+                    <input id="inputPhylum" data-bind="value:Phylum" />
+                </div>
+            </div>
+            <div class="detail-row">
+                <div class="detail-label">
+                    <label for="inputClass">Class</label>
+                </div>
+                <div class="detail-value">
+                    <input id="inputClass" data-bind="value:Class" />
+                </div>
+            </div>
+            <div class="detail-row">
+                <div class="detail-label">
+                    <label for="inputOrder">Order</label>
+                </div>
+                <div class="detail-value">
+                    <input id="inputOrder" data-bind="value:Order" />
+                </div>
+            </div>
+            <div class="detail-row">
+                <div class="detail-label">
+                    <label for="inputFamily">Family</label>
+                </div>
+                <div class="detail-value">
+                    <input id="inputFamily" data-bind="value:Family" />
+                </div>
+            </div>
+            <div class="detail-row">
+                <div class="detail-label">
+                    <label for="inputGenus">Genus</label>
+                </div>
+                <div class="detail-value">
+                    <input id="inputGenus" data-bind="value:Genus" />
+                </div>
+            </div>
+            <div class="detail-row">
+                <div class="detail-label">
+                    <label for="inputSpecies">Species</label>
+                </div>
+                <div class="detail-value">
+                    <input id="inputSpecies" data-bind="value:Species" />
+                </div>
+            </div>
+        </div>
+        <button type="submit">Add to Foillan</button>
+    </form>
 </div>
-
-
-<form class="add-taxon-form" data-bind="submit: addTaxon">
-    <div id="taxonDetails" data-bind="with: newTaxon">
-        <div class="input-row">
-            <div class="input-label">
-                <label for="inputLatinName">Latin Name</label>
-            </div>
-            <div class="input-field">
-                <input id="inputLatinName=" data-bind="value:LatinName" />
-            </div>
-        </div>
-        <div class="input-row">
-            <div class="input-label">
-                <label for="inputDescription">Description</label>
-            </div>
-            <div class="input-field">
-                <input id="inputDescription" data-bind="value:Description" />
-            </div>
-        </div>
-        <div class="input-row">
-            <div class="input-label">
-                <label for="inputRank">Rank</label>
-            </div>
-            <div class="input-field">
-                <input id="inputRank" data-bind="value:Rank" />
-            </div>
-        </div>
-    </div>
-    <div id="taxonomyDetails" data-bind="with: newTaxonTaxonomy">
-        <h3>Taxonomy</h3>
-        <div class="input-row">
-            <div class="input-label">
-                <label for="inputKingdom">Kingdom</label>
-            </div>
-            <div class="input-field">
-                <input id="inputKingdom" data-bind="value:Kingdom" />
-            </div>
-        </div>
-        <div class="input-row">
-            <div class="input-label">
-                <label for="inputPhylum">Phylum</label>
-            </div>
-            <div class="input-field">
-                <input id="inputPhylum" data-bind="value:Phylum" />
-            </div>
-        </div>
-        <div class="input-row">
-            <div class="input-label">
-                <label for="inputClass">Class</label>
-            </div>
-            <div class="input-field">
-                <input id="inputClass" data-bind="value:Class" />
-            </div>
-        </div>
-        <div class="input-row">
-            <div class="input-label">
-                <label for="inputOrder">Order</label>
-            </div>
-            <div class="input-field">
-                <input id="inputOrder" data-bind="value:Order" />
-            </div>
-        </div>
-        <div class="input-row">
-            <div class="input-label">
-                <label for="inputFamily">Family</label>
-            </div>
-            <div class="input-field">
-                <input id="inputFamily" data-bind="value:Family" />
-            </div>
-        </div>
-        <div class="input-row">
-            <div class="input-label">
-                <label for="inputGenus">Genus</label>
-            </div>
-            <div class="input-field">
-                <input id="inputGenus" data-bind="value:Genus" />
-            </div>
-        </div>
-        <div class="input-row">
-            <div class="input-label">
-                <label for="inputSpecies">Species</label>
-            </div>
-            <div class="input-field">
-                <input id="inputSpecies" data-bind="value:Species" />
-            </div>
-        </div>
-    </div>
-    <button type="submit">Submit</button>
-</form>

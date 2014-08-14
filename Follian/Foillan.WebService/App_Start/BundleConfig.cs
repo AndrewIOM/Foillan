@@ -12,7 +12,8 @@ namespace Foillan.WebService
                       "~/Scripts/Nest/taxon.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                      "~/Scripts/External/jQuery/jquery-2.1.1.min.js"));
+                      "~/Scripts/External/jQuery/jquery-2.1.1.min.js",
+                      "~/Scripts/External/jQuery/Plugins/jquery.velocity.min.js"));
 
             bundles.Add(new StyleBundle("~/Content/Common").Include(
                 "~/Content/Stylesheets/Common.min.css"));

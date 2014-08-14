@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Web.Http;
 using System.Web.Http.Results;
 using Foillan.DataTransferObjects;
@@ -48,6 +49,16 @@ namespace Foillan.WebService.Tests.Controllers
             var sut = new TaxonController(service);
             var actual = sut.Get(TaxonRank.Species);
             Assert.IsNotEmpty(actual);
+        }
+
+        [Test]
+        public void Get_ValidRankWithDatabaseResults_ResultsOrderedByLatinName()
+        {
+            var service = new TaxonServiceTestBuilder().ReturnsSpecies().Build();
+            var sut = new TaxonController(service);
+            var expected = sut.Get(TaxonRank.Species).OrderBy(s => s.LatinName);
+            var actual = sut.Get(TaxonRank.Species);
+            CollectionAssert.AreEqual(expected.ToList(), actual.ToList());
         }
 
         //GET: /Api/Taxon?parent={id}

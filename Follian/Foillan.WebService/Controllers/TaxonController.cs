@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Web;
 using System.Web.Http;
 using Foillan.DataTransferObjects;
 using Foillan.Models.Biodiversity;
@@ -22,7 +21,7 @@ namespace Foillan.WebService.Controllers
         }
 
         //GET: /Api/Taxon?rank={rank}
-        public IEnumerable<TaxonDTO> Get(TaxonRank rank)
+        public IEnumerable<TaxonDTO> Get(TaxonRank rank, String match = "")
         {
             if (rank.Equals(TaxonRank.Null))
             {
@@ -48,7 +47,14 @@ namespace Foillan.WebService.Controllers
                                             SubSpecies = GetLatinRankForTaxon(TaxonRank.Subspecies, t),
                                         }
                                     };
-            return taxaOfRank;
+
+            if (!String.IsNullOrEmpty(match))
+            {
+                taxaOfRank =
+                    taxaOfRank.Where(t => t.Description.Contains(match) || t.LatinName.Contains(match));
+            }
+
+            return taxaOfRank.OrderBy(t => t.LatinName);
         }
 
         //GET: /Api/Taxon?parent={id}
@@ -108,7 +114,7 @@ namespace Foillan.WebService.Controllers
                           Id = taxon.Id,
                           Rank = taxon.Rank,
                           LatinName = taxon.LatinName,
-                          Description = taxon.Description ?? String.Empty,
+                          Description = taxon.Description,
                           Taxonomy = new Taxonomy
                                      {
                                          Kingdom = GetLatinRankForTaxon(TaxonRank.Kingdom, taxon),

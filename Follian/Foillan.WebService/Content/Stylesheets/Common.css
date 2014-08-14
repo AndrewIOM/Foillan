@@ -22,7 +22,8 @@ body {
   color: #666; }
 
 h1 {
-  color: #80B23C; }
+  color: #80B23C;
+  font-size: 2em; }
 
 h2 {
   color: #80B23C; }
@@ -57,7 +58,8 @@ h5 {
   #top-nav .top-nav-links {
     display: inline-block; }
     #top-nav .top-nav-links li {
-      display: inline; }
+      display: inline;
+      padding: 0 1em; }
       #top-nav .top-nav-links li a {
         color: white;
         text-decoration: none; }
@@ -99,7 +101,7 @@ body {
     clear: both; }
 
 /* Foillan Variables */
-input {
+input, select, textarea {
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
   border: 0.2em solid #E5E5E5;
   outline: 0 none;
@@ -109,13 +111,54 @@ input {
   -webkit-transition: all 0.25s ease-in-out 0s;
   transition: all 0.25s ease-in-out 0s; }
 
-input:focus {
+textarea {
+  font: inherit;
+  width: 90%; }
+
+input:focus, select:focus, textarea:focus {
   border: 0.2em solid #003D50; }
+
+button, .button {
+  background-color: #EBEBEB;
+  border: 1px solid #ADADAD;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  padding: 0.4em 1em;
+  text-decoration: none; }
+
+button:hover, .button:hover {
+  background-color: #fafafa; }
+
+button:disabled, .button:disabled {
+  background-color: #ADADAD; }
+
+button[type=submit], .primary {
+  background-color: #153244;
+  color: #FFF; }
+
+button[type=submit][disabled], .primary:disabled {
+  background-color: #A1ADB4;
+  color: #FFF; }
+
+button[type=submit]:hover, .primary:hover {
+  background-color: #2e4a5b;
+  color: #FFF; }
+
+.delete-button:hover {
+  color: #FFF;
+  background-color: #D9534F;
+  border-color: #AC2925; }
+
+.delete-button {
+  color: #FFF;
+  background-color: #D01000;
+  border-color: #D43F3A; }
 
 .taxonomy-sidebar {
   display: inline;
   float: left;
-  width: 31.25%;
+  width: 39.58333%;
   margin: 0 1.04167%;
   border-top: 1px solid #F5F5F5;
   border-bottom: 1px solid #F5F5F5; }
@@ -123,16 +166,10 @@ input:focus {
 .detail-pane {
   display: inline;
   float: left;
-  width: 64.58333%;
+  width: 56.25%;
   margin: 0 1.04167%;
   border-top: 1px solid #F5F5F5;
   border-bottom: 1px solid #F5F5F5; }
-
-.add-taxon-form {
-  display: inline;
-  float: left;
-  width: 97.91667%;
-  margin: 0 1.04167%; }
 
 .detail-row {
   display: block;
@@ -159,12 +196,15 @@ input:focus {
   padding-left: 0;
   margin-top: 0; }
   .taxon-list ul li {
-    list-style: none; }
-
-.search-form {
-  background-color: #F5F5F5;
-  border: thin solid #CCC;
-  padding: 1em 1.5em; }
+    list-style: none;
+    border-bottom: thin dotted #80B23C;
+    font-weight: bold;
+    font-size: 0.8em; }
+    .taxon-list ul li a {
+      font-weight: normal;
+      font-size: initial;
+      color: initial;
+      text-decoration: none; }
 
 .taxonomy-summary li {
   list-style: none;
@@ -173,15 +213,30 @@ input:focus {
   content: " > "; }
 
 .vernacular-names li {
-  display: inline;
-  font-size: 0.8em; }
-.vernacular-names li:not(:last-child)::after {
+  display: none;
+  font-size: 0.8em;
+  font-weight: normal !important;
+  border: none !important; }
+.vernacular-names li:after {
   content: ", "; }
+.vernacular-names li:nth-child(-n+5) {
+  display: inline; }
 
 .sidebar-header {
   text-transform: uppercase;
-  color: grey;
   font-size: 1em;
   margin-bottom: 0; }
+
+.taxon-detail {
+  border: 1px solid lightgrey;
+  margin: 1em 0;
+  padding: 0 1.5em;
+  background-color: #F2F7EB; }
+
+.add-taxon-form {
+  border: 1px solid lightgrey;
+  margin: 1em 0;
+  padding: 0 1.5em;
+  background-color: #F2F7EB; }
 
 /*# sourceMappingURL=common.css.map */

@@ -3,19 +3,15 @@
 @import 'forms';
 
 .taxonomy-sidebar {
-    @include column(4);
+    @include column(5);
     border-top: 1px solid #F5F5F5;
     border-bottom: 1px solid #F5F5F5;
 }
 
 .detail-pane {
-    @include column(8);
+    @include column(7);
     border-top: 1px solid #F5F5F5;
     border-bottom: 1px solid #F5F5F5;
-}
-
-.add-taxon-form {
-    @include column(12);
 }
 
 .detail-row {
@@ -37,14 +33,21 @@
 
         li {
             list-style: none;
+            border-bottom: thin dotted #80B23C;
+            font-weight: bold;
+            font-size: 0.8em;
+
+            a {
+                font-weight: normal;
+                font-size: initial;
+                color: initial;
+                text-decoration: none;
+            }
         }
     }
 }
 
 .search-form {
-    background-color: #F5F5F5;
-    border: thin solid #CCC;
-    padding: 1em 1.5em;
 }
 
 .taxonomy-summary {
@@ -60,18 +63,37 @@
 
 .vernacular-names {
     li {
-        display: inline;
+        display: none;
         font-size: 0.8em;
+        font-weight: normal !important;
+        border: none !important;
     }
 
-    li:not(:last-child)::after {
+    li:after {
         content: ", ";
+    }
+
+    li:nth-child(-n+5) {
+        display: inline;
     }
 }
 
 .sidebar-header {
     text-transform: uppercase;
-    color: grey;
     font-size: 1em;
     margin-bottom: 0;
+}
+
+.taxon-detail {
+    border: 1px solid lightgrey;
+    margin: 1em 0;
+    padding: 0 1.5em;
+    background-color: #F2F7EB;
+}
+
+.add-taxon-form {
+    border: 1px solid lightgrey;
+    margin: 1em 0;
+    padding: 0 1.5em;
+    background-color: #F2F7EB;
 }
