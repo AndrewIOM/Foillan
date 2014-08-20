@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Description;
 using Foillan.DataTransferObjects;
 using Foillan.Models.Biodiversity;
 using Foillan.Models.DataAccessLayer.Abstract;
@@ -58,6 +59,7 @@ namespace Foillan.WebService.Controllers
         }
 
         //GET: /Api/Taxon?parent={id}
+        [ResponseType(typeof(TaxonDTO))]
         public IHttpActionResult Get(int ParentId)
         {
             var parent = _taxonService.GetTaxonById(ParentId);
@@ -69,23 +71,23 @@ namespace Foillan.WebService.Controllers
             if (parent.ChildTaxa.Any())
             {
                 var childTaxa = from t in parent.ChildTaxa
-                    select new TaxonDTO
-                           {
-                               Id = t.Id,
-                               Rank = t.Rank,
-                               LatinName = t.LatinName,
-                               Description = t.Description ?? String.Empty,
-                               Taxonomy = new Taxonomy
-                                          {
-                                              Kingdom = GetLatinRankForTaxon(TaxonRank.Kingdom, t),
-                                              Order = GetLatinRankForTaxon(TaxonRank.Order, t),
-                                              Phylum = GetLatinRankForTaxon(TaxonRank.Phylum, t),
-                                              Class = GetLatinRankForTaxon(TaxonRank.Class, t),
-                                              Genus = GetLatinRankForTaxon(TaxonRank.Genus, t),
-                                              Species = GetLatinRankForTaxon(TaxonRank.Species, t),
-                                              SubSpecies = GetLatinRankForTaxon(TaxonRank.Subspecies, t),
-                                          }
-                           };
+                                select new TaxonDTO
+                                       {
+                                           Id = t.Id,
+                                           Rank = t.Rank,
+                                           LatinName = t.LatinName,
+                                           Description = t.Description ?? String.Empty,
+                                           Taxonomy = new Taxonomy
+                                                      {
+                                                          Kingdom = GetLatinRankForTaxon(TaxonRank.Kingdom, t),
+                                                          Order = GetLatinRankForTaxon(TaxonRank.Order, t),
+                                                          Phylum = GetLatinRankForTaxon(TaxonRank.Phylum, t),
+                                                          Class = GetLatinRankForTaxon(TaxonRank.Class, t),
+                                                          Genus = GetLatinRankForTaxon(TaxonRank.Genus, t),
+                                                          Species = GetLatinRankForTaxon(TaxonRank.Species, t),
+                                                          SubSpecies = GetLatinRankForTaxon(TaxonRank.Subspecies, t),
+                                                      }
+                                       };
                 return Ok(childTaxa);
             }
             else
@@ -95,6 +97,7 @@ namespace Foillan.WebService.Controllers
         }
 
         //GET: /Api/Taxon/{id}
+        [ResponseType(typeof(TaxonDTO))]
         public IHttpActionResult GetTaxon(int id)
         {
             if (id == 0)
@@ -133,6 +136,7 @@ namespace Foillan.WebService.Controllers
         }
 
         // POST /api/Taxon
+        [ResponseType(typeof(void))]
         public IHttpActionResult Post(TaxonDTO newTaxonDto)
         {
             if (newTaxonDto == null)
@@ -172,12 +176,13 @@ namespace Foillan.WebService.Controllers
         }
 
         //PUT /api/Taxon/{id}
+        [ResponseType(typeof(TaxonDTO))]
         public IHttpActionResult Put(int id, TaxonDTO updatedDto)
         {
             if (updatedDto == null || id == 0)
             {
                 return BadRequest();
-            } 
+            }
 
             var existingTaxon = _taxonService.GetTaxonById(updatedDto.Id);
 

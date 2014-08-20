@@ -308,6 +308,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Nest\Models\" />
+    <Folder Include="Areas\Nest\Views\Occurrence\" />
     <Folder Include="Areas\Nest\Views\Shared\" />
   </ItemGroup>
   <ItemGroup>

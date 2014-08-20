@@ -107,10 +107,13 @@
     <Compile Include="DataAccessLayer\Abstract\IEntity.cs" />
     <Compile Include="DataAccessLayer\Abstract\IFoillanContext.cs" />
     <Compile Include="DataAccessLayer\Abstract\IRepository.cs" />
+    <Compile Include="DataAccessLayer\Abstract\ISightingService.cs" />
     <Compile Include="DataAccessLayer\Abstract\ITaxonService.cs" />
     <Compile Include="DataAccessLayer\Abstract\IUnitOfWork.cs" />
     <Compile Include="DataAccessLayer\Concrete\Entity.cs" />
     <Compile Include="DataAccessLayer\Concrete\FoillanContext.cs" />
+    <Compile Include="DataAccessLayer\Concrete\SightingRepository.cs" />
+    <Compile Include="DataAccessLayer\Concrete\SightingService.cs" />
     <Compile Include="DataAccessLayer\Concrete\TaxonRepository.cs" />
     <Compile Include="DataAccessLayer\Concrete\TaxonService.cs" />
     <Compile Include="DataAccessLayer\Concrete\UnitOfWork.cs" />
