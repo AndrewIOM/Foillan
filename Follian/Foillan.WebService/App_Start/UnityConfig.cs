@@ -1,6 +1,6 @@
 using Foillan.Models.Biodiversity;
-using Foillan.Models.DataAccessLayer.Abstract;
-using Foillan.Models.DataAccessLayer.Concrete;
+using Foillan.Models.DataAccess.Abstract;
+using Foillan.Models.DataAccess.Concrete;
 using Foillan.Models.Occurrence;
 using Microsoft.Practices.Unity;
 using System.Web.Http;

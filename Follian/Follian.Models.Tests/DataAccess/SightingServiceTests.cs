@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Foillan.Models.DataAccessLayer.Abstract;
-using Foillan.Models.DataAccessLayer.Concrete;
+using Foillan.Models.DataAccess.Abstract;
+using Foillan.Models.DataAccess.Concrete;
 using Foillan.Models.Occurrence;
 using Foillan.Models.Tests.DummyClasses;
 using Moq;
 using NUnit.Framework;
 
-namespace Foillan.Models.Tests.DataAccessLayer
+namespace Foillan.Models.Tests.DataAccess
 {
     [TestFixture]
     public class SightingServiceTests

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using Foillan.Models.Biodiversity;
-using Foillan.Models.DataAccessLayer.Concrete;
+using Foillan.Models.DataAccess.Concrete;
 using Moq;
 
 namespace Foillan.Models.Tests.TestBuilders

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Web.Mvc;
-using Foillan.Models.DataAccessLayer.Abstract;
+using Foillan.Models.DataAccess.Abstract;
 using Foillan.Models.Occurrence;
 
 namespace Foillan.Models.Biodiversity

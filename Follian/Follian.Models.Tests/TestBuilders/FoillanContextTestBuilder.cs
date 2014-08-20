@@ -1,4 +1,4 @@
-﻿using Foillan.Models.DataAccessLayer.Abstract;
+﻿using Foillan.Models.DataAccess.Abstract;
 using Moq;
 
 namespace Foillan.Models.Tests.TestBuilders

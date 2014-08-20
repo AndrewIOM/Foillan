@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Foillan.Models.Account
+namespace Foillan.DataTransferObjects.Account
 {
     // Models used as parameters to AccountController actions.
 

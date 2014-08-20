@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
-using Foillan.Models.DataAccessLayer.Abstract;
+using Foillan.Models.DataAccess.Abstract;
 using Foillan.Models.Occurrence;
 
-namespace Foillan.Models.DataAccessLayer.Concrete
+namespace Foillan.Models.DataAccess.Concrete
 {
     public class SightingRepository : IRepository<Sighting>
     {

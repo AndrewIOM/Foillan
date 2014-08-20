@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Foillan.Models.Account
+namespace Foillan.DataTransferObjects.Account
 {
     // Models returned by AccountController actions.
 

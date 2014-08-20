@@ -7,7 +7,7 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using Foillan.DataTransferObjects;
 using Foillan.Models.Biodiversity;
-using Foillan.Models.DataAccessLayer.Abstract;
+using Foillan.Models.DataAccess.Abstract;
 
 namespace Foillan.WebService.Controllers
 {

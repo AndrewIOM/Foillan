@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Linq;
-using Foillan.Models.DataAccessLayer.Abstract;
+using Foillan.Models.DataAccess.Abstract;
 using Foillan.Models.Occurrence;
 
-namespace Foillan.Models.DataAccessLayer.Concrete
+namespace Foillan.Models.DataAccess.Concrete
 {
     public class SightingService : ISightingService
     {

@@ -1,8 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using Foillan.Models.Occurrence;
 
-namespace Foillan.Models.DataAccessLayer.Abstract
+namespace Foillan.Models.DataAccess.Abstract
 {
     public interface ISightingService
     {

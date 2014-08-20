@@ -1,4 +1,4 @@
-﻿using Foillan.Models.DataAccessLayer.Abstract;
+﻿using Foillan.Models.DataAccess.Abstract;
 using Foillan.Models.Tests.TestBuilders;
 
 namespace Foillan.Models.Tests.DummyClasses

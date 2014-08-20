@@ -1,10 +1,11 @@
 using Foillan.Models.Biodiversity;
+using Foillan.Models.DataAccess.Concrete;
 
 namespace Foillan.Models.Migrations
 {
     using System.Data.Entity.Migrations;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<DataAccessLayer.Concrete.FoillanContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<FoillanContext>
     {
         public Configuration()
         {
@@ -12,7 +13,7 @@ namespace Foillan.Models.Migrations
             ContextKey = "Foillan.Models.DataAccessLayer.Concrete.FoillanContext";
         }
 
-        protected override void Seed(DataAccessLayer.Concrete.FoillanContext context)
+        protected override void Seed(FoillanContext context)
         {
             var life = new Taxon {Id = 1, Rank = TaxonRank.Life, LatinName = "Life"};
             var kingdom = new Taxon {Id = 2, Rank = TaxonRank.Kingdom, LatinName = "Animalia", ParentTaxon = life};

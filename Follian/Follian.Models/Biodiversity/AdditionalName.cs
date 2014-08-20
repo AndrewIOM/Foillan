@@ -1,5 +1,5 @@
 ﻿using System;
-using Foillan.Models.DataAccessLayer.Abstract;
+using Foillan.Models.DataAccess.Abstract;
 
 namespace Foillan.Models.Biodiversity
 {

@@ -45,6 +45,14 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.1.0\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.1.0\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
     <Reference Include="Moq, Version=4.2.1408.717, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Moq.4.2.1408.0717\lib\net40\Moq.dll</HintPath>
@@ -75,10 +83,9 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Biodiversity\TaxonValidationTests.cs" />
-    <Compile Include="DataAccessLayer\GbifHelperTests.cs" />
-    <Compile Include="DataAccessLayer\SightingServiceTests.cs" />
-    <Compile Include="DataAccessLayer\TaxonServiceTests.cs" />
-    <Compile Include="DataAccessLayer\UnitOfWorkTests.cs" />
+    <Compile Include="DataAccess\SightingServiceTests.cs" />
+    <Compile Include="DataAccess\TaxonServiceTests.cs" />
+    <Compile Include="DataAccess\UnitOfWorkTests.cs" />
     <Compile Include="DummyClasses\DummyUnitOfWork.cs" />
     <Compile Include="DummyClasses\InMemoryTaxonRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -86,7 +93,6 @@
     <Compile Include="TestBuilders\TaxonRepositoryTestBuilder.cs" />
     <Compile Include="TestBuilders\TaxonServiceTestBuilder.cs" />
     <Compile Include="TestBuilders\UnitOfWorkTestBuilder.cs" />
-    <Compile Include="ValidationAttributes\ParentTaxonValidationAttributeTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

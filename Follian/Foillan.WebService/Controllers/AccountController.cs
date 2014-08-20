@@ -6,6 +6,8 @@ using System.Security.Cryptography;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
+using Foillan.DataTransferObjects;
+using Foillan.DataTransferObjects.Account;
 using Foillan.Models.Account;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -24,17 +26,6 @@ namespace Foillan.WebService.Controllers
     {
         private const string LocalLoginProvider = "Local";
         private ApplicationUserManager _userManager;
-
-        public AccountController()
-        {
-        }
-
-        public AccountController(ApplicationUserManager userManager,
-            ISecureDataFormat<AuthenticationTicket> accessTokenFormat)
-        {
-            UserManager = userManager;
-            AccessTokenFormat = accessTokenFormat;
-        }
 
         public ApplicationUserManager UserManager
         {
@@ -211,12 +202,7 @@ namespace Foillan.WebService.Controllers
                     new UserLoginInfo(model.LoginProvider, model.ProviderKey));
             }
 
-            if (!result.Succeeded)
-            {
-                return GetErrorResult(result);
-            }
-
-            return Ok();
+            return !result.Succeeded ? GetErrorResult(result) : Ok();
         }
 
         // GET api/Account/ExternalLogin
@@ -249,7 +235,7 @@ namespace Foillan.WebService.Controllers
                 return new ChallengeResult(provider, this);
             }
 
-            ApplicationUser user = await UserManager.FindAsync(new UserLoginInfo(externalLogin.LoginProvider,
+            FoillanUser user = await UserManager.FindAsync(new UserLoginInfo(externalLogin.LoginProvider,
                 externalLogin.ProviderKey));
 
             bool hasRegistered = user != null;
@@ -327,7 +313,7 @@ namespace Foillan.WebService.Controllers
                 return BadRequest(ModelState);
             }
 
-            var user = new ApplicationUser() { UserName = model.Email, Email = model.Email };
+            var user = new FoillanUser() { UserName = model.Email, Email = model.Email };
 
             IdentityResult result = await UserManager.CreateAsync(user, model.Password);
 
@@ -356,7 +342,7 @@ namespace Foillan.WebService.Controllers
                 return InternalServerError();
             }
 
-            var user = new ApplicationUser() { UserName = model.Email, Email = model.Email };
+            var user = new FoillanUser() { UserName = model.Email, Email = model.Email };
 
             IdentityResult result = await UserManager.CreateAsync(user);
             if (!result.Succeeded)
